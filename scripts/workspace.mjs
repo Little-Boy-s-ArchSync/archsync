@@ -25,8 +25,8 @@ function runPnpm(directory, args) {
 
 function verifyMcpBoundary() {
   const required = [
-    join(root, "archsync-mcp", "README.md"),
-    join(root, "archsync-mcp", "docs", "phase-4.md"),
+    "archsync-mcp/README.md",
+    "archsync-mcp/docs/phase-4.md",
   ];
   for (const file of required) {
     const result = spawnSync("git", ["ls-files", "--error-unmatch", file], {
@@ -78,4 +78,3 @@ if (operation === "bootstrap") {
   console.error("Usage: node scripts/workspace.mjs bootstrap|build|verify|cli-install|pack");
   process.exitCode = 2;
 }
-
