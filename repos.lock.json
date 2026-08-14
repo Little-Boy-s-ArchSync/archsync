@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "imported_at": "2026-08-15",
+  "repositories": [
+    {
+      "path": "archsync-core",
+      "repository": "https://github.com/Little-Boy-s-ArchSync/archsync-core.git",
+      "branch": "main",
+      "commit": "e3d050eee3939e542636210c9fcd0352d4f396a8"
+    },
+    {
+      "path": "archsync-guardian",
+      "repository": "https://github.com/Little-Boy-s-ArchSync/archsync-guardian.git",
+      "branch": "main",
+      "commit": "8779bf7965b3bd15f25834f17ca5321c85ae3f43"
+    },
+    {
+      "path": "archsync-benchmark",
+      "repository": "https://github.com/Little-Boy-s-ArchSync/archsync-benchmark.git",
+      "branch": "main",
+      "commit": "24d63ebf2fc3075a1d64f1eaff38cdc0b7f586fb"
+    },
+    {
+      "path": "archsync-mcp",
+      "repository": "https://github.com/Little-Boy-s-ArchSync/archsync-mcp.git",
+      "branch": "main",
+      "commit": "ef684baaa32cc404b7c35c8d5ba0eba49c3bda22"
+    },
+    {
+      "path": "archsync-examples",
+      "repository": "https://github.com/Little-Boy-s-ArchSync/archsync-examples.git",
+      "branch": "main",
+      "commit": "4c68abacb0eb9c28be98cebc4748ab83395f07e2"
+    }
+  ]
+}
+

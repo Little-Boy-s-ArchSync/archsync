@@ -1,0 +1,57 @@
+name: ArchSync monorepo CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: verify (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 35
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+        with:
+          version: 11.16.0
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: |
+            pnpm-lock.yaml
+            archsync-core/pnpm-lock.yaml
+            archsync-guardian/pnpm-lock.yaml
+            archsync-benchmark/pnpm-lock.yaml
+            archsync-examples/pnpm-lock.yaml
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run bootstrap
+      - run: pnpm run doctor
+      - run: pnpm run verify:all
+      - run: pnpm run demo
+      - name: Ensure generated and evidence files are current
+        run: git diff --exit-code
+      - name: Upload verification evidence
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: archsync-monorepo-evidence-${{ matrix.os }}
+          if-no-files-found: error
+          path: |
+            archsync-core/evidence/phase-1-evidence.json
+            archsync-core/coverage/coverage-summary.json
+            archsync-guardian/evidence/phase-2-evidence.json
+            archsync-guardian/evidence/phase-3-evidence.json
+            archsync-guardian/coverage/coverage-summary.json
+            archsync-benchmark/evidence/phase-2-results.json
+            archsync-benchmark/evidence/phase-3-results.json
+            archsync-benchmark/evidence/unit-coverage.json
+
