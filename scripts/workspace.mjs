@@ -26,7 +26,7 @@ function runPnpm(directory, args) {
 function verifyMcpBoundary() {
   const required = [
     "archsync-mcp/README.md",
-    "archsync-mcp/docs/phase-4.md",
+    "archsync-mcp/docs/BOUNDARY.md",
   ];
   for (const file of required) {
     const result = spawnSync("git", ["ls-files", "--error-unmatch", file], {
