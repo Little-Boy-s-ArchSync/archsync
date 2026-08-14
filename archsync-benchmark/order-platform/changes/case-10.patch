@@ -1,0 +1,55 @@
+diff --git a/order-service/src/service.ts b/order-service/src/service.ts
+--- a/order-service/src/service.ts
++++ b/order-service/src/service.ts
+@@ -1,5 +1,7 @@
++import { publish } from "./events.js";
++
+ import { Client } from "pg";
+ 
+ const database = new Client({
+   connectionString: process.env.DATABASE_URL ?? "postgres://postgres:5432/orders",
+ });
+@@ -6,7 +8,8 @@ const database = new Client({
+ const paymentServiceUrl = process.env.PAYMENT_SERVICE_URL ?? "http://payment-service:3002";
+ 
+ export async function createOrder(order: unknown): Promise<void> {
+   await saveOrder(order);
++  await publish("order.created", order);
+   await fetch(`${paymentServiceUrl}/payments`, {
+     method: "POST",
+     headers: { "content-type": "application/json" },
+diff --git a/order-service/src/events.ts b/order-service/src/events.ts
+new file mode 100644
+--- /dev/null
++++ b/order-service/src/events.ts
+@@ -0,0 +1,11 @@
++import { connect } from "amqplib";
++
++const eventsUrl = process.env.ORDER_EVENTS_URL ?? "amqp://order-events:5672";
++
++export async function publish(topic: string, payload: unknown): Promise<void> {
++  const connection = await connect(eventsUrl);
++  const channel = await connection.createChannel();
++  channel.publish("orders", topic, Buffer.from(JSON.stringify(payload)));
++  await channel.close();
++  await connection.close();
++}
+diff --git a/order-worker/src/worker.ts b/order-worker/src/worker.ts
+new file mode 100644
+--- /dev/null
++++ b/order-worker/src/worker.ts
+@@ -0,0 +1,14 @@
++import { connect } from "amqplib";
++
++const eventsUrl = process.env.ORDER_EVENTS_URL ?? "amqp://order-events:5672";
++
++export async function startWorker(): Promise<void> {
++  const connection = await connect(eventsUrl);
++  const channel = await connection.createChannel();
++  await channel.consume("orders", (message) => {
++    if (message) {
++      console.info("processing order asynchronously", message.content.toString());
++      channel.ack(message);
++    }
++  });
++}

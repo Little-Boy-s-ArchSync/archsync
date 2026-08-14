@@ -1,0 +1,44 @@
+name: Benchmark evidence
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: full benchmark (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+        with:
+          version: 11.16.0
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm verify
+      - name: Reproduce PASS, BLOCK and REVIEW demo
+        run: pnpm demo
+      - name: Ensure committed evidence is current
+        run: git diff --exit-code -- evidence
+      - name: Upload benchmark evidence
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: phase-2-3-benchmark-${{ matrix.os }}
+          if-no-files-found: error
+          path: |
+            evidence/phase-2-results.json
+            evidence/phase-3-results.json
+            evidence/unit-coverage.json
