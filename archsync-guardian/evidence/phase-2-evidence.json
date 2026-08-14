@@ -1,0 +1,254 @@
+{
+  "phase": 2,
+  "release": "v0.2",
+  "objective": "Deterministic TypeScript source analysis into evidence-rich observed architecture findings",
+  "provenance": {
+    "implementation_source_sha256": "cac1f45f105ccf6d6d6a3a7e99eaceb30549242adf6134ab1911ec8f4d98f515",
+    "fixture_tree": {
+      "files": [
+        {
+          "file": "test/fixtures/architecture.yaml",
+          "sha256": "bc48d5a68934d6c2b8cd995c79714cd318e3414dc3ec6e869406439ff92f7573"
+        },
+        {
+          "file": "test/fixtures/baseline/frontend/src/app.ts",
+          "sha256": "072b513d4c3e39dd9989dfa9dad5c83210a588e97669da2d688448194c1091b9"
+        },
+        {
+          "file": "test/fixtures/baseline/gateway/src/server.ts",
+          "sha256": "16483e573b292c02c0900a5e49a8bef061efef03250d909ecda723ab33942f85"
+        },
+        {
+          "file": "test/fixtures/baseline/service/src/service.ts",
+          "sha256": "fa7590d132c77f74e99a4b7dbd4e51efeab50ae09e7b7b903c9693ea3f78d6b4"
+        },
+        {
+          "file": "test/fixtures/changes/case-block.patch",
+          "sha256": "d16cac1d050a736a5d57fd99d8056e8a7b774c6251c211ab00e63df0f3281205"
+        },
+        {
+          "file": "test/fixtures/changes/case-pass.patch",
+          "sha256": "fba608029c97274a3bb3539f057281ad196e128035d5bd56a6e8dd92710f8592"
+        },
+        {
+          "file": "test/fixtures/changes/case-review.patch",
+          "sha256": "ca23d436c7b0c8978577de7be74ebdbf5c0b8b7334ed50f12eddda52510060b1"
+        },
+        {
+          "file": "test/fixtures/ground-truth.json",
+          "sha256": "16f6cccef877ce9c0ac7f79082cad184edf4656f8eaa2608461de83cb5193213"
+        },
+        {
+          "file": "test/fixtures/invalid.architecture.yaml",
+          "sha256": "d91d9ad4ff7b1fb8a747f58f7cf401cff84f03a424d8f1e1b147c6b1997d6e39"
+        },
+        {
+          "file": "test/fixtures/violation/frontend/src/app.ts",
+          "sha256": "072b513d4c3e39dd9989dfa9dad5c83210a588e97669da2d688448194c1091b9"
+        },
+        {
+          "file": "test/fixtures/violation/frontend/src/database.ts",
+          "sha256": "5e508dcbb8d8a2d92bc33d53b069e83425f20e639b9f6a5b24915c542ba6109c"
+        },
+        {
+          "file": "test/fixtures/violation/gateway/src/server.ts",
+          "sha256": "16483e573b292c02c0900a5e49a8bef061efef03250d909ecda723ab33942f85"
+        },
+        {
+          "file": "test/fixtures/violation/service/src/service.ts",
+          "sha256": "fa7590d132c77f74e99a4b7dbd4e51efeab50ae09e7b7b903c9693ea3f78d6b4"
+        }
+      ],
+      "sha256": "283afe52d9a9a27cf6351e54619935dfb4f1bf1330622841d600c67f813530c3"
+    },
+    "verification_source": [
+      {
+        "file": "scripts/cli-smoke.mjs",
+        "sha256": "2d361d5fbac228d20b027248cf8848c29e1ab4a5316151052339c6b27f559f7b"
+      },
+      {
+        "file": "scripts/phase2-evidence.mjs",
+        "sha256": "e3376c769ea20971cb6df60aa27dd94cd16c30c98b3a68b57234f8addea55df6"
+      },
+      {
+        "file": "src/analyzer.test.ts",
+        "sha256": "6741123975be918ee4f4544a6c20e7f6e2bfe48116b173397a6eb7d96883a23d"
+      },
+      {
+        "file": "src/benchmark.test.ts",
+        "sha256": "a5ef771855cd3a0aa0357cb563991da55957301d23aef9a29d3fb3beff3e61ee"
+      },
+      {
+        "file": "src/doctor.test.ts",
+        "sha256": "4dbc241c77994780bf6d10b0fe93886059063cef31c595226ba23917af0646d1"
+      },
+      {
+        "file": "src/guardian.test.ts",
+        "sha256": "8f4d1e13a11cd029b2a4575d9565957cedf58a17a2f87830c74ff75902f2eeb9"
+      },
+      {
+        "file": "src/model-cli.test.ts",
+        "sha256": "38240e2e18cba4c9d61ece59daf64998d1d655cc0b1c1d04b187829e4267cd81"
+      },
+      {
+        "file": "src/phase3-git.test.ts",
+        "sha256": "20bf6a791445df28733a0840d4eb53ca340250d765856eee481130ab38fe713c"
+      },
+      {
+        "file": "src/phase3.test.ts",
+        "sha256": "cd8906f42b30e00bf05afdc2e15e05bedb6d6a08c8e497ed31ec8bcd81d49e6f"
+      },
+      {
+        "file": "src/test-helpers.ts",
+        "sha256": "4acbb03530827ddd930f433d2bde48e926e476500fe18702e98697a0f7fa7b31"
+      },
+      {
+        "file": "tsconfig.json",
+        "sha256": "67e6b1c37664a036c86e92b884c169756003ab0c1c7d7b511e1243e84583962c"
+      },
+      {
+        "file": "tsconfig.test.json",
+        "sha256": "04910a31dc7be48c03671a814ed81ebc5095f21d4150cf08f613f0c8f1b8ce13"
+      },
+      {
+        "file": "vitest.config.ts",
+        "sha256": "8b7418de6300225dc0ec5c12358973f78222f4ec2343a828816b1897f9495b09"
+      }
+    ],
+    "verification_source_sha256": "649d47b5c151b86d422a02260c5a0a6fc87e13f9aa0946153233d5b9d058fc19",
+    "dependency_source": [
+      {
+        "file": "package.json",
+        "sha256": "c1e971b519b395ae0916d55c6cb8b30066f49afb7eda9eca44c3b6e1ca97da79"
+      },
+      {
+        "file": "pnpm-lock.yaml",
+        "sha256": "4e119df161b5432d7baf3e4bd4da43631c6b564ac52233d9130acdc00e8a480a"
+      },
+      {
+        "file": "vendor/archsync-core-0.1.0.tgz",
+        "sha256": "015c9bbb0cf42ae4945c6f19866096d2833b9118c43c4574ce74cf9526b87176"
+      }
+    ],
+    "dependency_source_sha256": "c60a9127c493a8b2d69c7f41ac45f9a26bdca3f0542fbc3918f20e038f41eaa1"
+  },
+  "contracts": {
+    "observed_graph_version": "0.1",
+    "finding_contract_version": "0.1",
+    "source_sha256": {
+      "src/contracts.ts": "e4919391583d11a1f1139b9ec6b5a047a75c2a975c55341ac6268cf426b62d75",
+      "src/analyzer.ts": "afc59d44a395cf69841672c81e23cd3d6ec120fec47391345bd29f0af39d3021",
+      "src/guardian.ts": "6fad7a3bc7e469ee2bf19433957aeed7e4c4237e25adb01922a4c8c79a6314fa",
+      "src/benchmark.ts": "76ca27ec37cb557bca67fdf74ac76b64c6d2cf238cb8e9a8b96183aa629bb550",
+      "src/bin.ts": "bfe710df6e4aeec26d87f95b6ae86e45b6a16cd0d59e20b0698c39c3bbeb588b",
+      "src/demo.ts": "6bb8db08e06fab29342271f217f873c1c3b90915c8ee0d56c26ee278a6741921",
+      "src/doctor.ts": "6a32e99d4a3950bb5885a4c81fb2a029cdd124a47de9b681a77da17c43c4816d",
+      "src/model-cli.ts": "a7901fc3a78e2f1deab9b19f2c97d01d689aa21e27f727fa122c403ded52d423",
+      "src/phase3-git.ts": "0492e6a27e3ce654d190acd165996dba5817000b45612a666655552f5716d267",
+      "src/phase3.ts": "966aba4e2ea0e6215a570705d5d60de2a3ed639c17ae647bf96b5c1ee0ae9f1c",
+      "src/index.ts": "64066b941d64ccdbc45ab73a6b5763a4e8e7c995d3ed19634c467b3d3c768b67"
+    }
+  },
+  "core_dependency": {
+    "repository_commit": "2affbbb0da859a32b9b9079b4bf718fc7b14993b",
+    "vendored_package": "vendor/archsync-core-0.1.0.tgz",
+    "vendored_package_sha256": "015c9bbb0cf42ae4945c6f19866096d2833b9118c43c4574ce74cf9526b87176",
+    "consumption_contract": "peerDependency ^0.1.0"
+  },
+  "analyzer": {
+    "id": "archsync-typescript",
+    "version": "0.2",
+    "stack": "typescript-node",
+    "supported_detectors": [
+      "typescript-fetch",
+      "typescript-pg",
+      "typescript-redis",
+      "typescript-amqp-publish",
+      "typescript-amqp-consume"
+    ],
+    "deterministic": true,
+    "baseline_components": [
+      "frontend",
+      "gateway",
+      "postgres",
+      "service"
+    ],
+    "baseline_relationships": [
+      "frontend|http|gateway",
+      "gateway|http|service",
+      "service|data|postgres"
+    ],
+    "normalized_observed_sha256": "bfce42e50fcd35d3444942f02608a6314c9e16f273373f9daec55882f3659a93"
+  },
+  "finding_demo": {
+    "classification": "violation",
+    "decision": "BLOCK",
+    "rule_id": "ARCH-001",
+    "edge": "frontend|data|postgres",
+    "source_evidence": [
+      {
+        "file": "frontend/src/database.ts",
+        "line": 6,
+        "column": 9,
+        "detector": "typescript-pg",
+        "confidence": 0.99
+      }
+    ],
+    "normalized_result_sha256": "4fdc9c1636fac64ed2378f9ec6fb305828f2bf5cbeac8ef49a433605652acd5d"
+  },
+  "enforced_gates": {
+    "coverage_thresholds_percent": {
+      "statements": 100,
+      "branches": 100,
+      "functions": 100,
+      "lines": 100
+    },
+    "measured_engine_coverage": {
+      "statements": {
+        "covered": 1694,
+        "total": 1694,
+        "percent": 100
+      },
+      "branches": {
+        "covered": 706,
+        "total": 706,
+        "percent": 100
+      },
+      "functions": {
+        "covered": 80,
+        "total": 80,
+        "percent": 100
+      },
+      "lines": {
+        "covered": 1694,
+        "total": 1694,
+        "percent": 100
+      }
+    },
+    "cli_smoke_checks": 22,
+    "canonical_benchmark": {
+      "repository": "archsync-benchmark",
+      "command": "pnpm phase2:verify",
+      "cases": 20,
+      "minimum_node_precision": 0.85,
+      "minimum_node_recall": 0.85,
+      "minimum_edge_precision": 0.85,
+      "minimum_edge_recall": 0.85,
+      "exact_classification_required": true,
+      "source_file_and_line_required": true
+    },
+    "detector_challenge_corpus": {
+      "repository": "archsync-benchmark",
+      "command": "pnpm patterns:verify",
+      "positive_signals": 20,
+      "hard_negative_signals": 20,
+      "exact_signal_classification_required": true,
+      "repeated_analysis_required": true
+    }
+  },
+  "exclusions": [
+    "Git diff and pull-request annotation (Phase 3)",
+    "LLM, MCP, IaC and runtime analysis",
+    "Automatic repair or architecture baseline updates"
+  ]
+}
