@@ -1,0 +1,19 @@
+{
+  "name": "archsync-examples",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@11.16.0",
+  "scripts": {
+    "validate": "archsync validate-dir models",
+    "diagram": "pnpm generated:update",
+    "diagram:update": "archsync mermaid models/order-platform.architecture.yaml docs/generated/order-platform.mmd && archsync drawio models/order-platform.architecture.yaml docs/generated/order-platform.drawio",
+    "report:update": "archsync report models/order-platform.architecture.yaml models/order-platform.violation.architecture.yaml docs/generated/order-platform-violation-report.mmd && archsync report models/order-platform.architecture.yaml models/order-platform.violation.architecture.yaml docs/generated/order-platform-violation-report.drawio && archsync report models/order-platform.architecture.yaml models/order-platform.evolution.architecture.yaml docs/generated/order-platform-evolution-report.mmd && archsync report models/order-platform.architecture.yaml models/order-platform.evolution.architecture.yaml docs/generated/order-platform-evolution-report.drawio",
+    "generated:update": "pnpm diagram:update && pnpm report:update",
+    "verify:generated": "node scripts/verify-generated.mjs",
+    "verify": "pnpm validate && pnpm verify:generated"
+  },
+  "dependencies": {
+    "@archsync/core": "git+https://github.com/Little-Boy-s-ArchSync/archsync-core.git#304f4ac48137e011ec5f7fd85071a89502c02ada"
+  }
+}

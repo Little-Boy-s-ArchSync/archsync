@@ -1,0 +1,92 @@
+version: "0.1"
+metadata:
+  name: event-driven-orders
+  description: Event-driven order processing with an explicit queue and worker boundary.
+  owners:
+    - order-team
+    - platform-team
+  tags:
+    - example
+    - event-driven
+components:
+  storefront:
+    name: Storefront
+    type: frontend
+    layer: experience
+    technology: TypeScript
+    owner: frontend-team
+  orders-api:
+    name: Orders API
+    type: service
+    layer: domain
+    technology: Node.js
+    owner: order-team
+  order-events:
+    name: Order Events
+    type: queue
+    layer: integration
+    technology: RabbitMQ
+    owner: platform-team
+  order-worker:
+    name: Order Worker
+    type: worker
+    layer: domain
+    technology: Node.js
+    owner: order-team
+  postgres:
+    name: PostgreSQL
+    type: database
+    layer: data
+    technology: PostgreSQL
+    owner: data-team
+relationships:
+  - id: storefront-to-orders
+    from: storefront
+    to: orders-api
+    type: http
+  - id: orders-to-events
+    from: orders-api
+    to: order-events
+    type: event
+    criticality: high
+  - id: events-to-worker
+    from: order-events
+    to: order-worker
+    type: async
+    criticality: high
+  - id: worker-to-postgres
+    from: order-worker
+    to: postgres
+    type: data
+rules:
+  - id: EVENT-001
+    type: deny
+    from: storefront
+    to: postgres
+    relationship_type: data
+    severity: critical
+    rationale: The experience layer must not access order data directly.
+  - id: EVENT-002
+    type: require
+    from: orders-api
+    to: order-events
+    relationship_type: event
+    severity: error
+    rationale: Accepted orders must be handed to the asynchronous processing flow.
+quality_goals:
+  - id: AVAIL-001
+    attribute: availability
+    scope: order-events
+    metric: monthly_availability_percent
+    operator: ">="
+    target: 99.9
+    unit: percent
+    priority: high
+  - id: PERF-001
+    attribute: performance
+    scope: orders-api
+    metric: p95_acceptance_latency_ms
+    operator: "<="
+    target: 150
+    unit: ms
+    priority: high
