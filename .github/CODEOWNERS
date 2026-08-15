@@ -1,0 +1,11 @@
+# Temporary Day 0 ownership. Add member handles after access is provisioned.
+* @L1nkinPark
+
+/archsync-core/ @L1nkinPark
+/archsync-guardian/ @L1nkinPark
+/archsync-benchmark/ @L1nkinPark
+/archsync-examples/ @L1nkinPark
+/archsync-mcp/ @L1nkinPark
+/repos.lock.json @L1nkinPark
+/.github/ @L1nkinPark
+/docs/ @L1nkinPark
