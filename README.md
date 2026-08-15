@@ -37,6 +37,17 @@ pnpm run demo
 Phải dùng `pnpm run doctor`. `pnpm doctor` là lệnh chẩn đoán của package manager,
 không phải ArchSync Doctor.
 
+Trước khi nhận task đầu tiên, mỗi thành viên phải hoàn tất
+[`docs/ONBOARDING.md`](docs/ONBOARDING.md) và chạy:
+
+```powershell
+pnpm run onboard:verify
+```
+
+Quy trình branch, pull request, evidence và phương án kiểm soát thủ công khi
+GitHub chưa hỗ trợ branch protection được định nghĩa trong
+[`CONTRIBUTING.md`](CONTRIBUTING.md) và [`docs/GOVERNANCE.md`](docs/GOVERNANCE.md).
+
 ## Cài CLI `archsync`
 
 ```powershell
@@ -77,8 +88,8 @@ pnpm run verify:sync    Kiểm tra source pins trong lịch sử local
 pnpm run verify:remote  So sánh source pins với remote main
 pnpm run verify         Chạy tất cả gate của các component
 pnpm run verify:all     Kiểm tra sync rồi chạy toàn bộ gate
+pnpm run onboard:verify Chạy doctor, toàn bộ gate và demo Day 0
 pnpm run demo           Chạy PASS, BLOCK và REVIEW bằng CLI thật
 pnpm run cli:install    Cài lệnh archsync global
 pnpm run release:pack   Đóng gói Core và Guardian kèm checksum
 ```
-
