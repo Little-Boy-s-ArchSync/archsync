@@ -1,6 +1,6 @@
 {
   "name": "archsync-monorepo",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "private": true,
   "type": "module",
   "packageManager": "pnpm@11.16.0",
@@ -11,13 +11,15 @@
     "bootstrap": "node scripts/workspace.mjs bootstrap",
     "build": "node scripts/workspace.mjs build",
     "doctor": "node scripts/doctor.mjs",
+    "test:release-contract": "node --test scripts/lib/release-contract.test.mjs",
     "verify:sync": "node scripts/sync.mjs",
     "verify:remote": "node scripts/sync.mjs --remote",
     "verify": "node scripts/workspace.mjs verify",
-    "verify:all": "pnpm run verify:sync && pnpm run verify",
+    "verify:all": "pnpm run test:release-contract && pnpm run verify:sync && pnpm run verify",
     "onboard:verify": "pnpm run doctor && pnpm run verify:all && pnpm run demo",
     "demo": "node archsync-guardian/dist/bin.js demo --benchmark archsync-benchmark/order-platform --scenario all",
     "cli:install": "node scripts/workspace.mjs cli-install",
+    "release:verify-ref": "node scripts/release-ref.mjs",
     "release:pack": "node scripts/workspace.mjs pack"
   }
 }
