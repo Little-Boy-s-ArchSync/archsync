@@ -31,11 +31,15 @@ jobs:
             archsync-benchmark/pnpm-lock.yaml
             archsync-examples/pnpm-lock.yaml
       - run: pnpm install --frozen-lockfile
+      - name: Verify release ref matches package version
+        run: pnpm run release:verify-ref
+      - name: Verify tagged release commit is on main
+        if: github.ref_type == 'tag'
+        run: git merge-base --is-ancestor "$GITHUB_SHA" "origin/main"
       - run: pnpm run bootstrap
       - run: pnpm run verify:all
       - run: pnpm run demo
       - run: pnpm run release:pack
-      - run: cp repos.lock.json release/repos.lock.json
       - uses: actions/upload-artifact@v7
         with:
           name: archsync-release-candidate

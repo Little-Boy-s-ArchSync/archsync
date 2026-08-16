@@ -19,6 +19,7 @@
     "onboard:verify": "pnpm run doctor && pnpm run verify:all && pnpm run demo",
     "demo": "node archsync-guardian/dist/bin.js demo --benchmark archsync-benchmark/order-platform --scenario all",
     "cli:install": "node scripts/workspace.mjs cli-install",
+    "release:verify-ref": "node scripts/release-ref.mjs",
     "release:pack": "node scripts/workspace.mjs pack"
   }
 }

@@ -20,6 +20,27 @@ export function assertExactTarballs(files, expectedFiles) {
   return actual;
 }
 
+export function assertExactReleaseFiles(files, expectedPayloads) {
+  const actual = [...files].sort();
+  const expected = [...expectedPayloads, "SHA256SUMS.txt"].sort();
+  if (actual.length !== expected.length || actual.some((file, index) => file !== expected[index])) {
+    throw new Error(`release files differ: expected ${expected.join(", ")}; found ${actual.join(", ")}`);
+  }
+  return actual;
+}
+
+export function assertReleaseRef(manifest, refType, refName) {
+  const version = manifest?.version;
+  if (typeof version !== "string" || !/^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-[0-9A-Za-z.-]+)?(?:\+[0-9A-Za-z.-]+)?$/.test(version)) {
+    throw new Error(`package manifest has invalid SemVer version '${version ?? ""}'`);
+  }
+  const expectedTag = `v${version}`;
+  if (refType === "tag" && refName !== expectedTag) {
+    throw new Error(`release tag '${refName}' does not match package version; expected '${expectedTag}'`);
+  }
+  return { mode: refType === "tag" ? "release" : "candidate", expectedTag };
+}
+
 export function checksumLine(file, bytes) {
   return `${createHash("sha256").update(bytes).digest("hex")}  ${file}`;
 }
