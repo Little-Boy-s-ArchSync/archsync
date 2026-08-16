@@ -1,8 +1,13 @@
-import { createHash } from "node:crypto";
-import { mkdir, readdir, readFile, writeFile } from "node:fs/promises";
+import { mkdir, readdir, readFile, rm, writeFile } from "node:fs/promises";
 import { spawnSync } from "node:child_process";
-import { dirname, join } from "node:path";
+import { basename, dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+
+import {
+  assertExactTarballs,
+  checksumLine,
+  packageTarballName,
+} from "./lib/release-contract.mjs";
 
 const root = dirname(dirname(fileURLToPath(import.meta.url)));
 const operation = process.argv[2];
@@ -13,13 +18,18 @@ const packageDirectories = [
   "archsync-examples",
 ];
 
-function runPnpm(directory, args) {
+function runPnpm(directory, args, environment = process.env) {
   const cwd = join(root, directory);
   const pnpmCli = process.env.npm_execpath;
   const command = pnpmCli ? process.execPath : process.platform === "win32" ? "pnpm.cmd" : "pnpm";
   const commandArgs = pnpmCli ? [pnpmCli, ...args] : args;
   console.log(`\n==> ${directory}: pnpm ${args.join(" ")}`);
-  const result = spawnSync(command, commandArgs, { cwd, stdio: "inherit", shell: false });
+  const result = spawnSync(command, commandArgs, {
+    cwd,
+    env: environment,
+    stdio: "inherit",
+    shell: false,
+  });
   if (result.status !== 0) process.exit(result.status ?? 1);
 }
 
@@ -44,14 +54,32 @@ function verifyMcpBoundary() {
 
 async function packRelease() {
   const release = join(root, "release");
+  if (dirname(release) !== root || basename(release) !== "release") {
+    throw new Error(`refusing to clean unsafe release path: ${release}`);
+  }
+  const [coreManifest, guardianManifest, sourceManifest] = await Promise.all([
+    readFile(join(root, "archsync-core", "package.json"), "utf8").then(JSON.parse),
+    readFile(join(root, "archsync-guardian", "package.json"), "utf8").then(JSON.parse),
+    readFile(join(root, "repos.lock.json"), "utf8").then(JSON.parse),
+  ]);
+  const guardianSource = sourceManifest.repositories.find(({ path }) => path === "archsync-guardian");
+  if (!guardianSource?.commit?.match(/^[0-9a-f]{40}$/)) {
+    throw new Error("repos.lock.json does not contain a valid Guardian source commit");
+  }
+  const expectedFiles = [coreManifest, guardianManifest].map(packageTarballName);
+
+  await rm(release, { recursive: true, force: true });
   await mkdir(release, { recursive: true });
   runPnpm("archsync-core", ["pack", "--pack-destination", release]);
-  runPnpm("archsync-guardian", ["pack", "--pack-destination", release]);
-  const files = (await readdir(release)).filter((file) => file.endsWith(".tgz")).sort();
+  runPnpm("archsync-guardian", ["pack", "--pack-destination", release], {
+    ...process.env,
+    ARCHSYNC_SOURCE_COMMIT: guardianSource.commit,
+  });
+  const files = assertExactTarballs(await readdir(release), expectedFiles);
   const checksums = [];
   for (const file of files) {
     const bytes = await readFile(join(release, file));
-    checksums.push(`${createHash("sha256").update(bytes).digest("hex")}  ${file}`);
+    checksums.push(checksumLine(file, bytes));
   }
   await writeFile(join(release, "SHA256SUMS.txt"), `${checksums.join("\n")}\n`, "utf8");
   console.log(`\nPACKED ${files.length} package(s) in ${release}`);

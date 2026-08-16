@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "imported_at": "2026-08-15",
+  "imported_at": "2026-08-16",
   "repositories": [
     {
       "path": "archsync-core",
@@ -12,7 +12,7 @@
       "path": "archsync-guardian",
       "repository": "https://github.com/Little-Boy-s-ArchSync/archsync-guardian.git",
       "branch": "main",
-      "commit": "518321abd1735579a77eaad8fad424591354f2d8"
+      "commit": "9bbb32fe2d36ffee33483d7b359a3ba0c9e1eab0"
     },
     {
       "path": "archsync-benchmark",
