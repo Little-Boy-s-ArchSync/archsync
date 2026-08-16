@@ -6,27 +6,27 @@
     "implementation_source": [
       {
         "file": "src/benchmark.ts",
-        "sha256": "cb463c37f5776c141efd848b8ee9bd8a132471a342fd44505952755a1e13bf5b"
+        "sha256": "d8a974bed0fe2a9df2ec85d0a59df0f68d944d2c361d3c773b68fa854d067e10"
       },
       {
         "file": "src/bin.ts",
-        "sha256": "a693a651b94a05ea79e85d898e53194d3e89b53d4aeb96e6cd7f19570cd49288"
+        "sha256": "21bd7569643ae4a5c9d6a195b7c1571cc07c40047a32f92836777bc997570ea3"
       },
       {
         "file": "src/conformance-report.ts",
-        "sha256": "db67502a185ee272eb8090eb194b1ea15fd3eb843939c74b310c3011cf814196"
+        "sha256": "5be90309f4e0821ec1caa4047765eda558df42b611860584329c752f397a806f"
       },
       {
         "file": "src/conformance.ts",
-        "sha256": "b6de1474c3495f022d7cdf3d641c32df9b661a97b9964ae14a6a180ef5f4fa9c"
+        "sha256": "89b46937a5e961d2da96884b0f03e9697f624f2f435a0abbc9e59b359cf99a54"
       },
       {
         "file": "src/drawio.ts",
-        "sha256": "199de8bea6547d496686f57f304eed7cf8f7815fa331ac5fa4e68a315d1df86f"
+        "sha256": "ccdaa8c77cf73bb2940c149d98e79d048b52d71b4bb58d3dca39d1ba0ef80650"
       },
       {
         "file": "src/graph.ts",
-        "sha256": "fce741ffb5b38aef25533afc0d521cd46472bcbbf8f21adbb7ee252b141ec291"
+        "sha256": "ef90327c7e0a4b92768c2364df535f1096cd9b13005278c488121d8cc5c91946"
       },
       {
         "file": "src/index.ts",
@@ -34,7 +34,7 @@
       },
       {
         "file": "src/mermaid.ts",
-        "sha256": "b45d299586b660aff6994b6d8250f37d9c2b076739387f04599a1597fbe112df"
+        "sha256": "f07b45c30af0dc1512da538dacb1ec0d40bbe20b705637176479c7eb3a43873d"
       },
       {
         "file": "src/model.ts",
@@ -42,45 +42,45 @@
       },
       {
         "file": "src/validation.ts",
-        "sha256": "46613bee7707b56ec7dac1e5cdd7142f5c824b5ba6849d217f878326ce80f453"
+        "sha256": "676611544e8fb29628d7f09c65ff3f427d4249f93051a0f984f905d559252892"
       }
     ],
-    "implementation_source_sha256": "d2bae9f65f33a61d6bde0475017aaddddf1ecde6dfe7e9db208058e750009dd3",
+    "implementation_source_sha256": "50b1bb4ec2cb4b450941a7d4cf11c6330e6987745a9551148ba0780e03da646e",
     "unit_test_source": [
       {
         "file": "src/benchmark.test.ts",
-        "sha256": "32b8d3b6b1f9cdcebab08d0ac00378e859ba2ad1d2bc5f1d5951350fbfd0348d"
+        "sha256": "11deeb9a098c7c68ca7ee19968fec8619d35c15049a9768eb318bff6f3f49474"
       },
       {
         "file": "src/conformance-report.test.ts",
-        "sha256": "172e0a1c34e7185435dec39441218145a17583a55aa0126ea3eff222549f3238"
+        "sha256": "47a247eeaa48c4e699a8271dfd836dc7f3cf3f3b3fb7240f6b5288f727719bf7"
       },
       {
         "file": "src/conformance.test.ts",
-        "sha256": "6a5fe95e8bf23ad14c4acc2dc89f474e5e7e29453e0c771bb6ac83ccd1c5081b"
+        "sha256": "02dfa66c9d3601daa194571397bbbd3fb757e82f11d6b1d6d6b02e02907505ae"
       },
       {
         "file": "src/drawio.test.ts",
-        "sha256": "7dcdf22166d93987342166c513ebbf439b3d087d35d5302b7a263f6afd3cd8df"
+        "sha256": "8f3535710f9bb863f9f9671d4bce3669b3227fa6b23889b77f809f297e0c854e"
       },
       {
         "file": "src/graph.test.ts",
-        "sha256": "c3a495f6b57a43e0a14ab14777837d162702e5e7071ebaa93d9b60b62363ecae"
+        "sha256": "e4cf6710f04f04d3dd70a324a55dd4337a8c191c35548c45c7aecd2f246c94d6"
       },
       {
         "file": "src/mermaid.test.ts",
-        "sha256": "5bf753693a1eba80d06bd7c0d69cedd666bdd5117d2a0c2a0d3329c417991e68"
+        "sha256": "69e8f8730c0a39a4b4bf57763239f0df6e3e991dc4d5aaadcffb4cc568bb68eb"
       },
       {
         "file": "src/validation.test.ts",
-        "sha256": "9f106473413d7d7ca8671a4d77f95bc8263b31b36273c6dd803a9f6ac32f65e7"
+        "sha256": "b27ddb4a8796f34d7d85501e844a4e9aa1173100efd248e1d6b7008150b3784b"
       },
       {
         "file": "src/validation.topology.test.ts",
         "sha256": "06f31fc622742482447ec0732bda9665a1b23caf701e25d31099e52ac8daffce"
       }
     ],
-    "unit_test_source_sha256": "44328b25ef3036a49a216f5148bf46ea9cea3fee0f613fe2eec967ba00a81769",
+    "unit_test_source_sha256": "beb4a63e18b80cf4dcdeb79e11896cb961a4d0e3e755310edbfe4a5e9604aab7",
     "fixture_tree": {
       "files": [
         {
@@ -117,11 +117,11 @@
     "verification_source": [
       {
         "file": "scripts/cli-smoke.mjs",
-        "sha256": "dc4c92578d6b7aec19df02a567d8b7dfc13ef70b9a0d60e8c7efadfa22f2b3d9"
+        "sha256": "3b8568efca971afa9d41e29d67bc85c56b29524657c8b806d090b4c7b94c4b77"
       },
       {
         "file": "scripts/phase1-evidence.mjs",
-        "sha256": "35b337ac6ce84a28804ecdea1da9879bdd201015504cc182f7db8c277a6fbb49"
+        "sha256": "68faff3c8fe90757411d6f52261699277309833d1881f1391e41002c413fcffc"
       },
       {
         "file": "tsconfig.json",
@@ -136,18 +136,18 @@
         "sha256": "1b485eeec7fd741e284a1439cde221ac1a4e17f89559b326a208fc9305b639f3"
       }
     ],
-    "verification_source_sha256": "b7577f51124ef154c014e0c928623f3ba10c4913a2b23f927af6e15492a87c43",
+    "verification_source_sha256": "ece41b2a6bf484d12afe65e217222514d61e409c2797f98f82d0bc79c25d3383",
     "dependency_source": [
       {
         "file": "package.json",
-        "sha256": "c5977b47b4e3cea65bdc31145ab8609cc42f6569aa0e5751b21b40a9f1158186"
+        "sha256": "cea8fe916d18dd3b03318a059f44e09d4cee7e01c4bc8d67f2cc7c5f309a6e3c"
       },
       {
         "file": "pnpm-lock.yaml",
         "sha256": "3d7c8ce009bca724d74a70432591953c9fa9e39a1b39241571ab9a0abf48f910"
       }
     ],
-    "dependency_source_sha256": "5d6cb42681ce64c4f794f8e36fd6bfb321fe9e64e41162591ab0921ab9684df7"
+    "dependency_source_sha256": "8f88b7982cbd4cc116b297331f7368b3e620c59348f33877d98c81bfd0aa5b74"
   },
   "schema": {
     "file": "specs/architecture.schema.json",
@@ -165,6 +165,17 @@
       "relationships",
       "rules",
       "quality_goals"
+    ]
+  },
+  "benchmark_schema": {
+    "file": "specs/benchmark-ground-truth.schema.json",
+    "id": "https://archsync.dev/schemas/benchmark-ground-truth-v0.1.json",
+    "title": "ArchSync Benchmark Ground Truth",
+    "sha256": "bc36aecee849b3dd9cce7ae47b0a4ecfaaa08756bf7d587c05ef0cdb4d095cf0",
+    "required_sections": [
+      "version",
+      "benchmark",
+      "cases"
     ]
   },
   "fixtures": {
@@ -205,12 +216,12 @@
             "message": "must match pattern \"^0\\.1(?:\\.[0-9]+)?$\""
           },
           {
-            "path": "/components",
+            "path": "/components/Bad_Component_ID",
             "keyword": "schema",
             "message": "must match pattern \"^[a-z][a-z0-9-]*$\""
           },
           {
-            "path": "/components",
+            "path": "/components/Bad_Component_ID",
             "keyword": "schema",
             "message": "property name must be valid"
           },
@@ -255,11 +266,11 @@
     "edges": [
       "frontend|http|gateway",
       "gateway|http|order-service",
-      "order-service|http|payment-service",
       "order-service|data|postgres",
+      "order-service|http|payment-service",
       "payment-service|data|postgres"
     ],
-    "normalized_sha256": "2b76c65b81e31f1314bde516807a482b64f43fe814801260ed46d69ec5028bee"
+    "normalized_sha256": "b7377f30b24087112a3a7edfad16117a1e3b9f0802eb819b8b13aa3d44699a1c"
   },
   "graph_diff_demo": {
     "expected": "test/fixtures/minimal.architecture.yaml",
@@ -274,8 +285,8 @@
     "removed_edges": []
   },
   "deterministic_views": {
-    "mermaid_sha256": "01bcb21921bc25fdc259b69bc5191947969567877d4dc76a74b47bdd6e94e93f",
-    "drawio_sha256": "414fb3f0bc3402797d89d963c994f1ff7f795489fcdbe5937f517b6350c35f4a"
+    "mermaid_sha256": "71395dff7ed4e6282a91e9a943808d36a56503d214d21c10e6c4ec5497d30881",
+    "drawio_sha256": "6c534ce6e83a248c482b8a9d06e802e926db52f9e10cf2d9dc0910409f0486ce"
   },
   "conformance_demo": {
     "expected": "test/fixtures/order-platform.architecture.yaml",
@@ -288,9 +299,9 @@
     "evolution_observed": "test/fixtures/order-platform.evolution.architecture.yaml",
     "evolution_classification": "evolution",
     "violation_report_mermaid_sha256": "ee93166e79d25a4ccfffe51c72e378c2574684bd44b2ca8168e2f0d1c02e7260",
-    "violation_report_drawio_sha256": "6cc635e878d9a9087daca69f532e8798003a3c8ca2729eb378315695d280171e",
+    "violation_report_drawio_sha256": "6d1656f518f4ed3c39bd94b52dc1ee816430e67a51568abcd6fdc0717dc972ba",
     "evolution_report_mermaid_sha256": "ea6f860eb77ddb8e5c2ed177f180735740b048f8fab27123b65ebe0acac36779",
-    "evolution_report_drawio_sha256": "93b9abbef07f69e66ca379ee37a9c1a5e4bcfd560c03b2e127a35c97ad6e6689"
+    "evolution_report_drawio_sha256": "ef0c7b914c321f62e196989a9ae77724de08db8a0c928def7055580f9dc48455"
   },
   "demo_artifacts": {
     "directory": "docs/demo",

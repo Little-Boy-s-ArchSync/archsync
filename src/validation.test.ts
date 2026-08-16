@@ -147,6 +147,73 @@ relationships: []
     );
   });
 
+  it("rejects unresolved YAML tags instead of silently discarding the warning", async () => {
+    const result = await parseArchitecture(`
+version: "0.1"
+metadata:
+  name: !custom tagged-model
+components:
+  service:
+    type: service
+    layer: application
+relationships: []
+`);
+
+    expect(result.valid).toBe(false);
+    expect(result.value).toBeUndefined();
+    expect(result.issues).toContainEqual(expect.objectContaining({
+      path: "/",
+      keyword: "schema",
+      message: expect.stringContaining("Unresolved tag: !custom"),
+    }));
+  });
+
+  it("rejects quality-goal targets that are incompatible with their operators", async () => {
+    const result = await parseArchitecture(`
+version: "0.1"
+metadata:
+  name: invalid-quality-goals
+components:
+  service:
+    type: service
+    layer: application
+relationships: []
+quality_goals:
+  - id: PERF-001
+    attribute: performance
+    metric: latency
+    operator: "<="
+    target: fast
+    priority: high
+  - id: SEC-001
+    attribute: security
+    metric: protocols
+    operator: contains
+    target: 3
+    priority: high
+  - id: SEC-002
+    attribute: security
+    metric: protocols
+    operator: contains
+    target: tls
+    priority: medium
+`);
+
+    expect(result.valid).toBe(false);
+    expect(result.issues).toEqual(expect.arrayContaining([
+      expect.objectContaining({
+        path: "/quality_goals/0/target",
+        keyword: "semantic",
+        message: "Operator '<=' requires a numeric target",
+      }),
+      expect.objectContaining({
+        path: "/quality_goals/1/target",
+        keyword: "semantic",
+        message: "Operator 'contains' requires a string target",
+      }),
+    ]));
+  });
+
   it("formats actionable fixes for common schema failures", () => {
     const formatted = formatValidationIssues([
       { path: "/", message: "must have required property 'metadata'", keyword: "schema" },
@@ -173,5 +240,50 @@ relationships: []
       message: "Schema validation failed",
       keyword: "schema",
     });
+  });
+
+  it("formats exact escaped JSON Pointer paths for schema property errors", () => {
+    const root = formatSchemaIssue({
+      instancePath: "",
+      schemaPath: "#/type",
+      keyword: "type",
+      params: { type: "object" },
+      message: "must be object",
+    });
+    const required = formatSchemaIssue({
+      instancePath: "",
+      schemaPath: "#/required",
+      keyword: "required",
+      params: { missingProperty: "metadata" },
+      message: "must have required property 'metadata'",
+    });
+    const additional = formatSchemaIssue({
+      instancePath: "/metadata",
+      schemaPath: "#/properties/metadata/additionalProperties",
+      keyword: "additionalProperties",
+      params: { additionalProperty: "extra/field~name" },
+      message: "must NOT have additional properties",
+    });
+    const innerPropertyName = formatSchemaIssue({
+      instancePath: "/components",
+      schemaPath: "#/$defs/componentId/pattern",
+      keyword: "pattern",
+      params: { pattern: "component-id" },
+      propertyName: "Bad_Component_ID",
+      message: "must match pattern",
+    });
+    const outerPropertyName = formatSchemaIssue({
+      instancePath: "/components",
+      schemaPath: "#/properties/components/propertyNames",
+      keyword: "propertyNames",
+      params: { propertyName: "Another_Bad_ID" },
+      message: "property name must be valid",
+    });
+
+    expect(root.path).toBe("/");
+    expect(required.path).toBe("/metadata");
+    expect(additional.path).toBe("/metadata/extra~1field~0name");
+    expect(innerPropertyName.path).toBe("/components/Bad_Component_ID");
+    expect(outerPropertyName.path).toBe("/components/Another_Bad_ID");
   });
 });

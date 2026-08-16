@@ -23,10 +23,31 @@ function formatInvalidArchitecture(filePath, issues, role) {
         "EXIT CODE: 1 (INVALID)",
     ].join("\n");
 }
+function formatRuntimeError(error) {
+    const details = error instanceof Error
+        ? error.message
+        : String(error);
+    const code = error && typeof error === "object" && "code" in error
+        ? String(error.code)
+        : undefined;
+    const path = error && typeof error === "object" && "path" in error
+        ? String(error.path)
+        : undefined;
+    const reason = code === "ENOENT" && path
+        ? `Input path does not exist: ${path}`
+        : details;
+    return [
+        "RESULT: ERROR",
+        `REASON: ${reason}`,
+        "",
+        "NEXT STEP: Check the input and output paths, permissions and file contents, then run the command again.",
+        "EXIT CODE: 2 (INPUT/IO)",
+    ].join("\n");
+}
 function usage() {
     console.error(`Usage:
   archsync validate <architecture.yaml>
-  archsync validate-dir <directory>
+  archsync validate-dir <directory> [--expect-invalid-prefix]
   archsync graph <architecture.yaml>
   archsync diff <expected.yaml> <observed.yaml>
   archsync check <expected.yaml> <observed.yaml>
@@ -78,13 +99,21 @@ async function main() {
         return;
     }
     if (command === "validate-dir") {
+        const expectInvalidPrefix = output === "--expect-invalid-prefix";
+        if (output && !expectInvalidPrefix)
+            usage();
         const directory = resolve(input);
         const files = (await readdir(directory))
             .filter((file) => [".yaml", ".yml"].includes(extname(file)))
             .sort();
+        if (files.length === 0) {
+            console.error(formatRuntimeError(new Error(`No architecture YAML files were found in ${directory}`)));
+            process.exitCode = 2;
+            return;
+        }
         let valid = true;
         for (const file of files) {
-            const expectedInvalid = file.startsWith("invalid-");
+            const expectedInvalid = expectInvalidPrefix && file.startsWith("invalid-");
             const filePath = join(directory, file);
             if (expectedInvalid) {
                 const result = await loadArchitecture(filePath);
@@ -214,5 +243,11 @@ async function main() {
     }
     usage();
 }
-await main();
+try {
+    await main();
+}
+catch (error) {
+    console.error(formatRuntimeError(error));
+    process.exitCode = 2;
+}
 //# sourceMappingURL=bin.js.map

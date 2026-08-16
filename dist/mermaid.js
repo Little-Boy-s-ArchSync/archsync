@@ -1,3 +1,4 @@
+import { edgeKey } from "./graph.js";
 const classByType = {
     frontend: "experience",
     gateway: "edge",
@@ -14,7 +15,9 @@ function mermaidId(id) {
     return id.replaceAll("-", "_");
 }
 function escapeLabel(label) {
-    return label.replaceAll('"', "&quot;");
+    return label
+        .replace(/[\u0000-\u001f\u007f]+/g, " ")
+        .replaceAll('"', "&quot;");
 }
 export function generateMermaid(document) {
     const lines = [
@@ -25,7 +28,7 @@ export function generateMermaid(document) {
         const label = escapeLabel(component.name ?? id);
         lines.push(`  ${mermaidId(id)}["${label}"]:::${classByType[component.type]}`);
     }
-    for (const relationship of [...document.relationships].sort((a, b) => `${a.from}-${a.to}-${a.type}`.localeCompare(`${b.from}-${b.to}-${b.type}`))) {
+    for (const relationship of [...document.relationships].sort((a, b) => edgeKey(a).localeCompare(edgeKey(b)))) {
         lines.push(`  ${mermaidId(relationship.from)} -->|${relationship.type}| ${mermaidId(relationship.to)}`);
     }
     lines.push("  classDef experience fill:#eaf2ff,stroke:#2563eb,color:#10243e", "  classDef edge fill:#eef2ff,stroke:#4f46e5,color:#10243e", "  classDef service fill:#e8f8f5,stroke:#0f9d8a,color:#10243e", "  classDef data fill:#fff6df,stroke:#d97706,color:#10243e", "  classDef integration fill:#f3e8ff,stroke:#7c3aed,color:#10243e", "  classDef external fill:#fdecec,stroke:#dc2626,color:#10243e", "");
