@@ -19,15 +19,15 @@ test("derives npm-compatible tarball names for scoped packages", () => {
 test("accepts exactly the expected release tarballs independent of order", () => {
   assert.deepEqual(
     assertExactTarballs(
-      ["archsync-guardian-0.3.2.tgz", "README.txt", "archsync-core-0.1.0.tgz"],
-      ["archsync-core-0.1.0.tgz", "archsync-guardian-0.3.2.tgz"],
+      ["archsync-guardian-0.3.2.tgz", "README.txt", "archsync-core-0.1.1.tgz"],
+      ["archsync-core-0.1.1.tgz", "archsync-guardian-0.3.2.tgz"],
     ),
-    ["archsync-core-0.1.0.tgz", "archsync-guardian-0.3.2.tgz"],
+    ["archsync-core-0.1.1.tgz", "archsync-guardian-0.3.2.tgz"],
   );
 });
 
 test("rejects missing, unexpected and stale tarballs", () => {
-  const expected = ["archsync-core-0.1.0.tgz", "archsync-guardian-0.3.2.tgz"];
+  const expected = ["archsync-core-0.1.1.tgz", "archsync-guardian-0.3.2.tgz"];
   assert.throws(() => assertExactTarballs([expected[0]], expected), /release tarballs differ/);
   assert.throws(
     () => assertExactTarballs([...expected, "archsync-guardian-0.3.1.tgz"], expected),
@@ -44,7 +44,7 @@ test("produces deterministic SHA-256 checksum lines", () => {
 
 test("requires an exact release payload including the checksum manifest", () => {
   const payloads = [
-    "archsync-core-0.1.0.tgz",
+    "archsync-core-0.1.1.tgz",
     "archsync-guardian-0.3.2.tgz",
     "repos.lock.json",
   ];
