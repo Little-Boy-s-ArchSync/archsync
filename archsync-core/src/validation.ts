@@ -17,12 +17,21 @@ const schemaUrl = new URL("../specs/architecture.schema.json", import.meta.url);
 let validatorPromise: Promise<ValidateFunction<ArchitectureDocument>> | undefined;
 
 export function formatSchemaIssue(error: ErrorObject): ValidationIssue {
-  const suffix = error.params && "missingProperty" in error.params
-    ? `/${String(error.params.missingProperty)}`
-    : "";
+  const property = "missingProperty" in error.params
+    ? String(error.params.missingProperty)
+    : "additionalProperty" in error.params
+      ? String(error.params.additionalProperty)
+      : error.propertyName ?? (
+          "propertyName" in error.params
+            ? String(error.params.propertyName)
+            : undefined
+        );
+  const suffix = property === undefined
+    ? ""
+    : `/${property.replaceAll("~", "~0").replaceAll("/", "~1")}`;
 
   return {
-    path: `${error.instancePath || "/"}${suffix}`,
+    path: `${error.instancePath}${suffix}` || "/",
     message: error.message ?? "Schema validation failed",
     keyword: "schema",
   };
@@ -138,6 +147,23 @@ export function validateArchitectureSemantics(
         keyword: "reference",
       });
     }
+    if (["<", "<=", ">=", ">"].includes(goal.operator) && typeof goal.target !== "number") {
+      issues.push({
+        path: `/quality_goals/${index}/target`,
+        message: `Operator '${goal.operator}' requires a numeric target`,
+        keyword: "semantic",
+      });
+    }
+    if (
+      ["contains", "not_contains"].includes(goal.operator) &&
+      typeof goal.target !== "string"
+    ) {
+      issues.push({
+        path: `/quality_goals/${index}/target`,
+        message: `Operator '${goal.operator}' requires a string target`,
+        keyword: "semantic",
+      });
+    }
   });
 
   return issues;
@@ -147,11 +173,12 @@ export async function parseArchitecture(
   source: string,
 ): Promise<ValidationResult<ArchitectureDocument>> {
   const yaml = parseDocument(source, { prettyErrors: true, uniqueKeys: true });
+  const yamlIssues = [...yaml.errors, ...yaml.warnings];
 
-  if (yaml.errors.length > 0) {
+  if (yamlIssues.length > 0) {
     return {
       valid: false,
-      issues: yaml.errors.map((error) => ({
+      issues: yamlIssues.map((error) => ({
         path: "/",
         message: error.message,
         keyword: "schema",
