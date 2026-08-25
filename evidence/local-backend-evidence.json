@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "status": "technical-foundation-not-accepted",
+  "mcp_protocol_version": "2026-07-28",
+  "tool_contract_version": "0.1",
+  "package_boundary": {
+    "@archsync/core": {
+      "version": "0.1.1",
+      "source_commit": "503b5fe97aa39a78d5e5de80b794a94508e106cc",
+      "sha256": "7f6c2db24888d8e4bf6eb6dd2cc2d0abaaf2fc908e2b43937aec40d163b05fc9"
+    },
+    "@archsync/guardian": {
+      "version": "0.3.3",
+      "source_commit": "ebaaf2711602890ef6ead8983bd33e2cf4853e17",
+      "sha256": "06243cdc96dbdb4e13db2a05c82fbd2b4879b72f80f20d2fc109d430446d0127",
+      "package_content_sha256": "66e1c94ebb30c630b48a8f71beedb32206b1cd46f5da02a546a307e40dfbe27c"
+    }
+  },
+  "automated_scope": {
+    "real_package_tools": [
+      "architecture_validate",
+      "architecture_graph",
+      "architecture_check_diff"
+    ],
+    "provider_gated_tools": [
+      "architecture_explain_finding",
+      "architecture_propose_evolution"
+    ],
+    "controls": [
+      "canonical workspace containment",
+      "recursive symlink rejection",
+      "safe Git argv with --end-of-options revision resolution",
+      "detached local clone for exact base/head analysis",
+      "temporary-clone hooks and filesystem monitor disabled",
+      "default-deny provider execution",
+      "no baseline write or evolution approval authority"
+    ]
+  },
+  "authority": {
+    "accepted_release": false,
+    "security_approved": false,
+    "provider_enabled": false,
+    "research_evidence": false,
+    "human_evolution_approval": false
+  },
+  "artifacts": {
+    "boundary-policy.json": "7bafac17fee238af83d3f633e69c9569b03ea61a7f7074cfdc610cab6b2e3cc5",
+    "package.json": "46034e029eb564de7719784c4e72a14f91fac6733cfbd81c71796aadc67e10fb",
+    "pnpm-lock.yaml": "6aae5cad9d454a5759809e28a9a0584d9980d594d339321d16c2a1da51c949dd",
+    "schemas/tools.v0.1.json": "ebed0c3528eae987030be34b545e7f5c8334622bb7e7516f7e836479f04b412e",
+    "scripts/package-install-e2e.mjs": "2eeaa9a7f88175edae846ee1af9a94883801cc24dd04753d7141d7c2c076bb9e",
+    "scripts/smoke-protocol.mjs": "46b6e9f755669499db417a5b4f5c2eb69ef371f8ae1cbe41d297ebbfbd42979c",
+    "scripts/verify-dependencies.mjs": "cc935396236bc0a479169eabfd8d8dd509dcb17dd2c0911313f1cfff9ef511b6",
+    "src/adapter.mjs": "43cf681fb3ed725d37ea33c3e591696ebc79d9aea13ccd2d2a7e1ab60f2f8a35",
+    "src/contracts.mjs": "ede9af7a92029aeffbf6b1617eb1da0bd02b306fc1ed37651628ff68d3e8f571",
+    "src/local-backend.mjs": "7beba47e346725a9bf80a56c5bfcee1e1dc1ca2b5fcb95338e5d9f12f14fa2b6",
+    "test/local-backend.test.mjs": "51d2a061b1b3059c278da9f1971eabd1290ace05b78509789a7bd37a981564ad",
+    "docs/security/THREAT-MODEL.md": "8a7a3ad8f49e1a29eae62e03acf6c62c98aa23884ceddcd310884478b60ff651",
+    "vendor/provenance.json": "fa7545f200ad4784619295b84d6a71ef0259ba6e102991e2f528f62833e7e678"
+  }
+}
