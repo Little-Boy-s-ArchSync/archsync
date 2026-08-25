@@ -12,7 +12,6 @@ import {
 } from "./lib/research-release-contract.mjs";
 
 const repositoryRoot = dirname(dirname(fileURLToPath(import.meta.url)));
-const defaultTemplate = join(repositoryRoot, "research-release-candidate.template.json");
 
 function isInside(root, target) {
   const rel = relative(root, target);
@@ -49,6 +48,25 @@ async function assertRegularUnsymbolicPath(root, relativePath) {
   const stat = await lstat(lexical);
   if (!stat.isFile()) throw new Error(`${relativePath}: artifact must be a regular file`);
   return lexical;
+}
+
+async function prepareUnsymbolicOutputDirectory(root, relativePath) {
+  const directorySegments = relativePath.split("/").slice(0, -1);
+  let cursor = root;
+  for (const segment of directorySegments) {
+    cursor = join(cursor, segment);
+    try {
+      const stat = await lstat(cursor);
+      if (stat.isSymbolicLink()) throw new Error(`${relativePath}: symbolic links are forbidden in the verification-log path`);
+      if (!stat.isDirectory()) throw new Error(`${relativePath}: verification-log parent must be a directory`);
+    } catch (error) {
+      if (error.code !== "ENOENT") throw error;
+      await mkdir(cursor);
+    }
+  }
+  const rootReal = await realpath(root);
+  const directoryReal = await realpath(dirname(resolve(root, relativePath)));
+  if (!isInside(rootReal, directoryReal)) throw new Error("verification log directory escapes repository root");
 }
 
 function requireObject(value, label) {
@@ -141,7 +159,8 @@ export async function main({
   try {
     const [operation] = args;
     if (operation === "validate-template" && args.length <= 2) {
-      const templatePath = args[1] ? resolve(root, args[1]) : defaultTemplate;
+      const templateArgument = args[1] ?? "research-release-candidate.template.json";
+      const templatePath = await assertRegularUnsymbolicPath(root, templateArgument);
       const { value } = await readJson(templatePath, "REL-102 template");
       const blocked = assertResearchReleaseTemplate(value);
       log(`VALID REL-102 BLOCKED TEMPLATE (${blocked.length} fail-closed release gates remain explicit)`);
@@ -158,8 +177,7 @@ export async function main({
       setExitCode(2);
       return;
     }
-    const manifestPath = resolve(root, args[1]);
-    if (!isInside(root, manifestPath)) throw new Error("manifest path must stay inside repository root");
+    const manifestPath = await assertRegularUnsymbolicPath(root, args[1]);
     const { value: manifest } = await readJson(manifestPath, "REL-102 manifest");
     const verificationLog = await verifyResearchReleaseArtifacts(manifest, root);
     if (outputIndex !== -1) {
@@ -169,7 +187,7 @@ export async function main({
       }
       const outputPath = resolve(root, outputArgument);
       if (!isInside(root, outputPath)) throw new Error("verification log path escapes repository root");
-      await mkdir(dirname(outputPath), { recursive: true });
+      await prepareUnsymbolicOutputDirectory(root, outputArgument);
       await writeFile(outputPath, canonicalJson(verificationLog), { encoding: "utf8", flag: "wx" });
       log(`WROTE REL-102 RELEASE CANDIDATE VERIFICATION LOG: ${outputArgument}`);
     }

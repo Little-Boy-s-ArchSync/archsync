@@ -269,3 +269,57 @@ test("CLI rejects invalid usage, escaped manifests and unsafe log destinations",
     assert.ok(errors.length > 0);
   }
 });
+
+test("CLI rejects symbolic template, manifest and verification-log parents", async () => {
+  const { root } = await createFixture();
+  const cases = [
+    {
+      link: join(root, "template-link.json"),
+      target: join(root, "research-release-candidate.template.json"),
+      args: ["validate-template", "template-link.json"],
+    },
+    {
+      link: join(root, "candidate-link.json"),
+      target: join(root, "candidate.json"),
+      args: ["check", "candidate-link.json"],
+    },
+  ];
+  for (const fixture of cases) {
+    try {
+      await symlink(fixture.target, fixture.link, "file");
+    } catch (error) {
+      if (process.platform === "win32" && ["EPERM", "EACCES"].includes(error.code)) return;
+      throw error;
+    }
+    const errors = [];
+    let exitCode = 0;
+    await main({
+      args: fixture.args,
+      root,
+      log: () => {},
+      error: (value) => errors.push(value),
+      setExitCode: (value) => { exitCode = value; },
+    });
+    assert.equal(exitCode, 1);
+    assert.match(errors.at(-1), /symbolic links are forbidden/u);
+  }
+
+  await mkdir(join(root, "redirected-output"));
+  try {
+    await symlink(join(root, "redirected-output"), join(root, "artifacts"), "dir");
+  } catch (error) {
+    if (process.platform === "win32" && ["EPERM", "EACCES"].includes(error.code)) return;
+    throw error;
+  }
+  const errors = [];
+  let exitCode = 0;
+  await main({
+    args: ["check", "candidate.json", "--write-log", "artifacts/research-release/verification.json"],
+    root,
+    log: () => {},
+    error: (value) => errors.push(value),
+    setExitCode: (value) => { exitCode = value; },
+  });
+  assert.equal(exitCode, 1);
+  assert.match(errors.at(-1), /symbolic links are forbidden/u);
+});
