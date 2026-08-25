@@ -2811,17 +2811,17 @@
       },
       {
         "file": "package.json",
-        "sha256": "e403f3e9571fb0319b99c7239f4520837b2ad1d9fd33339d46ba75e5c01deab4"
+        "sha256": "6b0d7a1455781dbb0d442c3b563c3fd9a5ea4030be034cef21de08b784641456"
       },
       {
         "file": "pnpm-lock.yaml",
-        "sha256": "083ba9688825064d603def310051557e3f93c432cc9fe988cc58d4aaaa0defcb"
+        "sha256": "bc8e6b9396d395eaa4a3c5b60e118b21484dc0556ed7a213c934266e9a42a27f"
       },
       {
         "file": "vendor/archsync-guardian-0.3.3.tgz",
         "sha256": "ab2b5e774255cd7e46dd0668a075ca7e22208d6ba6c89a37ef464ba0a8cabc27"
       }
     ],
-    "manifest_sha256": "6e8c6db43d6a0839b297e7732ba876bb453dbff6c4fe638b18f5ae3e5358cc5e"
+    "manifest_sha256": "07a3fc4046e493c0460616a2d787a2676b25c324ccbda6d7169c245f1b4ea415"
   }
 }
