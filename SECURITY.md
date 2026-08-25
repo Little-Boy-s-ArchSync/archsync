@@ -1,27 +1,45 @@
 # Security Policy
 
-## Reporting
+## Supported versions
 
-Không mở public issue chứa secret, token, private source, personal data hoặc chi
-tiết có thể khai thác. Báo riêng cho Hiếu qua kênh nội bộ của nhóm, ghi repository,
-commit, mức ảnh hưởng, cách tái hiện tối thiểu và biện pháp cô lập đã thực hiện.
+| Version | Support status |
+| --- | --- |
+| `v0.3.2` | latest published research prototype release |
+| `main` / `0.3.3` | candidate only; security fixes are developed here |
+| older tags | no routine fixes; use only for a documented rollback |
 
-Không gửi credential thật. Nếu credential có thể đã lộ, revoke/rotate trước rồi
-mới thu thập log đã redact.
+This table does not make the prototype production-ready. See
+`docs/SUPPORT-MATRIX.md` for the empirical boundary.
 
-## Supported research baseline
+## Private reporting
 
-Baseline được hỗ trợ là commit `main` mới nhất đã qua CI của monorepo và các
-source pins trong `repos.lock.json`. Artifact ngoài manifest hoặc output cục bộ
-trong `.archsync/` không phải release được hỗ trợ.
+Do not open a public issue containing a secret, token, private source, personal
+data, or exploitable detail. Report privately to the repository Lead through the
+team's authenticated internal channel. Include repository, commit/tag, impact,
+minimal sanitized reproduction, and containment already performed. If that route
+is unavailable, contact an organization owner privately through GitHub before
+sharing detail. The project does not publish a security mailbox and will not
+invent one in documentation.
 
-## Research data
+Never send a live credential. If exposure is possible, revoke/rotate first and
+then collect redacted logs. Response targets, roles, evidence preservation,
+credential rotation, coordinated disclosure, and the package-compromise tabletop
+are defined in `docs/INCIDENT-RESPONSE.md`.
 
-- Không commit secret, PII, private telemetry hoặc raw provider credential.
-- Không gửi private code/evidence cho model provider trước Phase 4 security gate.
-- Artifact công khai phải có license/provenance review và double-blind approval.
-- Prompt/tool output không được tự merge, sửa ground truth hoặc cập nhật baseline.
+## Release and research baseline
 
-Mọi security finding ảnh hưởng deterministic decision, evidence integrity hoặc
-artifact provenance được xem là high risk và phải chặn release cho đến khi có
-test hồi quy, review và rollback plan.
+The supported source baseline is the latest reviewed `main` commit with green CI
+and the source pins in `repos.lock.json`. An artifact outside the exact release
+manifest or local output in `.archsync/` is not a supported release.
+
+## Research data and provider boundary
+
+- Do not commit secrets, PII, private telemetry, or provider credentials.
+- Do not send private code/evidence to a provider before the Phase 4 security gate.
+- Public artifacts require license/provenance and double-blind review.
+- Prompt/tool output cannot merge itself, edit ground truth, or update a baseline.
+
+A security finding affecting deterministic decisions, evidence integrity, or
+artifact provenance is high risk and blocks release until a regression test,
+independent review, and rollback plan exist. See `docs/SUPPLY-CHAIN.md`,
+`docs/RELEASE.md`, and `docs/PRIVACY.md` for mechanical gates and operating rules.

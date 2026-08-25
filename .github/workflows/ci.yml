@@ -18,13 +18,13 @@ jobs:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 0
-      - uses: pnpm/action-setup@v6
+      - uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6.0.10
         with:
           version: 11.16.0
-      - uses: actions/setup-node@v7
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
           node-version: 22
           cache: pnpm
@@ -43,10 +43,11 @@ jobs:
         run: git diff --exit-code
       - name: Upload verification evidence
         if: always()
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: archsync-monorepo-evidence-${{ matrix.os }}
           if-no-files-found: error
+          retention-days: 14
           path: |
             archsync-core/evidence/phase-1-evidence.json
             archsync-core/coverage/coverage-summary.json
@@ -56,3 +57,42 @@ jobs:
             archsync-benchmark/evidence/phase-2-results.json
             archsync-benchmark/evidence/phase-3-results.json
             archsync-benchmark/evidence/unit-coverage.json
+
+  supply-chain:
+    name: release and supply-chain gate
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+      - uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6.0.10
+        with:
+          version: 11.16.0
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: |
+            pnpm-lock.yaml
+            archsync-core/pnpm-lock.yaml
+            archsync-guardian/pnpm-lock.yaml
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run bootstrap
+      - run: pnpm run release:pack
+      - run: pnpm run security:audit -- --output artifacts/security/dependency-audit.json
+      - run: pnpm run release:rollback-drill -- --output artifacts/security/rollback-drill.json
+      - name: Upload exact candidate bundle
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: archsync-release-candidate
+          if-no-files-found: error
+          retention-days: 14
+          path: release/
+      - name: Upload supply-chain evidence
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: archsync-supply-chain-evidence
+          if-no-files-found: error
+          retention-days: 14
+          path: artifacts/security/

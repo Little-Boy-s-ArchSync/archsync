@@ -22,6 +22,10 @@ Trình tự bắt buộc:
 7. `git diff --exit-code` đảm bảo build hoặc verifier không làm source bị stale.
 8. Upload evidence Core, Guardian và Benchmark.
 
+`verify:all` còn chạy contract tests, policy-document verifier và tracked-secret
+scan. Mọi third-party action được pin bằng full commit SHA; artifact evidence có
+retention 14 ngày; workflow mặc định chỉ có `contents: read`.
+
 Gate component được giữ nguyên:
 
 | Component | Gate | CI độc lập |
@@ -34,8 +38,9 @@ Gate component được giữ nguyên:
 
 ## Continuous Delivery
 
-Workflow `.github/workflows/release.yml` chạy khi push tag `v*` hoặc chạy thủ
-công. Workflow luôn verify trước khi đóng gói.
+Job `supply-chain` của CI chạy trên Ubuntu để pack exact candidate, audit production
+dependencies và diễn tập immutable rollback. Workflow `.github/workflows/release.yml`
+chạy khi push tag `v*` hoặc chạy thủ công. Workflow luôn verify trước khi đóng gói.
 
 Artifact gồm:
 
@@ -43,9 +48,17 @@ Artifact gồm:
 - `@archsync/guardian` tarball.
 - `SHA256SUMS.txt`.
 - `repos.lock.json` ghi nguồn của năm subtree.
+- `RELEASE-MANIFEST.json` với exact file allowlist và source commit.
+- `SBOM.cdx.json` CycloneDX 1.5.
+- `LICENSES.json` cho production dependency closure.
 
-Với tag `v*`, workflow tạo GitHub Release và upload các artifact. Với
-`workflow_dispatch`, artifact chỉ được lưu trong workflow run để kiểm tra thử.
+Build/package dùng `contents: read`. Với tag `v*`, job publish tách biệt mới nhận
+`contents: write`, từ chối release đã tồn tại rồi tạo GitHub Release. Không dùng
+`--clobber`. Với `workflow_dispatch`, artifact chỉ được lưu 14 ngày trong workflow
+run để kiểm tra thử.
+
+Chi tiết gate, SemVer và rollback nằm trong `docs/SUPPLY-CHAIN.md` và
+`docs/RELEASE.md`.
 
 ## Đồng bộ với các repository độc lập
 
@@ -53,4 +66,3 @@ Ba repository Core, Guardian và Benchmark vẫn chạy CI riêng. Monorepo CI k
 thay thế chúng; nó bổ sung kiểm tra integration. `repos.lock.json` cùng lịch sử
 `git subtree` chứng minh chính xác commit nào đã được nhập. Xem
 `docs/REPOSITORY-SYNC.md` để cập nhật source.
-

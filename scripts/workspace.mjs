@@ -1,12 +1,10 @@
-import { copyFile, mkdir, readdir, readFile, rm, writeFile } from "node:fs/promises";
+import { mkdir, readdir, readFile, rm } from "node:fs/promises";
 import { spawnSync } from "node:child_process";
 import { basename, dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 import {
-  assertExactReleaseFiles,
   assertExactTarballs,
-  checksumLine,
   packageTarballName,
 } from "./lib/release-contract.mjs";
 
@@ -53,6 +51,17 @@ function verifyMcpBoundary() {
   console.log("\n==> archsync-mcp: documentation boundary verified");
 }
 
+function runNode(args) {
+  console.log(`\n==> node ${args.join(" ")}`);
+  const result = spawnSync(process.execPath, args, {
+    cwd: root,
+    env: process.env,
+    stdio: "inherit",
+    shell: false,
+  });
+  if (result.status !== 0) process.exit(result.status ?? 1);
+}
+
 async function packRelease() {
   const release = join(root, "release");
   if (dirname(release) !== root || basename(release) !== "release") {
@@ -77,16 +86,8 @@ async function packRelease() {
     ARCHSYNC_SOURCE_COMMIT: guardianSource.commit,
   });
   const files = assertExactTarballs(await readdir(release), expectedFiles);
-  await copyFile(join(root, "repos.lock.json"), join(release, "repos.lock.json"));
-  const payloads = [...files, "repos.lock.json"].sort();
-  const checksums = [];
-  for (const file of payloads) {
-    const bytes = await readFile(join(release, file));
-    checksums.push(checksumLine(file, bytes));
-  }
-  await writeFile(join(release, "SHA256SUMS.txt"), `${checksums.join("\n")}\n`, "utf8");
-  assertExactReleaseFiles(await readdir(release), payloads);
-  console.log(`\nPACKED ${files.length} package(s) and ${payloads.length - files.length} provenance manifest(s) in ${release}`);
+  runNode(["scripts/release-security.mjs", "write"]);
+  console.log(`\nPACKED ${files.length} package(s) with exact supply-chain evidence in ${release}`);
 }
 
 if (operation === "bootstrap") {
