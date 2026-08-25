@@ -14,7 +14,7 @@ Kiểm tra manifest với lịch sử local, không cần mạng:
 pnpm run verify:sync
 ```
 
-So sánh thêm với `main` hiện tại của năm remote:
+So sánh thêm với branch được pin hiện tại của năm remote:
 
 ```powershell
 pnpm run verify:remote
@@ -47,4 +47,3 @@ pnpm run demo
 Chỉ commit source pin mới khi tất cả lệnh trên thành công. Nếu thay đổi API giữa
 Core, Guardian và Benchmark, cập nhật/publish vendor artifact tại repo nguồn
 trước; monorepo không được thay thế các tarball provenance bằng dependency ngầm.
-

@@ -6,7 +6,7 @@ import { fileURLToPath } from "node:url";
 import { assertNoHighRiskVulnerabilities, stableJson, summarizeAuditReports } from "./lib/security-contract.mjs";
 
 const root = dirname(dirname(fileURLToPath(import.meta.url)));
-const packageDirectories = ["archsync-core", "archsync-guardian"];
+const packageDirectories = ["archsync-core", "archsync-guardian", "archsync-mcp"];
 const outputIndex = process.argv.indexOf("--output");
 const outputArgument = outputIndex === -1 ? null : process.argv[outputIndex + 1];
 

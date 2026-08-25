@@ -39,6 +39,7 @@ const expectedPackages = new Map([
   ["archsync-core", "@archsync/core"],
   ["archsync-guardian", "@archsync/guardian"],
   ["archsync-benchmark", "archsync-benchmark"],
+  ["archsync-mcp", "@archsync/mcp"],
   ["archsync-examples", "archsync-examples"],
 ]);
 
@@ -52,11 +53,6 @@ for (const [directory, packageName] of expectedPackages) {
   record(directory, packageJson.name === packageName, `${packageJson.name} ${packageJson.version}`);
 }
 
-record(
-  "archsync-mcp",
-  await exists(join(root, "archsync-mcp", "README.md")),
-  "documentation-only Phase 4 boundary",
-);
 record("Source lock", await exists(join(root, "repos.lock.json")), "repos.lock.json");
 record("Core CLI", await exists(join(root, "archsync-core", "dist", "bin.js")), "dist/bin.js");
 record("Guardian CLI", await exists(join(root, "archsync-guardian", "dist", "bin.js")), "dist/bin.js");

@@ -16,7 +16,7 @@ trong source monorepo.
 | `archsync-guardian` | Source analyzer, finding contract và Git-diff gate | `phase3:verify` |
 | `archsync-benchmark` | 20 patch, 40 detector signals và evidence | `verify` |
 | `archsync-examples` | Model và sơ đồ mẫu có thể tái sinh | `verify` |
-| `archsync-mcp` | Phạm vi MCP ở giai đoạn sau | kiểm tra cấu trúc tài liệu |
+| `archsync-mcp` | Local MCP adapter dùng package Core/Guardian đã pin | `verify` (provider/human gates vẫn đóng) |
 
 ## Bắt đầu nhanh
 
@@ -71,8 +71,8 @@ Các lệnh `archsync doctor`, `archsync demo`, `archsync model`, `archsync scan
 
 - `repos.lock.json` ghi commit nguồn của cả năm repository độc lập.
 - `pnpm run verify:sync` kiểm tra manifest khớp với lịch sử subtree.
-- `pnpm run verify:remote` kiểm tra commit đã nhập còn khớp `origin/main` của từng repo.
-- CI trung tâm chạy đầy đủ Core, Guardian, Benchmark và Examples trên Windows,
+- `pnpm run verify:remote` kiểm tra commit đã nhập còn khớp branch được pin của từng repo.
+- CI trung tâm chạy đầy đủ Core, Guardian, Benchmark, MCP và Examples trên Windows,
   Ubuntu và macOS.
 - Tag `v*` tạo GitHub Release bất biến chứa tarball Core/Guardian, provenance,
   CycloneDX SBOM, license inventory và SHA-256 checksums sau supply-chain gate.
@@ -89,10 +89,10 @@ thật.
 ## Các lệnh ở root
 
 ```text
-pnpm run bootstrap      Cài dependency và build Core/Guardian
+pnpm run bootstrap      Cài dependency của cả năm subtree và build Core/Guardian
 pnpm run doctor         Kiểm tra môi trường và cấu trúc monorepo
 pnpm run verify:sync    Kiểm tra source pins trong lịch sử local
-pnpm run verify:remote  So sánh source pins với remote main
+pnpm run verify:remote  So sánh source pins với remote branch được pin
 pnpm run verify         Chạy tất cả gate của các component
 pnpm run verify:all     Kiểm tra policy/security/sync rồi chạy toàn bộ gate
 pnpm run onboard:verify Chạy doctor, toàn bộ gate và demo Day 0

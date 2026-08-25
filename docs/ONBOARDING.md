@@ -106,8 +106,10 @@ kỹ thuật có rủi ro.
 - Thành viên 2: AI contracts, citation/safety, provider evaluation và human review.
 - Thành viên 3: holdout/evaluation, statistics, IaC/runtime và reproduction.
 
-`archsync-mcp` chỉ là boundary tài liệu cho đến khi contract Phase 4 được freeze.
-Paper chỉ báo cáo Phase 1--3; Code--IaC--Runtime--AI chưa được viết như kết quả.
+`archsync-mcp` có local adapter dựa trên exact package Core/Guardian nhưng vẫn là
+technical foundation chưa được chấp thuận: provider và quyền phê duyệt của con
+người mặc định bị đóng. Paper chỉ báo cáo Phase 1--3; Code--IaC--Runtime--AI chưa
+được viết như kết quả.
 
 ## 8. Điều kiện hoàn tất onboarding
 
