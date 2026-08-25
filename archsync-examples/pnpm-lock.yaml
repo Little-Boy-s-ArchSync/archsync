@@ -9,13 +9,14 @@ importers:
   .:
     dependencies:
       '@archsync/core':
-        specifier: file:../archsync-core
-        version: file:../archsync-core
+        specifier: file:vendor/archsync-core-0.1.1.tgz
+        version: file:vendor/archsync-core-0.1.1.tgz
 
 packages:
 
-  '@archsync/core@file:../archsync-core':
-    resolution: {directory: ../archsync-core, type: directory}
+  '@archsync/core@file:vendor/archsync-core-0.1.1.tgz':
+    resolution: {integrity: sha512-jBl90qnPk8iekmObb9wgSzj6y82PN8U5/ebAn3G6qhOp3yLVq4eSSAFFQ+2LPo1ESD23bEMf3BhhAJFTtJjhlw==, tarball: file:vendor/archsync-core-0.1.1.tgz}
+    version: 0.1.1
     engines: {node: '>=22'}
     hasBin: true
 
@@ -42,7 +43,7 @@ packages:
 
 snapshots:
 
-  '@archsync/core@file:../archsync-core':
+  '@archsync/core@file:vendor/archsync-core-0.1.1.tgz':
     dependencies:
       ajv: 8.20.0
       yaml: 2.9.0
