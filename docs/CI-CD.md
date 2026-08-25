@@ -34,7 +34,7 @@ Gate component được giữ nguyên:
 | Guardian | `pnpm phase3:verify` | 3 hệ điều hành |
 | Benchmark | `pnpm verify` | 3 hệ điều hành |
 | MCP | `pnpm verify` | Ubuntu và được lặp lại trên 3 hệ điều hành bởi monorepo CI |
-| Examples | `pnpm verify` | được bổ sung bởi monorepo CI |
+| Examples | `pnpm verify` | Ubuntu và được lặp lại trên 3 hệ điều hành bởi monorepo CI |
 
 ## Continuous Delivery
 

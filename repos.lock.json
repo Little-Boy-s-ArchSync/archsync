@@ -29,8 +29,8 @@
     {
       "path": "archsync-examples",
       "repository": "https://github.com/Little-Boy-s-ArchSync/archsync-examples.git",
-      "branch": "main",
-      "commit": "ae494bacd94526183c10a561a61fe5c09fbb84c9"
+      "branch": "integration/examples-core-pr3",
+      "commit": "f44ac3e781a54fa835ab13506a4b7e32a82453b6"
     }
   ]
 }

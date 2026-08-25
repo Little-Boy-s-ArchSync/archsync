@@ -39,7 +39,7 @@ pnpm run onboard:verify
 Lệnh này phải hoàn thành cả ba phần:
 
 1. Doctor xác nhận Node, pnpm, Git và ranh giới repository.
-2. `verify:all` chạy Core, Guardian, Benchmark, Examples và kiểm tra source pins.
+2. `verify:all` chạy Core, Guardian, Benchmark, MCP, Examples và kiểm tra source pins.
 3. Demo trả về PASS, BLOCK, REVIEW và `3/3 scenarios matched ground truth`.
 
 Nếu thất bại, lưu nguyên command, exit code và output liên quan vào task onboarding;

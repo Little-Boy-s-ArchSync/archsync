@@ -23,11 +23,11 @@ components and must be resolved before a public licensing claim.
 ## Online dependency audit
 
 `pnpm run security:audit -- --output artifacts/security/dependency-audit.json`
-runs `pnpm audit --prod --audit-level high --json` for Core and Guardian. High or
-critical advisories block release. Moderate/low findings remain in the timestamped
-CI evidence for triage. The online report is intentionally not checksummed into
-the deterministic release payload because registry advisories can change without
-source changes.
+runs `pnpm audit --prod --audit-level high --json` for Core, Guardian, and the
+integrated MCP adapter. High or critical advisories block release. Moderate/low
+findings remain in the timestamped CI evidence for triage. The online report is
+intentionally not checksummed into the deterministic release payload because
+registry advisories can change without source changes.
 
 An exception to a high/critical advisory requires a private risk record with
 owner, rationale, compensating control, expiry, and Lead approval; until the
