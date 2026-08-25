@@ -9,13 +9,13 @@ importers:
   .:
     dependencies:
       '@archsync/core':
-        specifier: git+https://github.com/Little-Boy-s-ArchSync/archsync-core.git#f7812c471887029951b5e5ad4105a72f0b29d0ed
-        version: git+https://github.com/Little-Boy-s-ArchSync/archsync-core.git#f7812c471887029951b5e5ad4105a72f0b29d0ed
+        specifier: file:vendor/archsync-core-0.1.1.tgz
+        version: file:vendor/archsync-core-0.1.1.tgz
 
 packages:
 
-  '@archsync/core@git+https://github.com/Little-Boy-s-ArchSync/archsync-core.git#f7812c471887029951b5e5ad4105a72f0b29d0ed':
-    resolution: {commit: f7812c471887029951b5e5ad4105a72f0b29d0ed, repo: https://github.com/Little-Boy-s-ArchSync/archsync-core.git, type: git}
+  '@archsync/core@file:vendor/archsync-core-0.1.1.tgz':
+    resolution: {integrity: sha512-jBl90qnPk8iekmObb9wgSzj6y82PN8U5/ebAn3G6qhOp3yLVq4eSSAFFQ+2LPo1ESD23bEMf3BhhAJFTtJjhlw==, tarball: file:vendor/archsync-core-0.1.1.tgz}
     version: 0.1.1
     engines: {node: '>=22'}
     hasBin: true
@@ -43,7 +43,7 @@ packages:
 
 snapshots:
 
-  '@archsync/core@git+https://github.com/Little-Boy-s-ArchSync/archsync-core.git#f7812c471887029951b5e5ad4105a72f0b29d0ed':
+  '@archsync/core@file:vendor/archsync-core-0.1.1.tgz':
     dependencies:
       ajv: 8.20.0
       yaml: 2.9.0
