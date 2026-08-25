@@ -28,7 +28,7 @@ process.stderr.write(result.stderr ?? "");
 assert.equal(result.status, 0, "Node test coverage gate failed");
 
 const report = result.stdout ?? "";
-const totals = report.match(/^# all files\s+\|\s+([\d.]+)\s+\|\s+([\d.]+)\s+\|\s+([\d.]+)\s+\|/m);
+const totals = report.match(/^(?:#|ℹ)\s+all files\s+\|\s+([\d.]+)\s+\|\s+([\d.]+)\s+\|\s+([\d.]+)\s+\|/m);
 assert.ok(totals, "Unable to parse the Node coverage totals");
 const measured = {
   lines_percent: Number(totals[1]),
@@ -40,7 +40,7 @@ for (const [metric, value] of Object.entries(measured)) {
 }
 
 function parseTestCount(label) {
-  const match = report.match(new RegExp(`^# ${label} (\\d+)$`, "m"));
+  const match = report.match(new RegExp(`^(?:#|ℹ)\\s+${label} (\\d+)$`, "m"));
   assert.ok(match, `Unable to parse test count '${label}'`);
   return Number(match[1]);
 }
@@ -50,13 +50,33 @@ function sha256(value) {
 }
 
 const provenanceFiles = [
+  "scripts/lib/ablation-evidence.mjs",
+  "scripts/lib/ai-evaluation.mjs",
+  "scripts/lib/analysis-pipeline.mjs",
   "scripts/lib/ground-truth.mjs",
+  "scripts/lib/holdout.mjs",
+  "scripts/lib/iac-benchmark.mjs",
   "scripts/lib/integrity.mjs",
+  "scripts/lib/measurement-study.mjs",
   "scripts/lib/pattern-corpus.mjs",
+  "scripts/lib/pilot-evidence.mjs",
+  "scripts/lib/pr-history.mjs",
+  "scripts/lib/reproducibility-audit.mjs",
+  "scripts/lib/runtime-provenance.mjs",
   "scripts/unit-coverage-evidence.mjs",
+  "test/ablation-evidence.test.mjs",
+  "test/ai-evaluation.test.mjs",
+  "test/analysis-pipeline.test.mjs",
   "test/ground-truth.test.mjs",
+  "test/holdout.test.mjs",
+  "test/iac-benchmark.test.mjs",
   "test/integrity.test.mjs",
+  "test/measurement-study.test.mjs",
   "test/pattern-corpus.test.mjs",
+  "test/pilot-evidence.test.mjs",
+  "test/pr-history.test.mjs",
+  "test/reproducibility-audit.test.mjs",
+  "test/runtime-provenance.test.mjs",
   "package.json",
   "pnpm-lock.yaml",
   "vendor/manifest.json",
