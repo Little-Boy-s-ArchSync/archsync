@@ -31,7 +31,9 @@
       "node_modules/json-schema-traverse/",
       "node_modules/require-from-string/",
       "node_modules/yaml/",
-      "package.json"
+      "package.json",
+      "specs/explanation.schema.json",
+      "specs/repair-candidate.schema.json"
     ]
   }
 }

@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
 import test from "node:test";
 import { gzipSync } from "node:zlib";
 
@@ -90,6 +91,22 @@ test("reads package tarballs and enforces content roots", () => {
   assert.equal(entries.length, 1);
   assert.doesNotThrow(() => assertTarballPolicy(entries, ["dist/"], "package.tgz"));
   assert.throws(() => assertTarballPolicy(entries, ["README.md"], "package.tgz"), /non-allowlisted/);
+});
+
+test("release policy narrowly admits the Guardian public schemas", async () => {
+  const policy = JSON.parse(await readFile(new URL("../../release-policy.json", import.meta.url), "utf8"));
+  const allowed = policy.package_contents["@archsync/guardian"];
+  const schemas = ["specs/explanation.schema.json", "specs/repair-candidate.schema.json"];
+  assert.equal(allowed.includes("specs/"), false);
+  assert.deepEqual(allowed.filter((path) => path.startsWith("specs/")), schemas);
+  const entries = schemas.map((path) => ({ path: `package/${path}`, type: "0", bytes: Buffer.from("{}") }));
+  assert.doesNotThrow(() => assertTarballPolicy(entries, allowed, "archsync-guardian.tgz"));
+  assert.throws(
+    () => assertTarballPolicy([
+      { path: "package/specs/unreviewed.schema.json", type: "0", bytes: Buffer.from("{}") },
+    ], allowed, "archsync-guardian.tgz"),
+    /non-allowlisted/,
+  );
 });
 
 test("rejects unsafe tar paths and secrets inside allowlisted package files", () => {
