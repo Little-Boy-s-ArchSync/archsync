@@ -14,7 +14,7 @@ trong source monorepo.
 | --- | --- | --- |
 | `archsync-core` | Architecture Model, graph và conformance rules | `phase1:verify` |
 | `archsync-guardian` | Source analyzer, finding contract và Git-diff gate | `phase3:verify` |
-| `archsync-benchmark` | 20 patch, 40 detector signals và evidence | `verify` |
+| `archsync-benchmark` | Deterministic corpus, EVAL-102 inventory preparation và evidence | `verify` |
 | `archsync-examples` | Model và sơ đồ mẫu có thể tái sinh | `verify` |
 | `archsync-mcp` | Local MCP adapter dùng package Core/Guardian đã pin | `verify` (provider/human gates vẫn đóng) |
 

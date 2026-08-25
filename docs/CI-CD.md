@@ -20,7 +20,8 @@ Trình tự bắt buộc:
 5. `pnpm run verify:all` kiểm tra source pins và mọi gate.
 6. `pnpm run demo` tái hiện PASS, BLOCK và REVIEW.
 7. `git diff --exit-code` đảm bảo build hoặc verifier không làm source bị stale.
-8. Upload evidence Core, Guardian, Benchmark và MCP.
+8. Upload evidence Core, Guardian, Benchmark (gồm EVAL-102 candidate validation)
+   và MCP.
 
 `verify:all` còn chạy contract tests, policy-document verifier và tracked-secret
 scan. Mọi third-party action được pin bằng full commit SHA; artifact evidence có

@@ -12,19 +12,19 @@
       "path": "archsync-guardian",
       "repository": "https://github.com/Little-Boy-s-ArchSync/archsync-guardian.git",
       "branch": "integration/guardian-all-technical",
-      "commit": "ebaaf2711602890ef6ead8983bd33e2cf4853e17"
+      "commit": "5ac01f1fa5b008103f274612b9aa9f602b111fae"
     },
     {
       "path": "archsync-benchmark",
       "repository": "https://github.com/Little-Boy-s-ArchSync/archsync-benchmark.git",
-      "branch": "integration/benchmark-eval-ai",
-      "commit": "fc036c1444ffe8adbf6bf8809e4c4eaeb035d331"
+      "branch": "tv3/eval-102-candidate-inventory",
+      "commit": "3666b2b5a6692421d8107ba0c0635cc70f136e90"
     },
     {
       "path": "archsync-mcp",
       "repository": "https://github.com/Little-Boy-s-ArchSync/archsync-mcp.git",
       "branch": "tv1/mcp-phase4-adapter",
-      "commit": "9ce6225851ed74585af68ffd541f5b8bee4b1e01"
+      "commit": "67b1752126fec79565ccc9bab0ef97d0451e837a"
     },
     {
       "path": "archsync-examples",

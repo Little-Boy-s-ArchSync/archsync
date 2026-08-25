@@ -57,6 +57,7 @@ jobs:
             archsync-guardian/coverage/coverage-summary.json
             archsync-benchmark/evidence/phase-2-results.json
             archsync-benchmark/evidence/phase-3-results.json
+            archsync-benchmark/evidence/holdout/eval-102-candidates.validation.json
             archsync-benchmark/evidence/unit-coverage.json
             archsync-mcp/evidence/local-backend-evidence.json
 
