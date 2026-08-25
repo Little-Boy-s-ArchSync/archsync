@@ -2,8 +2,11 @@ import { readFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { Ajv2020, } from "ajv/dist/2020.js";
 import { parseDocument } from "yaml";
+import { ARCHITECTURE_CONTRACT_CURRENT_VERSION, ARCHITECTURE_CONTRACT_PREVIOUS_VERSION, unsupportedArchitectureContractVersionMessage, } from "./versions.js";
 const schemaUrl = new URL("../specs/architecture.schema.json", import.meta.url);
+const qualityGoalSchemaUrl = new URL("../specs/quality-goal.schema.json", import.meta.url);
 let validatorPromise;
+let qualityGoalValidatorPromise;
 export function formatSchemaIssue(error) {
     const property = "missingProperty" in error.params
         ? String(error.params.missingProperty)
@@ -24,10 +27,29 @@ export function formatSchemaIssue(error) {
 async function getValidator() {
     validatorPromise ??= (async () => {
         const schema = JSON.parse(await readFile(fileURLToPath(schemaUrl), "utf8"));
+        const qualityGoalSchema = JSON.parse(await readFile(fileURLToPath(qualityGoalSchemaUrl), "utf8"));
         const ajv = new Ajv2020({ allErrors: true, strict: true });
+        ajv.addSchema(qualityGoalSchema);
         return ajv.compile(schema);
     })();
     return validatorPromise;
+}
+async function getQualityGoalValidator() {
+    qualityGoalValidatorPromise ??= (async () => {
+        const schema = JSON.parse(await readFile(fileURLToPath(qualityGoalSchemaUrl), "utf8"));
+        return new Ajv2020({ allErrors: true, strict: true }).compile(schema);
+    })();
+    return qualityGoalValidatorPromise;
+}
+export async function validateQualityGoal(value) {
+    const validate = await getQualityGoalValidator();
+    if (!validate(value)) {
+        return {
+            valid: false,
+            issues: validate.errors.map(formatSchemaIssue),
+        };
+    }
+    return { valid: true, value, issues: [] };
 }
 function isExactSelector(selector) {
     return !selector.includes("*");
@@ -140,6 +162,18 @@ export async function parseArchitecture(source) {
         };
     }
     const value = yaml.toJS();
+    const version = value?.version;
+    const unsupportedVersion = unsupportedArchitectureContractVersionMessage(version);
+    if (unsupportedVersion) {
+        return {
+            valid: false,
+            issues: [{
+                    path: "/version",
+                    message: unsupportedVersion,
+                    keyword: "version",
+                }],
+        };
+    }
     const validate = await getValidator();
     if (!validate(value)) {
         return {
@@ -176,6 +210,9 @@ function formatValidationPath(path) {
     return `${readable} (${path})`;
 }
 function validationFix(issue) {
+    if (issue.keyword === "version") {
+        return `Use architecture contract ${ARCHITECTURE_CONTRACT_CURRENT_VERSION}, migrate from ${ARCHITECTURE_CONTRACT_PREVIOUS_VERSION}, or follow docs/migrations/core-contracts-0.1.0-to-0.1.1.md.`;
+    }
     const unknownComponent = issue.message.match(/Unknown component '([^']+)'/);
     if (unknownComponent) {
         return `Add '${unknownComponent[1]}' under components, or change this reference to an existing component.`;
