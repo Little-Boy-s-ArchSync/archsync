@@ -13,6 +13,7 @@ const requiredMarkers = new Map([
   ["docs/SUPPORT-MATRIX.md", ["# Support Matrix and Known Limitations", "## Supported environment", "## Known limitations"]],
   ["docs/UPGRADE.md", ["# Upgrade and Downgrade Guide", "## Upgrade from the previous release", "## Downgrade"]],
   ["docs/PRIVACY.md", ["# Offline, Privacy, and Diagnostic Contract", "## Network behavior", "## Temporary files and retention"]],
+  ["docs/RESEARCH-RELEASE.md", ["# REL-102 Research Release Dry-Run", "## Required immutable inputs", "## Fail-closed execution", "## Human gates preserved"]],
 ]);
 
 for (const [file, markers] of requiredMarkers) {

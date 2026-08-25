@@ -81,7 +81,10 @@ Xem [hướng dẫn cài đặt](docs/SETUP.md), [thiết kế CI/CD](docs/CI-CD
 [quy trình đồng bộ repository](docs/REPOSITORY-SYNC.md). Contract vận hành nằm
 trong [release/rollback policy](docs/RELEASE.md), [supply-chain gate](docs/SUPPLY-CHAIN.md),
 [support matrix](docs/SUPPORT-MATRIX.md), [upgrade guide](docs/UPGRADE.md) và
-[privacy contract](docs/PRIVACY.md).
+[privacy contract](docs/PRIVACY.md). Quy trình release kết quả nghiên cứu riêng
+được chuẩn bị trong [REL-102 research-release dry-run](docs/RESEARCH-RELEASE.md);
+template hiện vẫn bị chặn cho tới khi P7 và independent reproduction có evidence
+thật.
 
 ## Các lệnh ở root
 
@@ -99,4 +102,6 @@ pnpm run security:audit Audit production dependency và chặn high/critical
 pnpm run release:pack   Đóng gói exact bundle kèm SBOM/license/checksum
 pnpm run release:verify Kiểm tra lại bundle không ghi file
 pnpm run release:rollback-drill Kiểm tra rollback không overwrite artifact
+pnpm run research-release:validate-template Xác nhận REL-102 vẫn fail closed
+pnpm run research-release:check Kiểm tra candidate có evidence/approval thật
 ```

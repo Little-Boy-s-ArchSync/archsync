@@ -1,0 +1,12 @@
+{
+  "schema_version": "1.0.0",
+  "task_id": "REL-102",
+  "status": "blocked-p7-101",
+  "release_version": null,
+  "source_commit": null,
+  "created_at": null,
+  "result_producer": null,
+  "artifacts": [],
+  "verification": [],
+  "approvals": []
+}

@@ -12,6 +12,8 @@ All notable ArchSync monorepo release changes are recorded here. The format foll
 - CycloneDX SBOM, license inventory, dependency audit, secret scan, and immutable
   rollback verification.
 - Release, incident-response, support, upgrade, and operational-privacy policies.
+- Fail-closed REL-102 research-release manifest, immutable-input verifier,
+  independent-reproduction boundary, and deterministic candidate log.
 
 ## [0.3.2] - 2026-08-16
 
