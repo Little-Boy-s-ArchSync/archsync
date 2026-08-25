@@ -1,3 +1,4 @@
+import type { ArchitectureContractVersion, GRAPH_CONTRACT_VERSION } from "./versions.js";
 export declare const componentTypes: readonly ["frontend", "gateway", "service", "worker", "database", "cache", "queue", "external", "library", "other"];
 export type ComponentType = (typeof componentTypes)[number];
 export declare const layers: readonly ["experience", "edge", "application", "domain", "data", "integration", "external"];
@@ -38,7 +39,7 @@ export interface ArchitectureRule {
     severity: Severity;
     rationale?: string;
 }
-export interface QualityGoal {
+export interface LegacyQualityGoal {
     id: string;
     attribute: "performance" | "availability" | "security" | "cost" | "scalability" | "reliability" | "complexity" | "maintainability";
     scope?: string;
@@ -49,8 +50,28 @@ export interface QualityGoal {
     priority: Priority;
     description?: string;
 }
+export type QualityGoalAttributeV02 = "latency" | "availability" | "security" | "cost" | "complexity";
+export type QualityGoalMetricV02 = "p95_latency" | "availability_ratio" | "security_violation_count" | "estimated_cost" | "component_count";
+export interface QualityGoalWindowV02 {
+    value: number;
+    unit: "minute" | "hour" | "day";
+}
+export interface QualityGoalV02 {
+    contract_version: "0.2";
+    id: string;
+    attribute: QualityGoalAttributeV02;
+    scope: string;
+    metric: QualityGoalMetricV02;
+    operator: "<" | "<=" | ">=" | ">";
+    target: number;
+    unit: "ms" | "ratio" | "count" | "usd";
+    window: QualityGoalWindowV02;
+    priority: Priority;
+    description?: string;
+}
+export type QualityGoal = LegacyQualityGoal | QualityGoalV02;
 export interface ArchitectureDocument {
-    version: string;
+    version: ArchitectureContractVersion;
     metadata: ArchitectureMetadata;
     components: Record<string, ArchitectureComponent>;
     relationships: ArchitectureRelationship[];
@@ -65,12 +86,14 @@ export interface GraphEdge extends ArchitectureRelationship {
     key: string;
 }
 export interface ArchitectureGraph {
+    schema_version: typeof GRAPH_CONTRACT_VERSION;
     nodes: ReadonlyMap<string, GraphNode>;
     edges: readonly GraphEdge[];
     outgoing: ReadonlyMap<string, readonly GraphEdge[]>;
     incoming: ReadonlyMap<string, readonly GraphEdge[]>;
 }
 export interface GraphDiff {
+    schema_version: typeof GRAPH_CONTRACT_VERSION;
     addedNodes: GraphNode[];
     removedNodes: GraphNode[];
     changedNodes: GraphNodeChange[];
@@ -85,7 +108,7 @@ export interface GraphNodeChange {
 export interface ValidationIssue {
     path: string;
     message: string;
-    keyword: "schema" | "reference" | "duplicate" | "semantic";
+    keyword: "schema" | "version" | "reference" | "duplicate" | "semantic";
 }
 export interface ValidationResult<T> {
     valid: boolean;

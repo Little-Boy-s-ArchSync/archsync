@@ -1,3 +1,8 @@
+import type {
+  ArchitectureContractVersion,
+  GRAPH_CONTRACT_VERSION,
+} from "./versions.js";
+
 export const componentTypes = [
   "frontend",
   "gateway",
@@ -76,7 +81,7 @@ export interface ArchitectureRule {
   rationale?: string;
 }
 
-export interface QualityGoal {
+export interface LegacyQualityGoal {
   id: string;
   attribute:
     | "performance"
@@ -96,8 +101,43 @@ export interface QualityGoal {
   description?: string;
 }
 
+export type QualityGoalAttributeV02 =
+  | "latency"
+  | "availability"
+  | "security"
+  | "cost"
+  | "complexity";
+
+export type QualityGoalMetricV02 =
+  | "p95_latency"
+  | "availability_ratio"
+  | "security_violation_count"
+  | "estimated_cost"
+  | "component_count";
+
+export interface QualityGoalWindowV02 {
+  value: number;
+  unit: "minute" | "hour" | "day";
+}
+
+export interface QualityGoalV02 {
+  contract_version: "0.2";
+  id: string;
+  attribute: QualityGoalAttributeV02;
+  scope: string;
+  metric: QualityGoalMetricV02;
+  operator: "<" | "<=" | ">=" | ">";
+  target: number;
+  unit: "ms" | "ratio" | "count" | "usd";
+  window: QualityGoalWindowV02;
+  priority: Priority;
+  description?: string;
+}
+
+export type QualityGoal = LegacyQualityGoal | QualityGoalV02;
+
 export interface ArchitectureDocument {
-  version: string;
+  version: ArchitectureContractVersion;
   metadata: ArchitectureMetadata;
   components: Record<string, ArchitectureComponent>;
   relationships: ArchitectureRelationship[];
@@ -115,6 +155,7 @@ export interface GraphEdge extends ArchitectureRelationship {
 }
 
 export interface ArchitectureGraph {
+  schema_version: typeof GRAPH_CONTRACT_VERSION;
   nodes: ReadonlyMap<string, GraphNode>;
   edges: readonly GraphEdge[];
   outgoing: ReadonlyMap<string, readonly GraphEdge[]>;
@@ -122,6 +163,7 @@ export interface ArchitectureGraph {
 }
 
 export interface GraphDiff {
+  schema_version: typeof GRAPH_CONTRACT_VERSION;
   addedNodes: GraphNode[];
   removedNodes: GraphNode[];
   changedNodes: GraphNodeChange[];
@@ -138,7 +180,7 @@ export interface GraphNodeChange {
 export interface ValidationIssue {
   path: string;
   message: string;
-  keyword: "schema" | "reference" | "duplicate" | "semantic";
+  keyword: "schema" | "version" | "reference" | "duplicate" | "semantic";
 }
 
 export interface ValidationResult<T> {
