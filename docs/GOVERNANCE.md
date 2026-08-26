@@ -20,6 +20,13 @@ phép.
 7. Merge ngoại lệ phải ghi lý do, phạm vi, reviewer, rollback và follow-up task
    trong decision log.
 
+Tài khoản `an1dee3301` được đăng ký làm Delegated Technical Operator và có thể
+thực hiện phần kỹ thuật của nhiệm vụ TV1, TV2 và TV3. Quyền này bao gồm code,
+test, evidence collection, commit, push, pull request và automation, nhưng không
+cho phép tài khoản tự tạo bằng chứng rằng một người khác đã review. Quy tắc tách
+operator, accountable person và independent verifier nằm trong
+`docs/ACCOUNT-DELEGATION.md`.
+
 CODEOWNERS giúp tự động yêu cầu Hiếu review nhưng không thay thế review thực tế
 hoặc enforcement. Trạng thái CI xanh không tự chứng minh research claim đúng.
 

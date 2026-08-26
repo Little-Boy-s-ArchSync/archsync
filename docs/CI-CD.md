@@ -6,10 +6,21 @@ CI trung tâm chứng minh một checkout duy nhất có thể cài đặt, buil
 provenance và chạy toàn bộ deterministic gate. CD tạo artifact phát hành có
 checksum nhưng không tự publish lên npm khi chưa có registry và policy phát hành.
 
-## Continuous Integration
+## Local integration gate
+
+`pnpm run verify:local` là gate mặc định cho thay đổi thường ngày. Gate chạy từ
+tracked worktree sạch, thực thi cùng deterministic product checks và tạo bundle
+gắn với exact commit. Quy cách bundle và giới hạn của bằng chứng local nằm trong
+[`LOCAL-VERIFICATION.md`](LOCAL-VERIFICATION.md).
+
+## Remote continuous integration
 
 Workflow `.github/workflows/ci.yml` chạy trên `ubuntu-latest`, `windows-latest`
 và `macos-latest` với cùng Node.js 22 và pnpm 11.16.0.
+
+Workflow này được dùng tại milestone, release hoặc khi cần kiểm tra hành vi đa
+nền tảng. Nó không bắt buộc chạy trên mọi commit khi hosted-runner quota bị
+giới hạn.
 
 Trình tự bắt buộc:
 

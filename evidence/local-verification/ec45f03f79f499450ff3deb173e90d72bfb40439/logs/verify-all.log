@@ -1,0 +1,665 @@
+TAP version 13
+# Subtest: derives npm-compatible tarball names for scoped packages
+ok 1 - derives npm-compatible tarball names for scoped packages
+  ---
+  duration_ms: 0.9887
+  type: 'test'
+  ...
+# Subtest: accepts exactly the expected release tarballs independent of order
+ok 2 - accepts exactly the expected release tarballs independent of order
+  ---
+  duration_ms: 0.5877
+  type: 'test'
+  ...
+# Subtest: rejects missing, unexpected and stale tarballs
+ok 3 - rejects missing, unexpected and stale tarballs
+  ---
+  duration_ms: 0.1478
+  type: 'test'
+  ...
+# Subtest: produces deterministic SHA-256 checksum lines
+ok 4 - produces deterministic SHA-256 checksum lines
+  ---
+  duration_ms: 0.4289
+  type: 'test'
+  ...
+# Subtest: requires an exact release payload including the checksum manifest
+ok 5 - requires an exact release payload including the checksum manifest
+  ---
+  duration_ms: 0.2553
+  type: 'test'
+  ...
+# Subtest: binds release tags to the workspace SemVer
+ok 6 - binds release tags to the workspace SemVer
+  ---
+  duration_ms: 0.3152
+  type: 'test'
+  ...
+# Subtest: allows branch workflow runs only as release candidates
+ok 7 - allows branch workflow runs only as release candidates
+  ---
+  duration_ms: 0.1861
+  type: 'test'
+  ...
+# Subtest: rolls back by moving an active pointer without overwriting versioned assets
+ok 8 - rolls back by moving an active pointer without overwriting versioned assets
+  ---
+  duration_ms: 67.4984
+  type: 'test'
+  ...
+# Subtest: rejects unsafe versions and artifact paths
+ok 9 - rejects unsafe versions and artifact paths
+  ---
+  duration_ms: 1.8236
+  type: 'test'
+  ...
+# Subtest: builds stable CycloneDX and license documents from duplicate dependency roots
+ok 10 - builds stable CycloneDX and license documents from duplicate dependency roots
+  ---
+  duration_ms: 10.3089
+  type: 'test'
+  ...
+# Subtest: rejects unknown third-party licenses but permits first-party NOASSERTION
+ok 11 - rejects unknown third-party licenses but permits first-party NOASSERTION
+  ---
+  duration_ms: 0.4453
+  type: 'test'
+  ...
+# Subtest: finds high-confidence credentials without returning their values
+ok 12 - finds high-confidence credentials without returning their values
+  ---
+  duration_ms: 1.0242
+  type: 'test'
+  ...
+# Subtest: reads package tarballs and enforces content roots
+ok 13 - reads package tarballs and enforces content roots
+  ---
+  duration_ms: 2.2301
+  type: 'test'
+  ...
+# Subtest: rejects unsafe tar paths and secrets inside allowlisted package files
+ok 14 - rejects unsafe tar paths and secrets inside allowlisted package files
+  ---
+  duration_ms: 1.2085
+  type: 'test'
+  ...
+# Subtest: verifies checksum membership and digest
+ok 15 - verifies checksum membership and digest
+  ---
+  duration_ms: 0.7102
+  type: 'test'
+  ...
+# Subtest: blocks high and critical dependency advisories
+ok 16 - blocks high and critical dependency advisories
+  ---
+  duration_ms: 0.3602
+  type: 'test'
+  ...
+1..16
+# tests 16
+# suites 0
+# pass 16
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 140.655
+POLICY VERIFIED: 8 documents, release allowlist, and 2 pinned workflows
+TRACKED SECRET SCAN VERIFIED
+[PASS] archsync-core local pin f7812c471887029951b5e5ad4105a72f0b29d0ed
+[PASS] archsync-guardian local pin 002d21d7bf3bd12ee1c0bd498a1bbc1fc58e21c0
+[PASS] archsync-benchmark local pin 24d63ebf2fc3075a1d64f1eaff38cdc0b7f586fb
+[PASS] archsync-mcp local pin ef684baaa32cc404b7c35c8d5ba0eba49c3bda22
+[PASS] archsync-examples local pin ae494bacd94526183c10a561a61fe5c09fbb84c9
+
+SOURCE SYNC VERIFIED (local history).
+
+==> archsync-core: pnpm phase1:verify
+
+ RUN  v3.2.7 D:/Little Boys/ArchSync/archsync/archsync-core
+      Coverage enabled with v8
+
+ ✓ src/drawio.test.ts (5 tests) 16ms
+ ✓ src/graph.test.ts (4 tests) 17ms
+ ✓ src/mermaid.test.ts (4 tests) 19ms
+ ✓ src/conformance.test.ts (16 tests) 24ms
+ ✓ src/conformance-report.test.ts (9 tests) 25ms
+ ✓ src/validation.topology.test.ts (13 tests) 10ms
+ ✓ src/validation.test.ts (12 tests) 114ms
+ ✓ src/benchmark.test.ts (51 tests) 681ms
+
+ Test Files  8 passed (8)
+      Tests  114 passed (114)
+   Start at  23:36:24
+   Duration  1.69s (transform 370ms, setup 0ms, collect 1.44s, tests 905ms, environment 3ms, prepare 2.11s)
+
+ % Coverage report from v8
+-------------------|---------|----------|---------|---------|-------------------
+File               | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+-------------------|---------|----------|---------|---------|-------------------
+All files          |     100 |      100 |     100 |     100 |                   
+ benchmark.ts      |     100 |      100 |     100 |     100 |                   
+ ...ance-report.ts |     100 |      100 |     100 |     100 |                   
+ conformance.ts    |     100 |      100 |     100 |     100 |                   
+ drawio.ts         |     100 |      100 |     100 |     100 |                   
+ graph.ts          |     100 |      100 |     100 |     100 |                   
+ mermaid.ts        |     100 |      100 |     100 |     100 |                   
+ validation.ts     |     100 |      100 |     100 |     100 |                   
+-------------------|---------|----------|---------|---------|-------------------
+EXPECTED INVALID D:\Little Boys\ArchSync\archsync\archsync-core\test\fixtures\invalid-schema.architecture.yaml (6 issues)
+EXPECTED INVALID D:\Little Boys\ArchSync\archsync\archsync-core\test\fixtures\invalid-unknown-component.architecture.yaml (1 issues)
+RESULT: VALID
+FILE: D:\Little Boys\ArchSync\archsync\archsync-core\test\fixtures\minimal-evolution.architecture.yaml
+SUMMARY: 3 components, 2 relationships
+RESULT: VALID
+FILE: D:\Little Boys\ArchSync\archsync\archsync-core\test\fixtures\minimal.architecture.yaml
+SUMMARY: 2 components, 1 relationship
+RESULT: VALID
+FILE: D:\Little Boys\ArchSync\archsync\archsync-core\test\fixtures\order-platform.architecture.yaml
+SUMMARY: 5 components, 5 relationships
+RESULT: VALID
+FILE: D:\Little Boys\ArchSync\archsync\archsync-core\test\fixtures\order-platform.evolution.architecture.yaml
+SUMMARY: 6 components, 6 relationships
+RESULT: VALID
+FILE: D:\Little Boys\ArchSync\archsync\archsync-core\test\fixtures\order-platform.violation.architecture.yaml
+SUMMARY: 5 components, 5 relationships
+PASS CLI SMOKE (17/17: valid model, invalid model exit code, missing input is actionable, empty fixture directory is rejected, directory validation checks every model, explicit fixture expectation mode, graph JSON, graph diff JSON, clean conformance exit code, violation conformance exit code, machine-readable conformance JSON, evolution approval exit code, mermaid deterministic output, drawio deterministic output, annotated mmd conformance report, annotated drawio conformance report, usage exit code)
+VALID PHASE 1 EVIDENCE D:\Little Boys\ArchSync\archsync\archsync-core\evidence\phase-1-evidence.json
+
+==> archsync-guardian: pnpm phase3:verify
+
+ RUN  v3.2.7 D:/Little Boys/ArchSync/archsync/archsync-guardian
+      Coverage enabled with v8
+
+ ✓ src/phase3-git.test.ts (5 tests) 11ms
+ ✓ src/doctor.test.ts (8 tests) 142ms
+ ✓ src/version.test.ts (6 tests) 587ms
+   ✓ CLI version provenance > loads the real checkout with Git-backed source provenance  403ms
+ ✓ src/model-cli.test.ts (7 tests) 633ms
+   ✓ unified Architecture Model CLI adapter > validates singular/plural models and prints actionable invalid-model output  322ms
+ ✓ src/analyzer.test.ts (11 tests) 235ms
+ ✓ src/guardian.test.ts (9 tests) 230ms
+ ✓ src/benchmark.test.ts (12 tests) 1224ms
+ ✓ src/phase3.test.ts (12 tests) 10501ms
+   ✓ Phase 3 Git diff architecture gate > passes an internal source change and reuses the baseline cache  1466ms
+   ✓ Phase 3 Git diff architecture gate > passes a documentation-only diff without parsing a source component  798ms
+   ✓ Phase 3 Git diff architecture gate > rebuilds a corrupt custom baseline cache safely  1311ms
+   ✓ Phase 3 Git diff architecture gate > blocks a rule violation introduced on a changed line  918ms
+   ✓ Phase 3 Git diff architecture gate > requests review for a non-forbidden topology evolution  872ms
+   ✓ Phase 3 Git diff architecture gate > writes a GitHub step summary and supports model-only evidence  743ms
+   ✓ Phase 3 Git diff architecture gate > tracks a same-component TypeScript rename  1041ms
+   ✓ Phase 3 Git diff architecture gate > compares a committed feature branch with its merge base  1003ms
+   ✓ Phase 3 Git diff architecture gate > does not block an unrelated diff for a pre-existing baseline violation  728ms
+   ✓ Phase 3 Git diff architecture gate > reports a resolved baseline violation without blocking the fix  722ms
+   ✓ Phase 3 Git diff architecture gate > tracks modified and empty untracked TypeScript files in a newly inferred component  895ms
+
+ Test Files  8 passed (8)
+      Tests  70 passed (70)
+   Start at  23:36:38
+   Duration  12.03s (transform 415ms, setup 0ms, collect 4.01s, tests 13.56s, environment 2ms, prepare 1.93s)
+
+ % Coverage report from v8
+---------------|---------|----------|---------|---------|-------------------
+File           | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+---------------|---------|----------|---------|---------|-------------------
+All files      |     100 |      100 |     100 |     100 |                   
+ analyzer.ts   |     100 |      100 |     100 |     100 |                   
+ benchmark.ts  |     100 |      100 |     100 |     100 |                   
+ contracts.ts  |     100 |      100 |     100 |     100 |                   
+ doctor.ts     |     100 |      100 |     100 |     100 |                   
+ guardian.ts   |     100 |      100 |     100 |     100 |                   
+ model-cli.ts  |     100 |      100 |     100 |     100 |                   
+ phase3-git.ts |     100 |      100 |     100 |     100 |                   
+ phase3.ts     |     100 |      100 |     100 |     100 |                   
+ version.ts    |     100 |      100 |     100 |     100 |                   
+---------------|---------|----------|---------|---------|-------------------
+PASS GUARDIAN CLI SMOKE (23/23: unified and compatibility binaries, help lists the complete command surface, version reports component contracts, version JSON reports real source and package-content provenance, doctor verifies Node, operating system, Git, runtime packages and CLI PATH, model validation namespace and compatibility alias, model directory validation, model graph, diff and conformance commands, model Mermaid, draw.io and annotated reports, model benchmark validation, source benchmark evaluation and JSON artifact, scan emits observed graph JSON, scan writes observed graph JSON, no-impact exits 0, violation exits 1 with source evidence, machine-readable finding contract, --json option matches check-json, invalid model exits 2, usage exits 2, Git diff no-impact exits 0 and writes PR report, Git diff violation exits 1 with GitHub annotation, Git diff evolution exits 3 with machine-readable contract, demo runs real PASS, BLOCK and REVIEW Git diffs without propagating expected nonzero exits)
+PASS CLEAN PACKAGE INSTALL (win32: packed whitelist, isolated pnpm prefix, PATH, version provenance, doctor, external-project validation, demo, dlx fallback and evidence)
+VALID PHASE 2 EVIDENCE D:\Little Boys\ArchSync\archsync\archsync-guardian\evidence\phase-2-evidence.json
+VALID PHASE 3 EVIDENCE D:\Little Boys\ArchSync\archsync\archsync-guardian\evidence\phase-3-evidence.json
+
+==> archsync-benchmark: pnpm verify
+VALID VENDORED PACKAGES (2/2 artifacts, source pins and SHA-256)
+RESULT: VALID
+FILE: D:\Little Boys\ArchSync\archsync\archsync-benchmark\order-platform\architecture.yaml
+SUMMARY: 5 components, 5 relationships
+VALID PHASE 2 BENCHMARK order-platform
+- baseline: 5 components, 5 relationships, no-impact
+- full graph nodes: precision 1.000, recall 1.000, F1 1.000
+- full graph edges: precision 1.000, recall 1.000, F1 1.000
+- changed nodes: precision 1.000, recall 1.000, F1 1.000
+- changed edges: precision 1.000, recall 1.000, F1 1.000
+- classification accuracy: 1.000
+- source evidence: file 1.000, exact line 1.000
+- deterministic: 20/20 cases
+VALID GROUND TRUTH (9 no-impact, 7 violation, 4 evolution)
+VALID DOCUMENTATION (20 cases, 40 signals, 42 D1 analyzer executions, 40 Phase 3 checks, 80 Phase 3 analyzer calls)
+VALID PATCHES (20/20 apply cleanly)
+VALID TYPESCRIPT PATTERN CORPUS (20 positive, 20 hard-negative signals)
+VALID FROZEN v0.1 PATTERN BASELINE (TP 18, FP 4, FN 2, TN 16; provenance bound)
+VALID BENCHMARK INTEGRITY (9 baseline files, 20 patches, sha256)
+TAP version 13
+# Subtest: canonical ground truth satisfies the Phase 1 contract
+ok 1 - canonical ground truth satisfies the Phase 1 contract
+  ---
+  duration_ms: 2.0608
+  type: 'test'
+  ...
+# Subtest: mutation is rejected: missing metadata
+ok 2 - mutation is rejected: missing metadata
+  ---
+  duration_ms: 0.6349
+  type: 'test'
+  ...
+# Subtest: mutation is rejected: array metadata
+ok 3 - mutation is rejected: array metadata
+  ---
+  duration_ms: 0.2521
+  type: 'test'
+  ...
+# Subtest: mutation is rejected: missing cases
+ok 4 - mutation is rejected: missing cases
+  ---
+  duration_ms: 0.2211
+  type: 'test'
+  ...
+# Subtest: mutation is rejected: empty cases
+ok 5 - mutation is rejected: empty cases
+  ---
+  duration_ms: 0.2753
+  type: 'test'
+  ...
+# Subtest: mutation is rejected: missing distribution
+ok 6 - mutation is rejected: missing distribution
+  ---
+  duration_ms: 0.2121
+  type: 'test'
+  ...
+# Subtest: mutation is rejected: missing distribution category
+ok 7 - mutation is rejected: missing distribution category
+  ---
+  duration_ms: 0.2191
+  type: 'test'
+  ...
+# Subtest: mutation is rejected: negative distribution
+ok 8 - mutation is rejected: negative distribution
+  ---
+  duration_ms: 0.2075
+  type: 'test'
+  ...
+# Subtest: mutation is rejected: non-integer distribution
+ok 9 - mutation is rejected: non-integer distribution
+  ---
+  duration_ms: 0.7425
+  type: 'test'
+  ...
+# Subtest: mutation is rejected: unknown distribution category
+ok 10 - mutation is rejected: unknown distribution category
+  ---
+  duration_ms: 0.3233
+  type: 'test'
+  ...
+# Subtest: mutation is rejected: case count
+ok 11 - mutation is rejected: case count
+  ---
+  duration_ms: 0.2264
+  type: 'test'
+  ...
+# Subtest: mutation is rejected: non-object case
+ok 12 - mutation is rejected: non-object case
+  ---
+  duration_ms: 0.2301
+  type: 'test'
+  ...
+# Subtest: mutation is rejected: missing case id
+ok 13 - mutation is rejected: missing case id
+  ---
+  duration_ms: 0.2063
+  type: 'test'
+  ...
+# Subtest: mutation is rejected: duplicate id
+ok 14 - mutation is rejected: duplicate id
+  ---
+  duration_ms: 0.2344
+  type: 'test'
+  ...
+# Subtest: mutation is rejected: unknown category
+ok 15 - mutation is rejected: unknown category
+  ---
+  duration_ms: 0.2363
+  type: 'test'
+  ...
+# Subtest: mutation is rejected: classification
+ok 16 - mutation is rejected: classification
+  ---
+  duration_ms: 0.2043
+  type: 'test'
+  ...
+# Subtest: mutation is rejected: owner
+ok 17 - mutation is rejected: owner
+  ---
+  duration_ms: 0.2027
+  type: 'test'
+  ...
+# Subtest: mutation is rejected: patch
+ok 18 - mutation is rejected: patch
+  ---
+  duration_ms: 0.197
+  type: 'test'
+  ...
+# Subtest: mutation is rejected: changed files
+ok 19 - mutation is rejected: changed files
+  ---
+  duration_ms: 0.1988
+  type: 'test'
+  ...
+# Subtest: mutation is rejected: duplicate patch
+ok 20 - mutation is rejected: duplicate patch
+  ---
+  duration_ms: 0.2168
+  type: 'test'
+  ...
+# Subtest: mutation is rejected: acceptance criteria
+ok 21 - mutation is rejected: acceptance criteria
+  ---
+  duration_ms: 0.2104
+  type: 'test'
+  ...
+# Subtest: mutation is rejected: non-array acceptance criteria
+ok 22 - mutation is rejected: non-array acceptance criteria
+  ---
+  duration_ms: 0.2142
+  type: 'test'
+  ...
+# Subtest: mutation is rejected: non-string acceptance criterion
+ok 23 - mutation is rejected: non-string acceptance criterion
+  ---
+  duration_ms: 0.2458
+  type: 'test'
+  ...
+# Subtest: mutation is rejected: blank acceptance criterion
+ok 24 - mutation is rejected: blank acceptance criterion
+  ---
+  duration_ms: 0.2786
+  type: 'test'
+  ...
+# Subtest: mutation is rejected: duplicate changed file
+ok 25 - mutation is rejected: duplicate changed file
+  ---
+  duration_ms: 0.2893
+  type: 'test'
+  ...
+# Subtest: mutation is rejected: non-string path
+ok 26 - mutation is rejected: non-string path
+  ---
+  duration_ms: 0.2194
+  type: 'test'
+  ...
+# Subtest: mutation is rejected: empty path
+ok 27 - mutation is rejected: empty path
+  ---
+  duration_ms: 0.2271
+  type: 'test'
+  ...
+# Subtest: mutation is rejected: backslash path
+ok 28 - mutation is rejected: backslash path
+  ---
+  duration_ms: 0.2048
+  type: 'test'
+  ...
+# Subtest: mutation is rejected: absolute path
+ok 29 - mutation is rejected: absolute path
+  ---
+  duration_ms: 0.2102
+  type: 'test'
+  ...
+# Subtest: mutation is rejected: unsafe path
+ok 30 - mutation is rejected: unsafe path
+  ---
+  duration_ms: 0.2245
+  type: 'test'
+  ...
+# Subtest: mutation is rejected: missing delta
+ok 31 - mutation is rejected: missing delta
+  ---
+  duration_ms: 0.2813
+  type: 'test'
+  ...
+# Subtest: mutation is rejected: array delta
+ok 32 - mutation is rejected: array delta
+  ---
+  duration_ms: 0.2428
+  type: 'test'
+  ...
+# Subtest: mutation is rejected: unsupported delta key
+ok 33 - mutation is rejected: unsupported delta key
+  ---
+  duration_ms: 0.253
+  type: 'test'
+  ...
+# Subtest: mutation is rejected: no-impact delta
+ok 34 - mutation is rejected: no-impact delta
+  ---
+  duration_ms: 0.2243
+  type: 'test'
+  ...
+# Subtest: mutation is rejected: missing topology delta
+ok 35 - mutation is rejected: missing topology delta
+  ---
+  duration_ms: 0.26
+  type: 'test'
+  ...
+# Subtest: mutation is rejected: evolution approval
+ok 36 - mutation is rejected: evolution approval
+  ---
+  duration_ms: 0.2505
+  type: 'test'
+  ...
+# Subtest: mutation is rejected: violation finding
+ok 37 - mutation is rejected: violation finding
+  ---
+  duration_ms: 0.2328
+  type: 'test'
+  ...
+# Subtest: mutation is rejected: approval on no-impact
+ok 38 - mutation is rejected: approval on no-impact
+  ---
+  duration_ms: 0.7204
+  type: 'test'
+  ...
+# Subtest: mutation is rejected: missing evidence
+ok 39 - mutation is rejected: missing evidence
+  ---
+  duration_ms: 0.2902
+  type: 'test'
+  ...
+# Subtest: mutation is rejected: empty evidence
+ok 40 - mutation is rejected: empty evidence
+  ---
+  duration_ms: 0.2838
+  type: 'test'
+  ...
+# Subtest: mutation is rejected: evidence file
+ok 41 - mutation is rejected: evidence file
+  ---
+  duration_ms: 0.2922
+  type: 'test'
+  ...
+# Subtest: mutation is rejected: evidence line
+ok 42 - mutation is rejected: evidence line
+  ---
+  duration_ms: 0.2756
+  type: 'test'
+  ...
+# Subtest: mutation is rejected: non-integer evidence line
+ok 43 - mutation is rejected: non-integer evidence line
+  ---
+  duration_ms: 0.3049
+  type: 'test'
+  ...
+# Subtest: mutation is rejected: evidence kind
+ok 44 - mutation is rejected: evidence kind
+  ---
+  duration_ms: 0.253
+  type: 'test'
+  ...
+# Subtest: mutation is rejected: non-contiguous ids
+ok 45 - mutation is rejected: non-contiguous ids
+  ---
+  duration_ms: 0.4158
+  type: 'test'
+  ...
+# Subtest: mutation is rejected: distribution
+ok 46 - mutation is rejected: distribution
+  ---
+  duration_ms: 0.277
+  type: 'test'
+  ...
+# Subtest: mutation is rejected: distribution key order
+ok 47 - mutation is rejected: distribution key order
+  ---
+  duration_ms: 0.3432
+  type: 'test'
+  ...
+# Subtest: non-object ground truth is rejected before any nested access
+ok 48 - non-object ground truth is rejected before any nested access
+  ---
+  duration_ms: 0.113
+  type: 'test'
+  ...
+# Subtest: benchmark integrity hashes architecture, nested baseline files and only patch files deterministically
+ok 49 - benchmark integrity hashes architecture, nested baseline files and only patch files deterministically
+  ---
+  duration_ms: 49.2279
+  type: 'test'
+  ...
+# Subtest: canonical detector challenge corpus is valid with exact distribution
+ok 50 - canonical detector challenge corpus is valid with exact distribution
+  ---
+  duration_ms: 8.3257
+  type: 'test'
+  ...
+# Subtest: invalid corpus envelope is rejected
+ok 51 - invalid corpus envelope is rejected
+  ---
+  duration_ms: 80.1699
+  type: 'test'
+  ...
+# Subtest: group contract reports count, detector, duplicate, path, edge and missing-fixture issues
+ok 52 - group contract reports count, detector, duplicate, path, edge and missing-fixture issues
+  ---
+  duration_ms: 18.9073
+  type: 'test'
+  ...
+# Subtest: signal contract reports missing collections, IDs, locations, patterns and stale source anchors
+ok 53 - signal contract reports missing collections, IDs, locations, patterns and stale source anchors
+  ---
+  duration_ms: 17.3175
+  type: 'test'
+  ...
+# Subtest: distribution and benchmark input paths are checked
+ok 54 - distribution and benchmark input paths are checked
+  ---
+  duration_ms: 14.8318
+  type: 'test'
+  ...
+# Subtest: safe path validation rejects every unsafe representation
+ok 55 - safe path validation rejects every unsafe representation
+  ---
+  duration_ms: 80.055
+  type: 'test'
+  ...
+1..55
+# tests 55
+# suites 0
+# pass 55
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 319.5414
+# start of coverage report
+# ---------------------------------------------------------------------
+# file                 | line % | branch % | funcs % | uncovered lines
+# ---------------------------------------------------------------------
+# scripts              |        |          |         | 
+#  lib                 |        |          |         | 
+#   ground-truth.mjs   | 100.00 |   100.00 |  100.00 | 
+#   integrity.mjs      | 100.00 |   100.00 |  100.00 | 
+#   pattern-corpus.mjs | 100.00 |   100.00 |  100.00 | 
+# ---------------------------------------------------------------------
+# all files            | 100.00 |   100.00 |  100.00 | 
+# ---------------------------------------------------------------------
+# end of coverage report
+VALID UNIT COVERAGE EVIDENCE evidence\unit-coverage.json
+VALID PHASE 2 BENCHMARK EVIDENCE (20/20 cases, exact source evidence)
+VALID PHASE 2 SNAPSHOT (20/20 cases, node/edge precision/recall and exact evidence gates)
+VALID TYPESCRIPT PATTERN EVIDENCE (20/20 positive, 20/20 hard-negative signals)
+VALID PHASE 3 BENCHMARK EVIDENCE (20/20 decisions, 20/20 incremental/full-scan equivalence, 11/11 exact evidence, 57/189 files parsed)
+
+==> archsync-examples: pnpm verify
+RESULT: VALID
+FILE: D:\Little Boys\ArchSync\archsync\archsync-examples\models\event-driven-orders.architecture.yaml
+SUMMARY: 5 components, 4 relationships
+RESULT: VALID
+FILE: D:\Little Boys\ArchSync\archsync\archsync-examples\models\minimal.architecture.yaml
+SUMMARY: 2 components, 1 relationship
+RESULT: VALID
+FILE: D:\Little Boys\ArchSync\archsync\archsync-examples\models\order-platform.architecture.yaml
+SUMMARY: 5 components, 5 relationships
+RESULT: VALID
+FILE: D:\Little Boys\ArchSync\archsync\archsync-examples\models\order-platform.evolution.architecture.yaml
+SUMMARY: 6 components, 6 relationships
+RESULT: VALID
+FILE: D:\Little Boys\ArchSync\archsync\archsync-examples\models\order-platform.violation.architecture.yaml
+SUMMARY: 5 components, 5 relationships
+VALID GENERATED VIEW docs/generated/order-platform.mmd sha256:71395dff7ed4e6282a91e9a943808d36a56503d214d21c10e6c4ec5497d30881
+VALID GENERATED VIEW docs/generated/order-platform.drawio sha256:6c534ce6e83a248c482b8a9d06e802e926db52f9e10cf2d9dc0910409f0486ce
+VALID GENERATED VIEW docs/generated/order-platform-violation-report.mmd sha256:ee93166e79d25a4ccfffe51c72e378c2574684bd44b2ca8168e2f0d1c02e7260
+VALID GENERATED VIEW docs/generated/order-platform-violation-report.drawio sha256:6d1656f518f4ed3c39bd94b52dc1ee816430e67a51568abcd6fdc0717dc972ba
+VALID GENERATED VIEW docs/generated/order-platform-evolution-report.mmd sha256:ea6f860eb77ddb8e5c2ed177f180735740b048f8fab27123b65ebe0acac36779
+VALID GENERATED VIEW docs/generated/order-platform-evolution-report.drawio sha256:ef0c7b914c321f62e196989a9ae77724de08db8a0c928def7055580f9dc48455
+
+==> archsync-mcp: documentation boundary verified
+$ pnpm run test:release-contract && pnpm run verify:policies && pnpm run security:scan && pnpm run verify:sync && pnpm run verify
+$ node --test scripts/lib/release-contract.test.mjs scripts/lib/security-contract.test.mjs scripts/lib/rollback-contract.test.mjs
+$ node scripts/policy-check.mjs
+$ node scripts/release-security.mjs scan
+$ node scripts/sync.mjs
+$ node scripts/workspace.mjs verify
+$ pnpm typecheck && pnpm test:coverage && pnpm validate:fixtures && pnpm build && pnpm cli:smoke && pnpm evidence:verify
+$ tsc -b --pretty false && tsc -p tsconfig.test.json --noEmit --pretty false
+$ vitest run --coverage
+$ tsx src/bin.ts validate-dir test/fixtures --expect-invalid-prefix
+$ tsc -b
+$ node scripts/cli-smoke.mjs
+$ node scripts/phase1-evidence.mjs
+$ pnpm typecheck && pnpm test:coverage && pnpm build && pnpm cli:smoke && pnpm package:verify && pnpm evidence:verify && pnpm phase3:evidence:verify
+$ tsc -b --pretty false && tsc -p tsconfig.test.json --noEmit --pretty false
+$ vitest run --coverage
+$ tsc -b
+$ node scripts/cli-smoke.mjs
+$ node scripts/package-install-e2e.mjs --evidence .artifacts/package-install.json
+$ node scripts/phase2-evidence.mjs
+$ node scripts/phase3-evidence.mjs
+$ pnpm validate:vendor && pnpm validate:model && pnpm validate:benchmark && pnpm validate:ground-truth && pnpm validate:docs && pnpm validate:patches && pnpm validate:patterns && pnpm patterns:baseline:verify && pnpm integrity:verify && pnpm test && pnpm phase2:verify && pnpm phase2:snapshot && pnpm patterns:verify && pnpm phase3:verify
+$ node scripts/validate-vendor-artifacts.mjs
+$ archsync validate order-platform/architecture.yaml
+$ archsync benchmark order-platform/ground-truth.json
+$ node scripts/validate-ground-truth.mjs
+$ node scripts/validate-documentation.mjs
+$ node scripts/validate-patches.mjs
+$ node scripts/validate-pattern-corpus.mjs
+$ node scripts/validate-pattern-baseline.mjs
+$ node scripts/benchmark-integrity.mjs
+$ pnpm test:coverage
+$ node scripts/unit-coverage-evidence.mjs
+(node:31608) ExperimentalWarning: glob is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+$ node scripts/phase2-evidence.mjs
+$ node scripts/validate-phase2-snapshot.mjs
+$ node scripts/pattern-corpus-evidence.mjs
+$ node scripts/phase3-evidence.mjs
+$ pnpm validate && pnpm verify:generated
+$ archsync validate-dir models
+$ node scripts/verify-generated.mjs
