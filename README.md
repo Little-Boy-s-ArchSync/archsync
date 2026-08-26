@@ -74,10 +74,14 @@ Các lệnh `archsync doctor`, `archsync demo`, `archsync model`, `archsync scan
 - `pnpm run verify:remote` kiểm tra commit đã nhập còn khớp `origin/main` của từng repo.
 - CI trung tâm chạy đầy đủ Core, Guardian, Benchmark và Examples trên Windows,
   Ubuntu và macOS.
-- Tag `v*` tạo GitHub Release chứa tarball Core, Guardian và SHA-256 checksums.
+- Tag `v*` tạo GitHub Release bất biến chứa tarball Core/Guardian, provenance,
+  CycloneDX SBOM, license inventory và SHA-256 checksums sau supply-chain gate.
 
 Xem [hướng dẫn cài đặt](docs/SETUP.md), [thiết kế CI/CD](docs/CI-CD.md) và
-[quy trình đồng bộ repository](docs/REPOSITORY-SYNC.md).
+[quy trình đồng bộ repository](docs/REPOSITORY-SYNC.md). Contract vận hành nằm
+trong [release/rollback policy](docs/RELEASE.md), [supply-chain gate](docs/SUPPLY-CHAIN.md),
+[support matrix](docs/SUPPORT-MATRIX.md), [upgrade guide](docs/UPGRADE.md) và
+[privacy contract](docs/PRIVACY.md).
 
 ## Các lệnh ở root
 
@@ -87,9 +91,12 @@ pnpm run doctor         Kiểm tra môi trường và cấu trúc monorepo
 pnpm run verify:sync    Kiểm tra source pins trong lịch sử local
 pnpm run verify:remote  So sánh source pins với remote main
 pnpm run verify         Chạy tất cả gate của các component
-pnpm run verify:all     Kiểm tra sync rồi chạy toàn bộ gate
+pnpm run verify:all     Kiểm tra policy/security/sync rồi chạy toàn bộ gate
 pnpm run onboard:verify Chạy doctor, toàn bộ gate và demo Day 0
 pnpm run demo           Chạy PASS, BLOCK và REVIEW bằng CLI thật
 pnpm run cli:install    Cài lệnh archsync global
-pnpm run release:pack   Đóng gói Core và Guardian kèm checksum
+pnpm run security:audit Audit production dependency và chặn high/critical
+pnpm run release:pack   Đóng gói exact bundle kèm SBOM/license/checksum
+pnpm run release:verify Kiểm tra lại bundle không ghi file
+pnpm run release:rollback-drill Kiểm tra rollback không overwrite artifact
 ```

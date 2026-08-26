@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0.0",
+  "static_payloads": [
+    "LICENSES.json",
+    "RELEASE-MANIFEST.json",
+    "SBOM.cdx.json",
+    "repos.lock.json"
+  ],
+  "allowed_licenses": [
+    "0BSD",
+    "Apache-2.0",
+    "BSD-2-Clause",
+    "BSD-3-Clause",
+    "ISC",
+    "MIT"
+  ],
+  "package_contents": {
+    "@archsync/core": [
+      "README.md",
+      "dist/",
+      "package.json",
+      "specs/"
+    ],
+    "@archsync/guardian": [
+      "README.md",
+      "dist/",
+      "node_modules/@archsync/core/",
+      "node_modules/ajv/",
+      "node_modules/fast-deep-equal/",
+      "node_modules/fast-uri/",
+      "node_modules/json-schema-traverse/",
+      "node_modules/require-from-string/",
+      "node_modules/yaml/",
+      "package.json"
+    ]
+  }
+}
