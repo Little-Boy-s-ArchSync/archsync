@@ -69,3 +69,13 @@ Rollback changes the recommended/active version; it never mutates old assets.
 `pnpm run release:rollback-drill` stages current and previous version records in a
 temporary immutable store, moves only the active pointer, proves both snapshots
 are unchanged, and proves that restaging the old version is rejected.
+
+## Research release dry-run
+
+The product bundle above is necessary but not sufficient for `REL-102`. A
+research release additionally requires approved P7 results, generated paper and
+benchmark manifests, verified claim/citation links, an independent reproduction,
+and named human approvals. `docs/RESEARCH-RELEASE.md` defines the separate
+fail-closed manifest and deterministic candidate-log workflow. CI validates only
+the deliberately blocked template until those inputs genuinely exist; it never
+promotes a template or synthetic fixture into release evidence.

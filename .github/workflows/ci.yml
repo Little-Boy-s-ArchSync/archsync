@@ -79,6 +79,8 @@ jobs:
             archsync-guardian/pnpm-lock.yaml
       - run: pnpm install --frozen-lockfile
       - run: pnpm run bootstrap
+      - name: Verify REL-102 remains blocked without governed research evidence
+        run: pnpm run research-release:validate-template
       - run: pnpm run release:pack
       - run: pnpm run security:audit -- --output artifacts/security/dependency-audit.json
       - run: pnpm run release:rollback-drill -- --output artifacts/security/rollback-drill.json
