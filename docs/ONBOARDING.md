@@ -106,6 +106,15 @@ kỹ thuật có rủi ro.
 - Thành viên 2: AI contracts, citation/safety, provider evaluation và human review.
 - Thành viên 3: holdout/evaluation, statistics, IaC/runtime và reproduction.
 
+Đây là phân công trách nhiệm, không phải giới hạn tài khoản thao tác. GitHub
+login `an1dee3301` có thể triển khai phần kỹ thuật của cả ba vai trò theo
+`docs/ACCOUNT-DELEGATION.md`; evidence vẫn phải ghi đúng người kiểm tra và người
+chịu trách nhiệm.
+
+Ngoại lệ phân công hiện tại: `SLR-REV-101` thuộc Trần Minh Hoàng; nhiệm vụ này
+không cần Hà Hoàng Bách approve. Hoàng chỉ được ký với tư cách Independent SLR
+Reviewer khi Hoàng không phải tác giả của protocol được review.
+
 `archsync-mcp` chỉ là boundary tài liệu cho đến khi contract Phase 4 được freeze.
 Paper chỉ báo cáo Phase 1--3; Code--IaC--Runtime--AI chưa được viết như kết quả.
 
