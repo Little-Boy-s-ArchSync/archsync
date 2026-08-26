@@ -1,0 +1,38 @@
+
+==> archsync-core: pnpm install --frozen-lockfile
+Already up to date
+Done in 405ms using pnpm v11.16.0
+
+==> archsync-guardian: pnpm install --frozen-lockfile
+✓ Lockfile passes supply-chain policies (verified 9d ago)
+Lockfile is up to date, resolution step is skipped
+Progress: resolved 0, reused 1, downloaded 0, added 0
+Packages: -50
+--------------------------------------------------
+Progress: resolved 0, reused 50, downloaded 0, added 0, done
+
+Done in 1.3s using pnpm v11.16.0
+
+==> archsync-benchmark: pnpm install --frozen-lockfile
+✓ Lockfile passes supply-chain policies (verified 12d ago)
+Lockfile is up to date, resolution step is skipped
+Already up to date
+
+Done in 675ms using pnpm v11.16.0
+
+==> archsync-examples: pnpm install --frozen-lockfile
+✓ Lockfile passes supply-chain policies (verified 11d ago)
+Lockfile is up to date, resolution step is skipped
+Progress: resolved 1, reused 0, downloaded 0, added 0
+Packages: +1
++
+Progress: resolved 1, reused 1, downloaded 0, added 1, done
+
+Done in 685ms using pnpm v11.16.0
+
+==> archsync-core: pnpm build
+
+==> archsync-guardian: pnpm build
+$ node scripts/workspace.mjs bootstrap
+$ tsc -b
+$ tsc -b
