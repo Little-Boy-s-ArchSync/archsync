@@ -1,0 +1,27 @@
+ARCHSYNC MVP DEMO
+Real source patches, real Git diffs, deterministic decisions
+
+────────────────────────────────────────────────────────────
+SCENARIO: case-01 - Refactor order pricing
+DECISION: PASS
+EVIDENCE: No new architecture finding
+CACHE: cold MISS, warm HIT
+EXPECTED: PASS
+RESULT: MATCH
+────────────────────────────────────────────────────────────
+SCENARIO: case-06 - Frontend bypasses order flow
+DECISION: BLOCK
+EVIDENCE: frontend/src/app.ts:14:26
+CACHE: cold MISS, warm HIT
+EXPECTED: BLOCK
+RESULT: MATCH
+────────────────────────────────────────────────────────────
+SCENARIO: case-09 - Add Redis order cache
+DECISION: REVIEW
+EVIDENCE: order-service/src/cache.ts:12:9
+CACHE: cold MISS, warm HIT
+EXPECTED: REVIEW
+RESULT: MATCH
+────────────────────────────────────────────────────────────
+DEMO COMPLETE: 3/3 scenarios matched ground truth.
+$ node archsync-guardian/dist/bin.js demo --benchmark archsync-benchmark/order-platform --scenario all
