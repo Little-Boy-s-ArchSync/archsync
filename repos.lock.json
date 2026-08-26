@@ -1,36 +1,36 @@
 {
   "schema_version": 1,
-  "imported_at": "2026-08-26",
+  "imported_at": "2026-08-27",
   "repositories": [
     {
       "path": "archsync-core",
       "repository": "https://github.com/Little-Boy-s-ArchSync/archsync-core.git",
-      "branch": "integration/core-contracts-quality-goals",
-      "commit": "503b5fe97aa39a78d5e5de80b794a94508e106cc"
+      "branch": "main",
+      "commit": "0810f1859a3aa52082d137565bfd3b48d23c8095"
     },
     {
       "path": "archsync-guardian",
       "repository": "https://github.com/Little-Boy-s-ArchSync/archsync-guardian.git",
-      "branch": "integration/guardian-all-technical",
-      "commit": "5ac01f1fa5b008103f274612b9aa9f602b111fae"
+      "branch": "main",
+      "commit": "73e18354c04be2ffed667c875a7c08123596c54d"
     },
     {
       "path": "archsync-benchmark",
       "repository": "https://github.com/Little-Boy-s-ArchSync/archsync-benchmark.git",
-      "branch": "tv3/eval-102-candidate-inventory",
-      "commit": "3666b2b5a6692421d8107ba0c0635cc70f136e90"
+      "branch": "main",
+      "commit": "0d31679e29f8ad93523213916471a765bf5e1190"
     },
     {
       "path": "archsync-mcp",
       "repository": "https://github.com/Little-Boy-s-ArchSync/archsync-mcp.git",
-      "branch": "tv1/mcp-phase4-adapter",
-      "commit": "67b1752126fec79565ccc9bab0ef97d0451e837a"
+      "branch": "main",
+      "commit": "f17fffa78ed6c2a0cca72117d80272d8aa9265b1"
     },
     {
       "path": "archsync-examples",
       "repository": "https://github.com/Little-Boy-s-ArchSync/archsync-examples.git",
-      "branch": "integration/examples-core-pr3",
-      "commit": "f44ac3e781a54fa835ab13506a4b7e32a82453b6"
+      "branch": "main",
+      "commit": "645f4fdd35a9ef33299710390806da3317acec45"
     }
   ]
 }
