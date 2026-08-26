@@ -1,0 +1,96 @@
+{
+  "schema_version": "1.0.0",
+  "verification_provider": "local-clean-worktree",
+  "status": "PASS",
+  "target": {
+    "repository": "https://github.com/Little-Boy-s-ArchSync/archsync.git",
+    "branch": "chore/local-verification",
+    "commit": "ec45f03f79f499450ff3deb173e90d72bfb40439"
+  },
+  "environment": {
+    "os": "win32 10.0.26200",
+    "architecture": "x64",
+    "node": "22.16.0",
+    "pnpm": "11.16.0",
+    "git": "git version 2.53.0.windows.1",
+    "hostname_sha256": "9974b33f6ce7228588d97c98eca1774d16055426d2f2f4db94320c0e8c41cc52"
+  },
+  "started_at_utc": "2026-08-26T16:36:10.376Z",
+  "finished_at_utc": "2026-08-26T16:38:20.625Z",
+  "duration_ms": 130249,
+  "github_actions": "not-required-for-this-local-verification",
+  "commands": [
+    {
+      "id": "install",
+      "command": "C:\\Program Files\\nodejs\\node.exe C:\\Users\\lenovo\\AppData\\Local\\node\\corepack\\v1\\pnpm\\11.16.0\\bin\\pnpm.cjs install --frozen-lockfile",
+      "cwd": ".",
+      "started_at_utc": "2026-08-26T16:36:10.494Z",
+      "finished_at_utc": "2026-08-26T16:36:10.976Z",
+      "duration_ms": 482,
+      "exit_code": 0,
+      "status": "PASS",
+      "log": "logs/install.log",
+      "log_sha256": "44c7f5e0d551f0a09256b447a6488ff8467d2848fde9b3439eaabf36c9866f25"
+    },
+    {
+      "id": "bootstrap",
+      "command": "C:\\Program Files\\nodejs\\node.exe C:\\Users\\lenovo\\AppData\\Local\\node\\corepack\\v1\\pnpm\\11.16.0\\bin\\pnpm.cjs run bootstrap",
+      "cwd": ".",
+      "started_at_utc": "2026-08-26T16:36:10.977Z",
+      "finished_at_utc": "2026-08-26T16:36:16.026Z",
+      "duration_ms": 5049,
+      "exit_code": 0,
+      "status": "PASS",
+      "log": "logs/bootstrap.log",
+      "log_sha256": "9fd9f5dbe80ffe096ce0a9cb1199274134eb087a4272245aaf4014eadb4fa4cc"
+    },
+    {
+      "id": "doctor",
+      "command": "C:\\Program Files\\nodejs\\node.exe C:\\Users\\lenovo\\AppData\\Local\\node\\corepack\\v1\\pnpm\\11.16.0\\bin\\pnpm.cjs run doctor",
+      "cwd": ".",
+      "started_at_utc": "2026-08-26T16:36:16.026Z",
+      "finished_at_utc": "2026-08-26T16:36:17.089Z",
+      "duration_ms": 1063,
+      "exit_code": 0,
+      "status": "PASS",
+      "log": "logs/doctor.log",
+      "log_sha256": "98c7e40b1056943a97213b4496c484465498b94fa44905dea2a6dc115a0fdb85"
+    },
+    {
+      "id": "verify-all",
+      "command": "C:\\Program Files\\nodejs\\node.exe C:\\Users\\lenovo\\AppData\\Local\\node\\corepack\\v1\\pnpm\\11.16.0\\bin\\pnpm.cjs run verify:all",
+      "cwd": ".",
+      "started_at_utc": "2026-08-26T16:36:17.089Z",
+      "finished_at_utc": "2026-08-26T16:38:15.926Z",
+      "duration_ms": 118837,
+      "exit_code": 0,
+      "status": "PASS",
+      "log": "logs/verify-all.log",
+      "log_sha256": "4c37a9b6bb2499861f38cb5262974bbf4eeb014670b58672d304cabd9811aa79"
+    },
+    {
+      "id": "demo",
+      "command": "C:\\Program Files\\nodejs\\node.exe C:\\Users\\lenovo\\AppData\\Local\\node\\corepack\\v1\\pnpm\\11.16.0\\bin\\pnpm.cjs run demo",
+      "cwd": ".",
+      "started_at_utc": "2026-08-26T16:38:15.926Z",
+      "finished_at_utc": "2026-08-26T16:38:20.084Z",
+      "duration_ms": 4158,
+      "exit_code": 0,
+      "status": "PASS",
+      "log": "logs/demo.log",
+      "log_sha256": "2e2f69ed0924eb1b954d4dcd6522ce69afcb0318f3d149ecefd614204a695d58"
+    },
+    {
+      "id": "generated-diff",
+      "command": "git diff --exit-code",
+      "cwd": ".",
+      "started_at_utc": "2026-08-26T16:38:20.084Z",
+      "finished_at_utc": "2026-08-26T16:38:20.122Z",
+      "duration_ms": 38,
+      "exit_code": 0,
+      "status": "PASS",
+      "log": "logs/generated-diff.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ]
+}

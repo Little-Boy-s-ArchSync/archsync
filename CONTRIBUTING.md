@@ -18,9 +18,14 @@ khi code, kiểm thử, evidence và diễn giải research vẫn nhất quán.
   `feat/P4-102-explanation-contract`.
 - Một branch chỉ giải quyết một task hoặc một thay đổi có dependency chặt chẽ.
 - Rebase hoặc merge `origin/main` trước khi yêu cầu review.
-- Mọi thay đổi phải đi qua pull request và CI. Hiếu thực hiện merge cuối.
+- Mọi thay đổi phải đi qua pull request và một verification provider được chấp
+  nhận. Hiếu thực hiện merge cuối.
 - Không gộp khi còn test fail, artifact chưa kiểm chứng, review unresolved hoặc
   evidence/paper không khớp.
+
+Provider được chấp nhận là GitHub Actions hoặc clean local verification bundle
+theo `docs/LOCAL-VERIFICATION.md`. Local bundle chỉ thay nơi chạy test; nó không
+thay reviewer, approval hoặc evidence nghiệp vụ được yêu cầu riêng.
 
 GitHub hiện không cưỡng chế branch protection cho private repository theo gói
 đang dùng. Quy tắc trên là compensating control bắt buộc của nhóm, không phải
@@ -35,6 +40,7 @@ Pull request phải ghi:
 - lệnh kiểm chứng và output tóm tắt;
 - commit/package/data version;
 - evidence artifact hoặc report path;
+- verification provider và exact commit;
 - hạn chế, failure hoặc dữ liệu chưa biết;
 - paper impact: none, update required, hoặc future work only.
 

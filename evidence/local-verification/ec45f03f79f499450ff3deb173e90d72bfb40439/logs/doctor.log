@@ -1,0 +1,16 @@
+ARCHSYNC MONOREPO DOCTOR
+
+[PASS] Node.js              22.16.0 (required: >=22)
+[PASS] Git                  git version 2.53.0.windows.1
+[PASS] pnpm                 11.16.0 (required: 11.16.0)
+[PASS] archsync-core        @archsync/core 0.1.1
+[PASS] archsync-guardian    @archsync/guardian 0.3.3
+[PASS] archsync-benchmark   archsync-benchmark 0.3.0
+[PASS] archsync-examples    archsync-examples 0.1.0
+[PASS] archsync-mcp         documentation-only Phase 4 boundary
+[PASS] Source lock          repos.lock.json
+[PASS] Core CLI             dist/bin.js
+[PASS] Guardian CLI         dist/bin.js
+
+READY: The monorepo can build, verify and run the ArchSync CLI.
+$ node scripts/doctor.mjs

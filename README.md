@@ -31,6 +31,7 @@ pnpm install --frozen-lockfile
 pnpm run bootstrap
 pnpm run doctor
 pnpm run verify:all
+pnpm run verify:local
 pnpm run demo
 ```
 
@@ -71,9 +72,10 @@ Các lệnh `archsync doctor`, `archsync demo`, `archsync model`, `archsync scan
 
 - `repos.lock.json` ghi commit nguồn của cả năm repository độc lập.
 - `pnpm run verify:sync` kiểm tra manifest khớp với lịch sử subtree.
-- `pnpm run verify:remote` kiểm tra commit đã nhập còn khớp branch được pin của từng repo.
-- CI trung tâm chạy đầy đủ Core, Guardian, Benchmark, MCP và Examples trên Windows,
-  Ubuntu và macOS.
+- `pnpm run verify:remote` kiểm tra commit đã nhập còn khớp `origin/main` của từng repo.
+- Local verification là gate mặc định và tạo evidence theo exact commit; xem
+  [`docs/LOCAL-VERIFICATION.md`](docs/LOCAL-VERIFICATION.md).
+- CI từ xa được giữ cho milestone, release và kiểm tra đa nền tảng khi có quota.
 - Tag `v*` tạo GitHub Release bất biến chứa tarball Core/Guardian, provenance,
   CycloneDX SBOM, license inventory và SHA-256 checksums sau supply-chain gate.
 
@@ -95,6 +97,7 @@ pnpm run verify:sync    Kiểm tra source pins trong lịch sử local
 pnpm run verify:remote  So sánh source pins với remote branch được pin
 pnpm run verify         Chạy tất cả gate của các component
 pnpm run verify:all     Kiểm tra policy/security/sync rồi chạy toàn bộ gate
+pnpm run verify:local   Chạy full local gate và tạo evidence bundle
 pnpm run onboard:verify Chạy doctor, toàn bộ gate và demo Day 0
 pnpm run demo           Chạy PASS, BLOCK và REVIEW bằng CLI thật
 pnpm run cli:install    Cài lệnh archsync global
