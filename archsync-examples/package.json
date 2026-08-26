@@ -11,9 +11,11 @@
     "report:update": "archsync report models/order-platform.architecture.yaml models/order-platform.violation.architecture.yaml docs/generated/order-platform-violation-report.mmd && archsync report models/order-platform.architecture.yaml models/order-platform.violation.architecture.yaml docs/generated/order-platform-violation-report.drawio && archsync report models/order-platform.architecture.yaml models/order-platform.evolution.architecture.yaml docs/generated/order-platform-evolution-report.mmd && archsync report models/order-platform.architecture.yaml models/order-platform.evolution.architecture.yaml docs/generated/order-platform-evolution-report.drawio",
     "generated:update": "pnpm diagram:update && pnpm report:update",
     "verify:generated": "node scripts/verify-generated.mjs",
-    "verify": "pnpm validate && pnpm verify:generated"
+    "verify:vendor": "node scripts/verify-vendor.mjs",
+    "verify": "pnpm verify:vendor && pnpm validate && pnpm verify:generated",
+    "verify:ci": "pnpm verify:vendor && pnpm generated:update && pnpm verify"
   },
   "dependencies": {
-    "@archsync/core": "file:../archsync-core"
+    "@archsync/core": "file:vendor/archsync-core-0.1.1.tgz"
   }
 }

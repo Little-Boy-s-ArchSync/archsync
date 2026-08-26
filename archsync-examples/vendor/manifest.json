@@ -1,0 +1,16 @@
+{
+  "schema_version": 2,
+  "status": "provisional-integration-candidate",
+  "package": "@archsync/core",
+  "version": "0.1.1",
+  "repository": "https://github.com/Little-Boy-s-ArchSync/archsync-core",
+  "source_commit": "503b5fe97aa39a78d5e5de80b794a94508e106cc",
+  "file": "archsync-core-0.1.1.tgz",
+  "sha256": "7f6c2db24888d8e4bf6eb6dd2cc2d0abaaf2fc908e2b43937aec40d163b05fc9",
+  "reproducible_pack": {
+    "runs": 2,
+    "byte_identical": true,
+    "first_sha256": "7f6c2db24888d8e4bf6eb6dd2cc2d0abaaf2fc908e2b43937aec40d163b05fc9",
+    "second_sha256": "7f6c2db24888d8e4bf6eb6dd2cc2d0abaaf2fc908e2b43937aec40d163b05fc9"
+  }
+}

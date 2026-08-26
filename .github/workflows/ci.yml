@@ -33,6 +33,7 @@ jobs:
             archsync-core/pnpm-lock.yaml
             archsync-guardian/pnpm-lock.yaml
             archsync-benchmark/pnpm-lock.yaml
+            archsync-mcp/pnpm-lock.yaml
             archsync-examples/pnpm-lock.yaml
       - run: pnpm install --frozen-lockfile
       - run: pnpm run bootstrap
@@ -56,7 +57,9 @@ jobs:
             archsync-guardian/coverage/coverage-summary.json
             archsync-benchmark/evidence/phase-2-results.json
             archsync-benchmark/evidence/phase-3-results.json
+            archsync-benchmark/evidence/holdout/eval-102-candidates.validation.json
             archsync-benchmark/evidence/unit-coverage.json
+            archsync-mcp/evidence/local-backend-evidence.json
 
   supply-chain:
     name: release and supply-chain gate
@@ -77,6 +80,7 @@ jobs:
             pnpm-lock.yaml
             archsync-core/pnpm-lock.yaml
             archsync-guardian/pnpm-lock.yaml
+            archsync-mcp/pnpm-lock.yaml
       - run: pnpm install --frozen-lockfile
       - run: pnpm run bootstrap
       - name: Verify REL-102 remains blocked without governed research evidence

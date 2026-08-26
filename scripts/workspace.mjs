@@ -14,6 +14,7 @@ const packageDirectories = [
   "archsync-core",
   "archsync-guardian",
   "archsync-benchmark",
+  "archsync-mcp",
   "archsync-examples",
 ];
 
@@ -30,25 +31,6 @@ function runPnpm(directory, args, environment = process.env) {
     shell: false,
   });
   if (result.status !== 0) process.exit(result.status ?? 1);
-}
-
-function verifyMcpBoundary() {
-  const required = [
-    "archsync-mcp/README.md",
-    "archsync-mcp/docs/BOUNDARY.md",
-  ];
-  for (const file of required) {
-    const result = spawnSync("git", ["ls-files", "--error-unmatch", file], {
-      cwd: root,
-      stdio: "ignore",
-      shell: false,
-    });
-    if (result.status !== 0) {
-      console.error(`Missing tracked MCP boundary document: ${file}`);
-      process.exit(1);
-    }
-  }
-  console.log("\n==> archsync-mcp: documentation boundary verified");
 }
 
 function runNode(args) {
@@ -101,8 +83,8 @@ if (operation === "bootstrap") {
   runPnpm("archsync-core", ["phase1:verify"]);
   runPnpm("archsync-guardian", ["phase3:verify"]);
   runPnpm("archsync-benchmark", ["verify"]);
+  runPnpm("archsync-mcp", ["verify"]);
   runPnpm("archsync-examples", ["verify"]);
-  verifyMcpBoundary();
 } else if (operation === "cli-install") {
   runPnpm("archsync-guardian", ["add", "--global", "."]);
 } else if (operation === "pack") {

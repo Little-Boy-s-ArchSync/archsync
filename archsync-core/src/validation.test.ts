@@ -6,7 +6,12 @@ import {
   formatSchemaIssue,
   formatValidationIssues,
   parseArchitecture,
+  validateQualityGoal,
 } from "./validation.js";
+import {
+  ARCHITECTURE_CONTRACT_CURRENT_VERSION,
+  ARCHITECTURE_CONTRACT_PREVIOUS_VERSION,
+} from "./versions.js";
 
 const examplesDirectory = new URL("../test/fixtures/", import.meta.url);
 
@@ -24,6 +29,58 @@ describe("architecture validation", () => {
     expect(Object.keys(result.value?.components ?? {})).toHaveLength(2);
   });
 
+  it("loads both current and previous compatibility fixtures", async () => {
+    const current = await parseArchitecture(
+      await readExample("compatibility/current.architecture.yaml"),
+    );
+    const previous = await parseArchitecture(
+      await readExample("compatibility/previous.architecture.yaml"),
+    );
+
+    expect(current.valid).toBe(true);
+    expect(current.value?.version).toBe(ARCHITECTURE_CONTRACT_CURRENT_VERSION);
+    expect(previous.valid).toBe(true);
+    expect(previous.value?.version).toBe(ARCHITECTURE_CONTRACT_PREVIOUS_VERSION);
+  });
+
+  it("rejects unsupported versions with an actionable migration error", async () => {
+    const result = await parseArchitecture(
+      await readExample("invalid-unsupported-version.architecture.yaml"),
+    );
+
+    expect(result).toMatchObject({
+      valid: false,
+      issues: [{
+        path: "/version",
+        keyword: "version",
+        message: expect.stringContaining("Unsupported architecture contract version '1.0.0'"),
+      }],
+    });
+    expect(formatValidationIssues(result.issues)).toContain(
+      `Fix: Use architecture contract ${ARCHITECTURE_CONTRACT_CURRENT_VERSION}, migrate from ${ARCHITECTURE_CONTRACT_PREVIOUS_VERSION}`,
+    );
+  });
+
+  it("leaves non-string versions to the JSON schema type check", async () => {
+    const result = await parseArchitecture(`
+version: 1
+metadata:
+  name: numeric-version
+components:
+  service:
+    type: service
+    layer: application
+relationships: []
+`);
+
+    expect(result.valid).toBe(false);
+    expect(result.issues).toContainEqual(expect.objectContaining({
+      path: "/version",
+      keyword: "schema",
+      message: "must be string",
+    }));
+  });
+
   it("accepts rules and quality goals", async () => {
     const result = await parseArchitecture(
       await readExample("order-platform.architecture.yaml"),
@@ -32,6 +89,105 @@ describe("architecture validation", () => {
     expect(result.valid).toBe(true);
     expect(result.value?.rules).toHaveLength(4);
     expect(result.value?.quality_goals).toHaveLength(3);
+  });
+
+  it("accepts every typed quality-goal v0.2 family without breaking legacy goals", async () => {
+    const goals = [
+      ["LAT-001", "latency", "p95_latency", "<=", 200, "ms"],
+      ["AVL-001", "availability", "availability_ratio", ">=", 0.995, "ratio"],
+      ["SEC-001", "security", "security_violation_count", "<=", 0, "count"],
+      ["COST-001", "cost", "estimated_cost", "<=", 500, "usd"],
+      ["CPLX-001", "complexity", "component_count", "<=", 12, "count"],
+    ].map(([id, attribute, metric, operator, target, unit]) => ({
+      contract_version: "0.2",
+      id,
+      attribute,
+      scope: "service",
+      metric,
+      operator,
+      target,
+      unit,
+      window: { value: 15, unit: "minute" },
+      priority: "high",
+    }));
+
+    for (const goal of goals) {
+      const result = await validateQualityGoal(goal);
+      expect(result).toEqual({ valid: true, value: goal, issues: [] });
+    }
+
+    const architecture = await parseArchitecture(`
+version: "0.1"
+metadata:
+  name: typed-goals
+components:
+  service:
+    type: service
+    layer: application
+relationships: []
+quality_goals:
+  - contract_version: "0.2"
+    id: LAT-001
+    attribute: latency
+    scope: service
+    metric: p95_latency
+    operator: "<="
+    target: 200
+    unit: ms
+    window: { value: 15, unit: minute }
+    priority: high
+`);
+    expect(architecture.valid).toBe(true);
+    expect(architecture.value?.quality_goals?.[0]).toEqual(goals[0]);
+  });
+
+  it("rejects invalid v0.2 units, targets, windows and unknown properties", async () => {
+    const invalidGoals = [
+      {
+        contract_version: "0.2",
+        id: "LAT-001",
+        attribute: "latency",
+        scope: "service",
+        metric: "p95_latency",
+        operator: "<=",
+        target: 200,
+        unit: "usd",
+        window: { value: 15, unit: "minute" },
+        priority: "high",
+      },
+      {
+        contract_version: "0.2",
+        id: "AVL-001",
+        attribute: "availability",
+        scope: "service",
+        metric: "availability_ratio",
+        operator: ">=",
+        target: 1.01,
+        unit: "ratio",
+        window: { value: 15, unit: "minute" },
+        priority: "high",
+      },
+      {
+        contract_version: "0.2",
+        id: "SEC-001",
+        attribute: "security",
+        scope: "service",
+        metric: "security_violation_count",
+        operator: "<=",
+        target: 0.5,
+        unit: "count",
+        window: { value: 0, unit: "minute" },
+        priority: "high",
+        approved: true,
+      },
+    ];
+
+    for (const goal of invalidGoals) {
+      const result = await validateQualityGoal(goal);
+      expect(result.valid).toBe(false);
+      expect(result.value).toBeUndefined();
+      expect(result.issues.every((issue) => issue.keyword === "schema")).toBe(true);
+    }
   });
 
   it("accepts allow and required-path rule types", async () => {

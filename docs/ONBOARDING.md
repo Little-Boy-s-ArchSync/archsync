@@ -39,7 +39,7 @@ pnpm run onboard:verify
 Lệnh này phải hoàn thành cả ba phần:
 
 1. Doctor xác nhận Node, pnpm, Git và ranh giới repository.
-2. `verify:all` chạy Core, Guardian, Benchmark, Examples và kiểm tra source pins.
+2. `verify:all` chạy Core, Guardian, Benchmark, MCP, Examples và kiểm tra source pins.
 3. Demo trả về PASS, BLOCK, REVIEW và `3/3 scenarios matched ground truth`.
 
 Nếu thất bại, lưu nguyên command, exit code và output liên quan vào task onboarding;
@@ -115,8 +115,10 @@ Ngoại lệ phân công hiện tại: `SLR-REV-101` thuộc Trần Minh Hoàng;
 không cần Hà Hoàng Bách approve. Hoàng chỉ được ký với tư cách Independent SLR
 Reviewer khi Hoàng không phải tác giả của protocol được review.
 
-`archsync-mcp` chỉ là boundary tài liệu cho đến khi contract Phase 4 được freeze.
-Paper chỉ báo cáo Phase 1--3; Code--IaC--Runtime--AI chưa được viết như kết quả.
+`archsync-mcp` có local adapter dựa trên exact package Core/Guardian nhưng vẫn là
+technical foundation chưa được chấp thuận: provider và quyền phê duyệt của con
+người mặc định bị đóng. Paper chỉ báo cáo Phase 1--3; Code--IaC--Runtime--AI chưa
+được viết như kết quả.
 
 ## 8. Điều kiện hoàn tất onboarding
 

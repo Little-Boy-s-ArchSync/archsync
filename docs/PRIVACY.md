@@ -14,6 +14,11 @@ There is no opt-out telemetry because the current CLI sends no product telemetry
 Future telemetry/provider work is opt-in and blocked until its separate security
 and research protocol is approved.
 
+Repair-candidate test commands may run only through a caller-selected isolation
+policy whose mechanism is explicitly approved and available. The verifier fails
+closed when that boundary is missing; it must not silently fall back to an
+unisolated host process.
+
 ## Data and logs
 
 Inputs remain in the selected workspace. Diagnostics may contain repository paths,

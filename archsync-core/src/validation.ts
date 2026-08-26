@@ -9,12 +9,20 @@ import { parseDocument } from "yaml";
 
 import type {
   ArchitectureDocument,
+  QualityGoalV02,
   ValidationIssue,
   ValidationResult,
 } from "./model.js";
+import {
+  ARCHITECTURE_CONTRACT_CURRENT_VERSION,
+  ARCHITECTURE_CONTRACT_PREVIOUS_VERSION,
+  unsupportedArchitectureContractVersionMessage,
+} from "./versions.js";
 
 const schemaUrl = new URL("../specs/architecture.schema.json", import.meta.url);
+const qualityGoalSchemaUrl = new URL("../specs/quality-goal.schema.json", import.meta.url);
 let validatorPromise: Promise<ValidateFunction<ArchitectureDocument>> | undefined;
+let qualityGoalValidatorPromise: Promise<ValidateFunction<QualityGoalV02>> | undefined;
 
 export function formatSchemaIssue(error: ErrorObject): ValidationIssue {
   const property = "missingProperty" in error.params
@@ -40,11 +48,39 @@ export function formatSchemaIssue(error: ErrorObject): ValidationIssue {
 async function getValidator(): Promise<ValidateFunction<ArchitectureDocument>> {
   validatorPromise ??= (async () => {
     const schema = JSON.parse(await readFile(fileURLToPath(schemaUrl), "utf8")) as object;
+    const qualityGoalSchema = JSON.parse(
+      await readFile(fileURLToPath(qualityGoalSchemaUrl), "utf8"),
+    ) as object;
     const ajv = new Ajv2020({ allErrors: true, strict: true });
+    ajv.addSchema(qualityGoalSchema);
     return ajv.compile<ArchitectureDocument>(schema);
   })();
 
   return validatorPromise;
+}
+
+async function getQualityGoalValidator(): Promise<ValidateFunction<QualityGoalV02>> {
+  qualityGoalValidatorPromise ??= (async () => {
+    const schema = JSON.parse(
+      await readFile(fileURLToPath(qualityGoalSchemaUrl), "utf8"),
+    ) as object;
+    return new Ajv2020({ allErrors: true, strict: true }).compile<QualityGoalV02>(schema);
+  })();
+
+  return qualityGoalValidatorPromise;
+}
+
+export async function validateQualityGoal(
+  value: unknown,
+): Promise<ValidationResult<QualityGoalV02>> {
+  const validate = await getQualityGoalValidator();
+  if (!validate(value)) {
+    return {
+      valid: false,
+      issues: validate.errors!.map(formatSchemaIssue),
+    };
+  }
+  return { valid: true, value, issues: [] };
 }
 
 function isExactSelector(selector: string): boolean {
@@ -187,6 +223,18 @@ export async function parseArchitecture(
   }
 
   const value = yaml.toJS() as unknown;
+  const version = (value as { version?: unknown } | null)?.version;
+  const unsupportedVersion = unsupportedArchitectureContractVersionMessage(version);
+  if (unsupportedVersion) {
+    return {
+      valid: false,
+      issues: [{
+        path: "/version",
+        message: unsupportedVersion,
+        keyword: "version",
+      }],
+    };
+  }
   const validate = await getValidator();
 
   if (!validate(value)) {
@@ -236,6 +284,9 @@ function formatValidationPath(path: string): string {
 }
 
 function validationFix(issue: ValidationIssue): string {
+  if (issue.keyword === "version") {
+    return `Use architecture contract ${ARCHITECTURE_CONTRACT_CURRENT_VERSION}, migrate from ${ARCHITECTURE_CONTRACT_PREVIOUS_VERSION}, or follow docs/migrations/core-contracts-0.1.0-to-0.1.1.md.`;
+  }
   const unknownComponent = issue.message.match(/Unknown component '([^']+)'/);
   if (unknownComponent) {
     return `Add '${unknownComponent[1]}' under components, or change this reference to an existing component.`;

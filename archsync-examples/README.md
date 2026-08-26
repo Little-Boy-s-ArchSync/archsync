@@ -1,5 +1,7 @@
 # ArchSync Examples
 
+Every pull request has an independent `generated views and contracts` status check. CI verifies the SHA-bound vendored Core package, regenerates every Mermaid/draw.io view and conformance report, validates all models, and fails if committed output is stale. The vendored package avoids personal credentials or cross-repository private tokens; its exact source commit and SHA-256 live in `vendor/manifest.json`.
+
 Ready-to-read Architecture Model examples and team-facing documentation for ArchSync.
 
 The Vietnamese team roadmap is available at [`docs/roadmap/ArchSync_Roadmap.pdf`](docs/roadmap/ArchSync_Roadmap.pdf). It reflects the approved five-repository structure.

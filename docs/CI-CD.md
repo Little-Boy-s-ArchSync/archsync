@@ -26,12 +26,13 @@ Trình tự bắt buộc:
 
 1. Checkout monorepo.
 2. Cài root lockfile.
-3. `pnpm run bootstrap` cho bốn package thực thi.
+3. `pnpm run bootstrap` cho cả năm package thực thi.
 4. `pnpm run doctor` kiểm tra toolchain và CLI build.
 5. `pnpm run verify:all` kiểm tra source pins và mọi gate.
 6. `pnpm run demo` tái hiện PASS, BLOCK và REVIEW.
 7. `git diff --exit-code` đảm bảo build hoặc verifier không làm source bị stale.
-8. Upload evidence Core, Guardian và Benchmark.
+8. Upload evidence Core, Guardian, Benchmark (gồm EVAL-102 candidate validation)
+   và MCP.
 
 `verify:all` còn chạy contract tests, policy-document verifier và tracked-secret
 scan. Mọi third-party action được pin bằng full commit SHA; artifact evidence có
@@ -44,8 +45,8 @@ Gate component được giữ nguyên:
 | Core | `pnpm phase1:verify` | 3 hệ điều hành |
 | Guardian | `pnpm phase3:verify` | 3 hệ điều hành |
 | Benchmark | `pnpm verify` | 3 hệ điều hành |
-| Examples | `pnpm verify` | được bổ sung bởi monorepo CI |
-| MCP | kiểm tra boundary tài liệu | được bổ sung bởi monorepo CI |
+| MCP | `pnpm verify` | Ubuntu và được lặp lại trên 3 hệ điều hành bởi monorepo CI |
+| Examples | `pnpm verify` | Ubuntu và được lặp lại trên 3 hệ điều hành bởi monorepo CI |
 
 ## Continuous Delivery
 
@@ -73,7 +74,7 @@ Chi tiết gate, SemVer và rollback nằm trong `docs/SUPPLY-CHAIN.md` và
 
 ## Đồng bộ với các repository độc lập
 
-Ba repository Core, Guardian và Benchmark vẫn chạy CI riêng. Monorepo CI không
-thay thế chúng; nó bổ sung kiểm tra integration. `repos.lock.json` cùng lịch sử
-`git subtree` chứng minh chính xác commit nào đã được nhập. Xem
+Các repository độc lập vẫn giữ CI và boundary riêng. Monorepo CI không thay thế
+chúng; nó bổ sung kiểm tra integration của cả năm source pin. `repos.lock.json`
+cùng lịch sử `git subtree` chứng minh chính xác commit nào đã được nhập. Xem
 `docs/REPOSITORY-SYNC.md` để cập nhật source.

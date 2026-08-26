@@ -25,9 +25,9 @@ pnpm install --frozen-lockfile
 pnpm run bootstrap
 ```
 
-`bootstrap` cài từng lockfile độc lập theo thứ tự Core, Guardian, Benchmark và
-Examples, sau đó build Core và Guardian. MCP hiện là boundary tài liệu nên không
-có dependency để cài.
+`bootstrap` cài từng lockfile độc lập theo thứ tự Core, Guardian, Benchmark, MCP
+và Examples, sau đó build Core và Guardian. MCP dùng exact package tarball đã pin
+và giữ provider cùng quyền human approval ở trạng thái mặc định bị đóng.
 
 ## 3. Kiểm tra máy và source
 
@@ -100,4 +100,3 @@ mở terminal mới, rồi chạy `pnpm run cli:install`.
 ### `pnpm doctor` hiện cảnh báo global bin
 
 Đây là pnpm Doctor. Dùng `pnpm run doctor` để chạy ArchSync Monorepo Doctor.
-

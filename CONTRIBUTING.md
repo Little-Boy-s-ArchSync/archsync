@@ -55,8 +55,8 @@ generation command và verifier.
 - `archsync-guardian`: source analyzer, Finding Contract, Git-diff gate và CLI.
 - `archsync-benchmark`: ground truth, datasets, evaluation và evidence manifests.
 - `archsync-examples`: models và generated views tái sinh được.
-- `archsync-mcp`: thin adapter sau khi contract Phase 4 ổn định; không sao chép
-  Core/Guardian logic.
+- `archsync-mcp`: thin local adapter dùng exact package Core/Guardian; không sao
+  chép logic và không mở provider hoặc quyền human approval mặc định.
 
 Thay đổi cross-repository phải cập nhật repository nguồn trước, chạy gate riêng,
 merge, rồi import commit đã kiểm chứng vào monorepo bằng quy trình trong

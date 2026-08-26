@@ -31,6 +31,12 @@ PASS, BLOCK, and REVIEW.
   benchmark scope; performance/generalization outside it is not yet claimed.
 - Phase 4 AI explanations/repairs, Phase 5 IaC, Phase 6 runtime evidence, and the
   independent D3 holdout are not stable product capabilities.
+- The EVAL-102 candidate inventory and ANALYSIS-101 notebook are validated
+  preparation artifacts, not sampled repositories, frozen ground truth, executed
+  measurements, or research results.
+- Repair test execution requires an explicitly approved filesystem-isolation
+  mechanism. Importing the Guardian foundation does not grant sandbox authority
+  or make an unavailable isolation mechanism safe.
 - ArchSync does not auto-merge, auto-approve evolution, or update the architecture
   baseline from an AI/provider response.
 
