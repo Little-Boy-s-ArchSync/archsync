@@ -31,17 +31,12 @@ accountable reviewer or satisfy an independence requirement.
 
 ## Independent review boundary
 
-`an1dee3301` may prepare and operate the complete technical workflow for an
-independent-review task. The resulting approval must still be attributed to the
-person who actually reviewed the exact evidence and commit:
-
-- if Ha Hoang Bach is the Independent SLR Reviewer, Bach must verify and sign or
-  approve the exact commit through the governed attestation workflow;
-- if Tran Minh Hoang is formally reassigned as the reviewer, the record must
-  name Hoang and confirm that he is not an author of the protocol being
-  reviewed; and
-- the repository must never claim that Bach reviewed work based only on
-  commits, pull requests, or automation produced by `an1dee3301`.
+`SLR-REV-101` is formally assigned to Tran Minh Hoang. `an1dee3301` may prepare
+and operate the complete technical workflow, and Ha Hoang Bach approval is not
+required for this task. The signed record must name Hoang, bind his ORCID and
+operator login, and affirm that he is not an author of the protocol being
+reviewed. If that non-author condition is false, another eligible reviewer must
+be assigned before the task can satisfy its Definition of Done.
 
 Real evidence, reviewer independence, key ownership, and final approval remain
 subject to the task Definition of Done and research evidence policy.
