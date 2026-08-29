@@ -14,12 +14,33 @@ const requiredMarkers = new Map([
   ["docs/UPGRADE.md", ["# Upgrade and Downgrade Guide", "## Upgrade from the previous release", "## Downgrade"]],
   ["docs/PRIVACY.md", ["# Offline, Privacy, and Diagnostic Contract", "## Network behavior", "## Temporary files and retention"]],
   ["docs/RESEARCH-RELEASE.md", ["# REL-102 Research Release Dry-Run", "## Required immutable inputs", "## Fail-closed execution", "## Human gates preserved"]],
+  ["docs/GOVERNANCE.md", ["# ArchSync Repository and Research Governance", "## Trạng thái enforcement", "strict", "most recent reviewable push", "administrator", "CODEOWNERS review", "## Holiday-safe autonomous preparation", "PENDING_HUMAN"]],
+  ["docs/RACI-REVIEWER-MATRIX.md", ["# RACI and Reviewer Matrix Proposal (GOV-104)", "## Decision and reviewer matrix", "Research question (RQ) or research protocol", "Architecture Model schema or semantics", "Ground truth, adjudication or freeze", "Hard rule, conformance decision or merge severity", "Repair proposal or repair execution", "High-risk architecture evolution or baseline update", "Empirical paper claim or claim-to-evidence link", "Product or research release", "UNASSIGNED", "UNFILLED"]],
+  [".github/PULL_REQUEST_TEMPLATE.md", ["## Governance", "Risk level: low / medium / high", "PENDING_HUMAN", "Approval reference bound to this exact candidate", "Rollback trigger"]],
 ]);
 
 for (const [file, markers] of requiredMarkers) {
   const text = await readFile(join(root, file), "utf8");
   for (const marker of markers) {
     if (!text.includes(marker)) throw new Error(`${file} is missing required policy marker '${marker}'`);
+  }
+}
+
+const activeRepositoryGuidance = await Promise.all(
+  ["README.md", "CONTRIBUTING.md", "docs/GOVERNANCE.md", "docs/ONBOARDING.md"].map(async (file) => ({
+    file,
+    text: await readFile(join(root, file), "utf8"),
+  })),
+);
+const obsoleteEnforcementClaims = [
+  "Các repository đang private",
+  "private repository theo gói đang dùng",
+  "GitHub chưa hỗ trợ branch protection",
+  "GitHub hiện không cưỡng chế branch protection",
+];
+for (const { file, text } of activeRepositoryGuidance) {
+  for (const claim of obsoleteEnforcementClaims) {
+    if (text.includes(claim)) throw new Error(`${file} contains obsolete enforcement claim '${claim}'`);
   }
 }
 

@@ -6,7 +6,8 @@ Tài liệu này là Day 0 gate trước khi thành viên nhận task chính th�
 
 Thành viên cần:
 
-- quyền truy cập organization `Little-Boy-s-ArchSync` và các private repository;
+- quyền truy cập organization `Little-Boy-s-ArchSync` và các repository cần cho
+  task được giao;
 - Git;
 - Node.js 22 trở lên;
 - Corepack và pnpm 11.16.0;
