@@ -27,9 +27,10 @@ Provider được chấp nhận là GitHub Actions hoặc clean local verificati
 theo `docs/LOCAL-VERIFICATION.md`. Local bundle chỉ thay nơi chạy test; nó không
 thay reviewer, approval hoặc evidence nghiệp vụ được yêu cầu riêng.
 
-GitHub hiện không cưỡng chế branch protection cho private repository theo gói
-đang dùng. Quy tắc trên là compensating control bắt buộc của nhóm, không phải
-khuyến nghị tùy chọn.
+Branch `main` hiện có required pull request, strict status checks, review và
+conversation controls trên toàn bộ bảy repository; `docs/GOVERNANCE.md` ghi exact
+verified state. Host enforcement không thay explicit research approval, reviewer
+độc lập, evidence hoặc chữ ký mà task yêu cầu.
 
 ## Evidence trước trạng thái Done
 
