@@ -45,8 +45,8 @@ Trước khi nhận task đầu tiên, mỗi thành viên phải hoàn tất
 pnpm run onboard:verify
 ```
 
-Quy trình branch, pull request, evidence và phương án kiểm soát thủ công khi
-GitHub chưa hỗ trợ branch protection được định nghĩa trong
+Trạng thái branch protection đã kiểm tra, quy trình pull request, evidence và
+các human/research gate bổ sung được định nghĩa trong
 [`CONTRIBUTING.md`](CONTRIBUTING.md) và [`docs/GOVERNANCE.md`](docs/GOVERNANCE.md).
 
 ## Cài CLI `archsync`
