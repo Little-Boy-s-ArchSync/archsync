@@ -8,17 +8,20 @@ const [governance, raci, pullRequestTemplate] = await Promise.all([
   readFile(new URL("../../.github/PULL_REQUEST_TEMPLATE.md", import.meta.url), "utf8"),
 ]);
 
-test("active governance keeps GOV-103 source-first and the current runtime gate fail-closed", () => {
+test("active governance records the completed source-first GOV-103 closure", () => {
   assert.match(governance, /ADR nguồn trong repository độc lập `archsync-core`/);
-  assert.match(governance, /không\s+được tạo một policy song song trong umbrella/);
-  assert.match(governance, /Policy checkpoint P đã được\s+review, merge tại `archsync-core@cb1fd46df8d2c94d77a518e07fb023ad7b80329e`/);
-  assert.match(governance, /nhập vào monorepo bằng source pin cùng commit/);
-  assert.match(governance, /Policy vẫn \*\*Proposed\*\*/);
-  assert.match(governance, /chuỗi P < E < C/);
-  assert.match(governance, /[Cc]ác quy tắc hiện hành trong tài liệu này vẫn\s+là authority/);
-  assert.match(governance, /chưa có approval evidence\s+E hoặc closure record C/);
-  assert.match(governance, /`gov103_satisfied` phải giữ\s+`null`/);
-  assert.match(governance, /E và\s+C được review, merge vào Core theo đúng thứ tự rồi nhập lại vào monorepo/);
+  assert.match(governance, /[Kk]hông\s+được tạo policy song song trong umbrella/);
+  assert.match(governance, /hoàn\s+tất chuỗi bất biến P < E < C/);
+  assert.match(governance, /ff7b47f7bf17f3d820941522b13032445e612773/);
+  assert.match(governance, /ad8091080fd54ae316113e09b02ab032e77fc1ac/);
+  assert.match(governance, /c615d97c0d2bcf021e8f30f6d27b231ef285d80d/);
+  assert.match(governance, /archsync-core@f7b145df7c4cc8c03b6b7449c12cfc5438c975db/);
+  assert.match(governance, /Lê Văn Kiệt đã review độc lập/);
+  assert.match(governance, /Võ Đức Hiếu chấp nhận với vai trò Repository Lead/);
+  assert.match(governance, /Core post-merge CI `34594975452` pass/);
+  assert.match(governance, /File ADR nguồn vẫn giữ nhãn `Proposed` để bảo toàn bytes tại P/);
+  assert.match(governance, /`gov103_satisfied` trong template phải giữ `null`/);
+  assert.match(governance, /toàn bộ bảy gate còn lại/);
 });
 
 test("GOV-104 covers every requested decision and keeps unsupported identities open", () => {
