@@ -65,14 +65,21 @@ operator, accountable person và independent verifier nằm trong
   và rollback trước merge.
 
 `GOV-103` yêu cầu một ADR nguồn trong repository độc lập `archsync-core`, approval
-matrix và human acceptance bind đúng candidate. Policy checkpoint P đã được
-review, merge tại `archsync-core@cb1fd46df8d2c94d77a518e07fb023ad7b80329e`
-và nhập vào monorepo bằng source pin cùng commit. Policy vẫn **Proposed**: chưa có
-approval-evidence checkpoint E hoặc closure-record checkpoint C, vì vậy không
-được tạo một policy song song trong umbrella hay coi việc import là human
-acceptance. Các quy tắc hiện hành trong tài liệu này vẫn là authority cho tới khi
-chuỗi P < E < C được hoàn tất và bản pin sau đó được đồng bộ theo
-[`REPOSITORY-SYNC.md`](REPOSITORY-SYNC.md). RACI/reviewer mapping được chuẩn bị
+matrix và human acceptance bind đúng candidate. Revision `GOV-103-r1` đã hoàn
+tất chuỗi bất biến P < E < C trên Core protected `main`: P
+`ff7b47f7bf17f3d820941522b13032445e612773`, E
+`ad8091080fd54ae316113e09b02ab032e77fc1ac` và C
+`c615d97c0d2bcf021e8f30f6d27b231ef285d80d`. Lê Văn Kiệt đã review độc lập
+exact policy bytes rồi Võ Đức Hiếu chấp nhận với vai trò Repository Lead; closure
+PR #7 được Kiệt approve tại exact head và Core post-merge CI `34594975452` pass
+trên Windows, macOS và Ubuntu. Bản Core chứa closure được pin tại
+`archsync-core@f7b145df7c4cc8c03b6b7449c12cfc5438c975db`.
+
+File ADR nguồn vẫn giữ nhãn `Proposed` để bảo toàn bytes tại P; trạng thái hiệu
+lực được ghi bằng evidence và closure append-only, không bằng cách sửa ngược ADR.
+Imported-snapshot verifier chỉ xác minh schema, digest, binding và source pin;
+review của con người vẫn là bằng chứng riêng, không được suy diễn từ CI. Không
+được tạo policy song song trong umbrella. RACI/reviewer mapping được chuẩn bị
 trong [`RACI-REVIEWER-MATRIX.md`](RACI-REVIEWER-MATRIX.md) và chưa được coi là
 accepted `GOV-104`.
 
@@ -103,11 +110,12 @@ human decision còn thiếu. Việc chuẩn bị packet không đổi task sang 
 - Phase 4: AI chỉ giải thích/đề xuất; deterministic engine quyết định. Provider
   run cần security sign-off và frozen protocol.
 - Phase 5: model/code/IaC conflict phải giữ provenance từng nguồn và Unknown.
-- Phase 6: runtime evidence không tự approve high-risk evolution. Gate hiện tại
-  trên source pin đã có schema và verifier GOV-103 nhưng chưa có approval evidence
-  E hoặc closure record C để xác minh human acceptance; vì vậy
-  `gov103_satisfied` phải giữ `null` và Phase 6 giữ `PREPARATORY` cho tới khi E và
-  C được review, merge vào Core theo đúng thứ tự rồi nhập lại vào monorepo.
+- Phase 6: runtime evidence không tự approve high-risk evolution. Điều kiện
+  policy `GOV-103` đã được đóng bằng P < E < C và nhập lại từ Core. Tuy nhiên,
+  `runtime/evidence/closure.template.json` vẫn là template chuẩn bị, nên
+  `gov103_satisfied` trong template phải giữ `null`; mỗi runtime candidate chỉ
+  được điền một bản sao đã xác minh của closure khi toàn bộ bảy gate còn lại cũng
+  có evidence thật và human decision tương ứng.
 - Phase 7: mọi claim phải truy về frozen evidence bundle và independent rerun.
 
 ## Rà soát
