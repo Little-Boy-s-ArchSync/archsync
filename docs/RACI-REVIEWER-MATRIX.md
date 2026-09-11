@@ -33,11 +33,15 @@ not invent that mapping.
 
 ## Decision and reviewer matrix
 
-The current risk level is determined by [`GOVERNANCE.md`](GOVERNANCE.md). The
-source `GOV-103` ADR remains a pending dependency and may refine this matrix only
-after its independent Core change is reviewed, merged and imported. A
-conditional row has one Accountable role only after its actual risk is
-classified.
+The current risk level is determined by [`GOVERNANCE.md`](GOVERNANCE.md).
+The source `GOV-103-r1` policy has completed its independent review, Repository
+Lead acceptance and append-only closure in Core, and the accepted source is
+imported at `archsync-core@f7b145df7c4cc8c03b6b7449c12cfc5438c975db`.
+The immutable P < E < C evidence is recorded in the governance document; the
+source ADR retains its original `Proposed` text to preserve the reviewed bytes.
+That completed dependency does not accept this `GOV-104` matrix, assign its open
+reviewer slots or fill its separate acceptance record. A conditional row has
+one Accountable role only after its actual risk is classified.
 
 The rows are cumulative with active governance and task-specific Definitions of
 Done. In particular, every medium-risk path still requires Repository Lead
