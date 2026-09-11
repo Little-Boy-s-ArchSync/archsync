@@ -65,13 +65,16 @@ operator, accountable person và independent verifier nằm trong
   và rollback trước merge.
 
 `GOV-103` yêu cầu một ADR nguồn trong repository độc lập `archsync-core`, approval
-matrix và human acceptance bind đúng candidate. ADR đó chưa được merge/import;
-không được tạo một policy song song trong umbrella để vượt quy trình source-first
-của [`REPOSITORY-SYNC.md`](REPOSITORY-SYNC.md). Cho tới khi source PR được review,
-merge và subtree pin được cập nhật, các quy tắc hiện hành trong tài liệu này vẫn
-là authority. RACI/reviewer mapping được chuẩn bị trong
-[`RACI-REVIEWER-MATRIX.md`](RACI-REVIEWER-MATRIX.md) và chưa được coi là accepted
-`GOV-104`.
+matrix và human acceptance bind đúng candidate. Policy checkpoint P đã được
+review, merge tại `archsync-core@cb1fd46df8d2c94d77a518e07fb023ad7b80329e`
+và nhập vào monorepo bằng source pin cùng commit. Policy vẫn **Proposed**: chưa có
+approval-evidence checkpoint E hoặc closure-record checkpoint C, vì vậy không
+được tạo một policy song song trong umbrella hay coi việc import là human
+acceptance. Các quy tắc hiện hành trong tài liệu này vẫn là authority cho tới khi
+chuỗi P < E < C được hoàn tất và bản pin sau đó được đồng bộ theo
+[`REPOSITORY-SYNC.md`](REPOSITORY-SYNC.md). RACI/reviewer mapping được chuẩn bị
+trong [`RACI-REVIEWER-MATRIX.md`](RACI-REVIEWER-MATRIX.md) và chưa được coi là
+accepted `GOV-104`.
 
 ## Holiday-safe autonomous preparation
 
@@ -101,10 +104,10 @@ human decision còn thiếu. Việc chuẩn bị packet không đổi task sang 
   run cần security sign-off và frozen protocol.
 - Phase 5: model/code/IaC conflict phải giữ provenance từng nguồn và Unknown.
 - Phase 6: runtime evidence không tự approve high-risk evolution. Gate hiện tại
-  trên source pin chỉ kiểm tra cờ completion và digest, chưa đủ xác minh một
-  human acceptance record của `GOV-103`; vì vậy `gov103_satisfied` phải giữ
-  `null` và Phase 6 giữ `PREPARATORY` cho tới khi source contract mạnh hơn được
-  review, merge và import.
+  trên source pin đã có schema và verifier GOV-103 nhưng chưa có approval evidence
+  E hoặc closure record C để xác minh human acceptance; vì vậy
+  `gov103_satisfied` phải giữ `null` và Phase 6 giữ `PREPARATORY` cho tới khi E và
+  C được review, merge vào Core theo đúng thứ tự rồi nhập lại vào monorepo.
 - Phase 7: mọi claim phải truy về frozen evidence bundle và independent rerun.
 
 ## Rà soát

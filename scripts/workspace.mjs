@@ -44,6 +44,34 @@ function runNode(args) {
   if (result.status !== 0) process.exit(result.status ?? 1);
 }
 
+async function verifyImportedCore() {
+  const manifest = JSON.parse(await readFile(join(root, "archsync-core", "package.json"), "utf8"));
+  const expected = [
+    "pnpm typecheck",
+    "pnpm test:coverage",
+    "pnpm validate:fixtures",
+    "pnpm build",
+    "pnpm compatibility:verify",
+    "pnpm cli:smoke",
+    "pnpm governance:verify",
+    "pnpm evidence:verify",
+  ];
+  const declared = manifest.scripts?.["phase1:verify"]?.split(/\s*&&\s*/u);
+  if (JSON.stringify(declared) !== JSON.stringify(expected)) {
+    throw new Error("Core phase1:verify changed; update the imported verification adapter before continuing");
+  }
+
+  for (const command of declared) {
+    const script = command.replace(/^pnpm\s+/u, "");
+    if (script === "governance:verify") {
+      runPnpm("archsync-core", ["exec", "node", "--test", "scripts/architecture-change-policy.node-tests.mjs"]);
+      runNode(["scripts/verify-imported-core-governance.mjs"]);
+    } else {
+      runPnpm("archsync-core", [script]);
+    }
+  }
+}
+
 async function packRelease() {
   const release = join(root, "release");
   if (dirname(release) !== root || basename(release) !== "release") {
@@ -80,7 +108,7 @@ if (operation === "bootstrap") {
   runPnpm("archsync-core", ["build"]);
   runPnpm("archsync-guardian", ["build"]);
 } else if (operation === "verify") {
-  runPnpm("archsync-core", ["phase1:verify"]);
+  await verifyImportedCore();
   runPnpm("archsync-guardian", ["phase3:verify"]);
   runPnpm("archsync-benchmark", ["verify"]);
   runPnpm("archsync-mcp", ["verify"]);

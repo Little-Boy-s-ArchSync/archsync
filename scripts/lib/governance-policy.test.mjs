@@ -10,11 +10,15 @@ const [governance, raci, pullRequestTemplate] = await Promise.all([
 
 test("active governance keeps GOV-103 source-first and the current runtime gate fail-closed", () => {
   assert.match(governance, /ADR nguồn trong repository độc lập `archsync-core`/);
-  assert.match(governance, /không được tạo một policy song song trong umbrella/);
-  assert.match(governance, /ADR đó chưa được merge\/import/);
-  assert.match(governance, /các quy tắc hiện hành trong tài liệu này vẫn\s+là authority/);
-  assert.match(governance, /chưa đủ xác minh một\s+human acceptance record của `GOV-103`/);
+  assert.match(governance, /không\s+được tạo một policy song song trong umbrella/);
+  assert.match(governance, /Policy checkpoint P đã được\s+review, merge tại `archsync-core@cb1fd46df8d2c94d77a518e07fb023ad7b80329e`/);
+  assert.match(governance, /nhập vào monorepo bằng source pin cùng commit/);
+  assert.match(governance, /Policy vẫn \*\*Proposed\*\*/);
+  assert.match(governance, /chuỗi P < E < C/);
+  assert.match(governance, /[Cc]ác quy tắc hiện hành trong tài liệu này vẫn\s+là authority/);
+  assert.match(governance, /chưa có approval evidence\s+E hoặc closure record C/);
   assert.match(governance, /`gov103_satisfied` phải giữ\s+`null`/);
+  assert.match(governance, /E và\s+C được review, merge vào Core theo đúng thứ tự rồi nhập lại vào monorepo/);
 });
 
 test("GOV-104 covers every requested decision and keeps unsupported identities open", () => {
