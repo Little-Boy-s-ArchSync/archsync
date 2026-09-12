@@ -19,7 +19,8 @@ import {
 import { main, verifyResearchReleaseArtifacts } from "../research-release-dry-run.mjs";
 
 const COMMIT = "a".repeat(40);
-const EVIDENCE = "e".repeat(64);
+const PROOF_BYTES = Buffer.from("Test-only combined validator and reviewer receipt; not real research evidence.\n");
+const EVIDENCE = sha256(PROOF_BYTES);
 
 const artifactValues = {
   "p7-results": { task_id: "P7-101", status: "approved-release-evidence" },
@@ -60,6 +61,8 @@ const artifactValues = {
 async function createFixture() {
   const root = await mkdtemp(join(tmpdir(), "archsync-rel102-"));
   await mkdir(join(root, "inputs"), { recursive: true });
+  await mkdir(join(root, "artifacts/research-release/evidence"), { recursive: true });
+  await writeFile(join(root, `artifacts/research-release/evidence/${EVIDENCE}`), PROOF_BYTES);
   const artifacts = [];
   for (const [id, kind] of REQUIRED_RESEARCH_ARTIFACTS) {
     const value = artifactValues[id];
@@ -144,6 +147,74 @@ test("rejects missing results, verification, approvals and formal candidate iden
     "verification must contain exactly 8",
     "approvals must contain exactly 4",
   ]) assert.match(issues, new RegExp(expected, "u"));
+});
+
+test("requires retained bytes for every validator and approval evidence digest", async () => {
+  for (const group of ["verification", "approvals"]) {
+    const { root, manifest } = await createFixture();
+    const digest = sha256(Buffer.from(`Missing ${group} receipt`));
+    manifest[group][0].evidence_sha256 = digest;
+    assert.deepEqual(validateResearchReleaseManifest(manifest), []);
+    await assert.rejects(() => verifyResearchReleaseArtifacts(manifest, root), /ENOENT/u);
+
+    await writeFile(join(root, `artifacts/research-release/evidence/${digest}`), "Different receipt bytes");
+    await assert.rejects(() => verifyResearchReleaseArtifacts(manifest, root), /evidence.*SHA-256 mismatch/u);
+  }
+});
+
+test("rejects empty, non-regular and symbolic evidence blobs", async () => {
+  const empty = await createFixture();
+  const digest = sha256(Buffer.alloc(0));
+  empty.manifest.approvals[0].evidence_sha256 = digest;
+  await writeFile(join(empty.root, `artifacts/research-release/evidence/${digest}`), "");
+  await assert.rejects(() => verifyResearchReleaseArtifacts(empty.manifest, empty.root), /evidence.*empty/u);
+
+  const directory = await createFixture();
+  const target = join(directory.root, `artifacts/research-release/evidence/${EVIDENCE}`);
+  await unlink(target);
+  await mkdir(target);
+  await assert.rejects(() => verifyResearchReleaseArtifacts(directory.manifest, directory.root), /regular file/u);
+
+  const linked = await createFixture();
+  const link = join(linked.root, `artifacts/research-release/evidence/${EVIDENCE}`);
+  const original = join(linked.root, "original-proof");
+  await writeFile(original, PROOF_BYTES);
+  await unlink(link);
+  try {
+    await symlink(original, link, "file");
+  } catch (error) {
+    if (process.platform === "win32" && ["EPERM", "EACCES"].includes(error.code)) return;
+    throw error;
+  }
+  await assert.rejects(() => verifyResearchReleaseArtifacts(linked.manifest, linked.root), /symbolic links are forbidden/u);
+});
+
+test("captures candidate identity before asynchronous evidence reads", async () => {
+  const { root, manifest } = await createFixture();
+  const original = structuredClone(manifest);
+  const pending = verifyResearchReleaseArtifacts(manifest, root);
+  manifest.source_commit = "b".repeat(40);
+  manifest.approvals[0].actor = "Changed after verification began";
+  manifest.verification[0].validator_commit = "c".repeat(40);
+  const log = await pending;
+  assert.equal(canonicalJson(log), canonicalJson(buildResearchReleaseVerificationLog(original)));
+});
+
+test("CLI never writes a candidate log when a receipt is absent", async () => {
+  const { root } = await createFixture();
+  await unlink(join(root, `artifacts/research-release/evidence/${EVIDENCE}`));
+  let exitCode = 0;
+  const output = [];
+  await main({
+    args: ["check", "candidate.json", "--write-log", "artifacts/research-release/no-proof.json"],
+    root,
+    log: (value) => output.push(value),
+    error: () => {},
+    setExitCode: (value) => { exitCode = value; },
+  });
+  assert.equal(exitCode, 1);
+  assert.deepEqual(output, []);
+  await assert.rejects(() => readFile(join(root, "artifacts/research-release/no-proof.json")), /ENOENT/u);
 });
 
 test("enforces exact ordering, hashes and independent reproduction", async () => {
@@ -306,7 +377,7 @@ test("CLI rejects symbolic template, manifest and verification-log parents", asy
 
   await mkdir(join(root, "redirected-output"));
   try {
-    await symlink(join(root, "redirected-output"), join(root, "artifacts"), "dir");
+    await symlink(join(root, "redirected-output"), join(root, "artifacts/research-release/output-link"), "dir");
   } catch (error) {
     if (process.platform === "win32" && ["EPERM", "EACCES"].includes(error.code)) return;
     throw error;
@@ -314,7 +385,7 @@ test("CLI rejects symbolic template, manifest and verification-log parents", asy
   const errors = [];
   let exitCode = 0;
   await main({
-    args: ["check", "candidate.json", "--write-log", "artifacts/research-release/verification.json"],
+    args: ["check", "candidate.json", "--write-log", "artifacts/research-release/output-link/verification.json"],
     root,
     log: () => {},
     error: (value) => errors.push(value),

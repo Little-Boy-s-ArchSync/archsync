@@ -40,6 +40,25 @@ Four named human approvals are required: P7 owner, research-release owner,
 independent reproducer, and Lead. The independent reproducer must differ from
 the recorded result producer. These records are never synthesized by the tool.
 
+Retain the original bytes referenced by every validator and approval
+`evidence_sha256` at
+`artifacts/research-release/evidence/<64-character-sha256>` (no extension).
+The checker requires a nonempty regular file, rejects symbolic links and path
+escape, and verifies its exact digest before emitting a candidate log. A shared
+receipt containing several governed records may be referenced more than once;
+its bytes are checked once. A digest string without its retained evidence file
+is insufficient. Keep the original file format and bytes; do not generate
+placeholder approvals or substitute a summary for its source receipt.
+
+Evidence-byte verification proves correspondence to supplied digest pins. It
+does not authenticate a human identity, verify a validator's execution, inspect
+the receipt's meaning or replace independent review of the original source.
+Use an owner-controlled, quiescent staging directory during the check; path
+checks do not provide atomic confinement against a concurrent hostile process
+replacing ancestor directories. The checker snapshots the candidate manifest
+before asynchronous reads so later caller mutations cannot change its output
+identity or recorded decisions.
+
 ## Fail-closed execution
 
 CI runs the following safe preparatory check on every operating system and in
@@ -63,7 +82,8 @@ The checker rejects missing or extra records, placeholders, malformed versions
 or timestamps, reordered contracts, duplicate identities, unsafe/absolute
 paths, symbolic links, path escape, non-regular files, digest mismatch,
 provisional or empty result artifacts, self-reproduction, incomplete checks,
-and missing approvals. The output uses exclusive creation and cannot overwrite
+missing approvals, and missing, empty or altered validator/approval evidence
+bytes. The output uses exclusive creation and cannot overwrite
 an existing verification log. It is deterministic for the same manifest and
 input bytes.
 
