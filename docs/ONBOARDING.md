@@ -102,19 +102,35 @@ kỹ thuật có rủi ro.
 
 ## 7. Phân công chính
 
-- Hiếu: research scope, RQ/protocol, architecture approval, paper và final merge.
-- Thành viên 1: CLI/release, reproducibility environment, security và MCP sau P4.
-- Thành viên 2: AI contracts, citation/safety, provider evaluation và human review.
-- Thành viên 3: holdout/evaluation, statistics, IaC/runtime và reproduction.
+Nhóm core có ba thành viên và phân chia cả phần evaluation trước đây thuộc TV3:
+
+- Võ Đức Hiếu: research scope, RQ/protocol, evaluation methodology, governance,
+  architecture approval, paper và final merge;
+- Trần Minh Hoàng: Guardian/AI, data tooling, model/provider evaluation,
+  technical validation và phần implementation của IaC/runtime;
+- Lê Văn Kiệt: Core/CLI/release, dataset verification, independent
+  reproducibility, evaluation execution và release QA.
+
+Hà Hoàng Bách là External Support Consultant, không phải thành viên core, task
+owner, approver mặc định hoặc reviewer bắt buộc. Khi nhóm chủ động nhờ Bách hỗ
+trợ Information Assurance, data hoặc formal analysis, artifact phải ghi đúng
+phạm vi, evidence source và người đã kiểm tra; không được biến hỗ trợ đó thành
+dependency ngầm cho task khác.
+
+Các task evaluation/holdout/statistics/IaC/runtime phải ghi một owner trong ba
+thành viên core. Người tạo exact ground-truth artifact không được là reviewer
+độc lập duy nhất của artifact đó: Hoàng hoặc Kiệt chuẩn bị, người còn lại kiểm
+tra độc lập, và Hiếu phê duyệt gate high-risk. Nếu Hiếu là tác giả exact
+candidate thì Hoàng hoặc Kiệt phải thực hiện non-author review trước approval.
 
 Đây là phân công trách nhiệm, không phải giới hạn tài khoản thao tác. GitHub
-login `an1dee3301` có thể triển khai phần kỹ thuật của cả ba vai trò theo
-`docs/ACCOUNT-DELEGATION.md`; evidence vẫn phải ghi đúng người kiểm tra và người
-chịu trách nhiệm.
+login `an1dee3301` có thể triển khai phần kỹ thuật cho cả ba thành viên core theo
+`docs/ACCOUNT-DELEGATION.md`; evidence vẫn phải ghi đúng operator, người kiểm tra
+và người chịu trách nhiệm.
 
-Ngoại lệ phân công hiện tại: `SLR-REV-101` thuộc Trần Minh Hoàng; nhiệm vụ này
-không cần Hà Hoàng Bách approve. Hoàng chỉ được ký với tư cách Independent SLR
-Reviewer khi Hoàng không phải tác giả của protocol được review.
+Ngoại lệ phân công hiện tại: `SLR-REV-101` thuộc Trần Minh Hoàng; Bách không phải
+approval dependency. Hoàng chỉ được ký với tư cách Independent SLR Reviewer khi
+Hoàng không phải tác giả của protocol được review.
 
 `archsync-mcp` có local adapter dựa trên exact package Core/Guardian nhưng vẫn là
 technical foundation chưa được chấp thuận: provider và quyền phê duyệt của con
