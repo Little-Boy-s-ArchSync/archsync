@@ -2,10 +2,11 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
 
-const [governance, raci, pullRequestTemplate] = await Promise.all([
+const [governance, raci, pullRequestTemplate, codeowners] = await Promise.all([
   readFile(new URL("../../docs/GOVERNANCE.md", import.meta.url), "utf8"),
   readFile(new URL("../../docs/RACI-REVIEWER-MATRIX.md", import.meta.url), "utf8"),
   readFile(new URL("../../.github/PULL_REQUEST_TEMPLATE.md", import.meta.url), "utf8"),
+  readFile(new URL("../../.github/CODEOWNERS", import.meta.url), "utf8"),
 ]);
 
 test("active governance records the completed source-first GOV-103 closure", () => {
@@ -52,6 +53,33 @@ test("GOV-104 covers every requested decision for the three-member core team", (
   assert.match(raci, /No automated process may infer their values/);
   assert.match(raci, /every medium-risk path still requires Repository Lead\s+\(Hiếu\) review/);
   assert.match(raci, /exact producer cannot be the sole independent reviewer/);
+});
+
+test("GOV-104 is enforced by three-member CODEOWNERS without replacing task-specific review", () => {
+  for (const handle of ["@L1nkinPark", "@an1dee3301", "@teikv"]) {
+    assert.ok(codeowners.includes(handle), `missing core-team CODEOWNER: ${handle}`);
+  }
+
+  for (const path of [
+    "*",
+    "/archsync-core/",
+    "/archsync-guardian/",
+    "/archsync-benchmark/",
+    "/archsync-examples/",
+    "/archsync-mcp/",
+    "/repos.lock.json",
+    "/.github/",
+    "/docs/",
+  ]) {
+    const row = codeowners.split("\n").find((line) => line.startsWith(`${path} `));
+    assert.ok(row, `missing CODEOWNERS path: ${path}`);
+    for (const handle of ["@L1nkinPark", "@an1dee3301", "@teikv"]) {
+      assert.ok(row.includes(handle), `${path} is missing CODEOWNER ${handle}`);
+    }
+  }
+
+  assert.match(codeowners, /Task-specific research, security, release and/);
+  assert.match(codeowners, /cannot satisfy those gates/);
 });
 
 test("active governance records the enforced host controls without treating them as research approval", () => {
