@@ -47,11 +47,17 @@ người chịu trách nhiệm.
    như research approval nếu record không bind đúng người, vai trò, candidate và
    evidence.
 
+Nhóm core gồm Võ Đức Hiếu, Trần Minh Hoàng và Lê Văn Kiệt. Hà Hoàng Bách là
+External Support Consultant; Bách không giữ task ownership, default approval
+hoặc mandatory-review gate trong governance chung. Một task chỉ phụ thuộc vào
+support bên ngoài khi Definition of Done của exact candidate ghi rõ người, phạm
+vi và acceptance reference tương ứng.
+
 Tài khoản `an1dee3301` được đăng ký làm Delegated Technical Operator và có thể
-thực hiện phần kỹ thuật của nhiệm vụ TV1, TV2 và TV3. Quyền này bao gồm code,
-test, evidence collection, commit, push, pull request và automation, nhưng không
-cho phép tài khoản tự tạo bằng chứng rằng một người khác đã review. Quy tắc tách
-operator, accountable person và independent verifier nằm trong
+thực hiện phần kỹ thuật cho workstream của cả ba thành viên core. Quyền này bao
+gồm code, test, evidence collection, commit, push, pull request và automation,
+nhưng không cho phép tài khoản tự tạo bằng chứng rằng một người khác đã review.
+Quy tắc tách operator, accountable person và independent verifier nằm trong
 [`ACCOUNT-DELEGATION.md`](ACCOUNT-DELEGATION.md).
 
 ## Quyền quyết định
@@ -85,7 +91,7 @@ accepted `GOV-104`.
 
 ## Holiday-safe autonomous preparation
 
-Khi Hiếu hoặc TV1–TV3 không thể tương tác, technical work đã có scope có thể
+Khi Hiếu, Hoàng hoặc Kiệt không thể tương tác, technical work đã có scope có thể
 tiếp tục ở các phần không cần human decision: đọc/audit, draft, implementation,
 deterministic test, synthetic fixture check, evidence collection và chuẩn bị
 review packet. Trạng thái tối đa mà automation/operator có thể tự ghi là
