@@ -6,7 +6,7 @@
       "path": "archsync-core",
       "repository": "https://github.com/Little-Boy-s-ArchSync/archsync-core.git",
       "branch": "main",
-      "commit": "f7b145df7c4cc8c03b6b7449c12cfc5438c975db"
+      "commit": "aa03406873891211722e0307486fc6f4ebf29701"
     },
     {
       "path": "archsync-guardian",
