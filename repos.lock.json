@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "imported_at": "2026-09-11",
+  "imported_at": "2026-09-13",
   "repositories": [
     {
       "path": "archsync-core",
@@ -18,7 +18,7 @@
       "path": "archsync-benchmark",
       "repository": "https://github.com/Little-Boy-s-ArchSync/archsync-benchmark.git",
       "branch": "main",
-      "commit": "4100eeed1f15f724e1442a44e15d358c1eef34e2"
+      "commit": "964c627e7de7ebbe292d87327ba6f75f7ee4a02a"
     },
     {
       "path": "archsync-mcp",
