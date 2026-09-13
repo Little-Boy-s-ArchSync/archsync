@@ -133,16 +133,29 @@ function assertSemanticArtifact(id, bytes, manifest) {
 }
 
 export async function verifyResearchReleaseArtifacts(manifest, root = repositoryRoot) {
-  const issues = validateResearchReleaseManifest(manifest);
+  // Bind the eventual log to the same candidate whose bytes are checked below.
+  const candidate = structuredClone(manifest);
+  const issues = validateResearchReleaseManifest(candidate);
   if (issues.length > 0) throw new Error(`REL-102 blocked:\n- ${issues.join("\n- ")}`);
-  for (const artifact of manifest.artifacts) {
+  for (const artifact of candidate.artifacts) {
     const path = await assertRegularUnsymbolicPath(root, artifact.path);
     const bytes = await readFile(path);
     const digest = sha256(bytes);
     if (digest !== artifact.sha256) throw new Error(`${artifact.id}: SHA-256 mismatch for ${artifact.path}`);
-    assertSemanticArtifact(artifact.id, bytes, manifest);
+    assertSemanticArtifact(artifact.id, bytes, candidate);
   }
-  return buildResearchReleaseVerificationLog(manifest);
+  const checkedEvidence = new Set();
+  for (const record of [...candidate.verification, ...candidate.approvals]) {
+    if (checkedEvidence.has(record.evidence_sha256)) continue;
+    const relativePath = `artifacts/research-release/evidence/${record.evidence_sha256}`;
+    const path = await assertRegularUnsymbolicPath(root, relativePath);
+    const bytes = await readFile(path);
+    const label = `${record.id ?? record.role} evidence`;
+    if (bytes.length === 0) throw new Error(`${label}: empty evidence is not a retained receipt`);
+    if (sha256(bytes) !== record.evidence_sha256) throw new Error(`${label}: SHA-256 mismatch for ${relativePath}`);
+    checkedEvidence.add(record.evidence_sha256);
+  }
+  return buildResearchReleaseVerificationLog(candidate);
 }
 
 function usage() {
