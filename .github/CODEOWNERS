@@ -1,11 +1,13 @@
-# Temporary Day 0 ownership. Add member handles after access is provisioned.
-* @L1nkinPark
+# GOV-104 core-team ownership. Task-specific research, security, release and
+# independence approvals remain separate evidence; a CODEOWNERS review alone
+# cannot satisfy those gates.
+* @L1nkinPark @an1dee3301 @teikv
 
-/archsync-core/ @L1nkinPark
-/archsync-guardian/ @L1nkinPark
-/archsync-benchmark/ @L1nkinPark
-/archsync-examples/ @L1nkinPark
-/archsync-mcp/ @L1nkinPark
-/repos.lock.json @L1nkinPark
-/.github/ @L1nkinPark
-/docs/ @L1nkinPark
+/archsync-core/ @L1nkinPark @an1dee3301 @teikv
+/archsync-guardian/ @L1nkinPark @an1dee3301 @teikv
+/archsync-benchmark/ @L1nkinPark @an1dee3301 @teikv
+/archsync-examples/ @L1nkinPark @an1dee3301 @teikv
+/archsync-mcp/ @L1nkinPark @an1dee3301 @teikv
+/repos.lock.json @L1nkinPark @an1dee3301 @teikv
+/.github/ @L1nkinPark @an1dee3301 @teikv
+/docs/ @L1nkinPark @an1dee3301 @teikv

@@ -3,15 +3,23 @@
 ## Registered operator
 
 The GitHub login `an1dee3301` is an authorized Delegated Technical Operator for
-tasks assigned to TV1, TV2, and TV3. The operator may perform the technical
-workflow for any of those roles, including creating branches, implementing
-code or documentation, running local verification, collecting real source
-output, producing evidence artifacts, committing, pushing, opening or updating
-pull requests, and invoking approved automation.
+technical work assigned to the three core members: Vo Duc Hieu, Tran Minh
+Hoang, and Le Van Kiet. The operator may create branches, implement code or
+documentation, run local verification, collect real source output, produce
+evidence artifacts, commit, push, open or update pull requests, and invoke
+approved automation for those workstreams.
 
 This authorization exists so that repository access and Git metadata do not
 artificially prevent cross-role implementation. It does not turn one GitHub
-login into evidence that three different people performed a review.
+login into evidence that three different people performed a review or accepted
+three different accountable roles.
+
+Ha Hoang Bach is an External Support Consultant, not a core team member, task
+owner, default approver, or mandatory reviewer. Bach may provide scoped advice
+or evidence when explicitly consulted. That contribution must name Bach as the
+supporting person and retain its source; Bach's silence or absence never blocks
+a task unless an exact task gate separately names and accepts Bach for that
+candidate.
 
 ## Required attribution
 
@@ -32,11 +40,11 @@ accountable reviewer or satisfy an independence requirement.
 ## Independent review boundary
 
 `SLR-REV-101` is formally assigned to Tran Minh Hoang. `an1dee3301` may prepare
-and operate the complete technical workflow, and Ha Hoang Bach approval is not
-required for this task. The signed record must name Hoang, bind his ORCID and
-operator login, and affirm that he is not an author of the protocol being
-reviewed. If that non-author condition is false, another eligible reviewer must
-be assigned before the task can satisfy its Definition of Done.
+and operate the complete technical workflow; Bach is not an approval dependency
+for this task. The signed record must name Hoang, bind his ORCID and operator
+login, and affirm that he is not an author of the protocol being reviewed. If
+that non-author condition is false, another eligible reviewer must be assigned
+before the task can satisfy its Definition of Done.
 
 Real evidence, reviewer independence, key ownership, and final approval remain
 subject to the task Definition of Done and research evidence policy.
