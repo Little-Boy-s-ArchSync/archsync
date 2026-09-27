@@ -18,7 +18,7 @@
       "path": "archsync-benchmark",
       "repository": "https://github.com/Little-Boy-s-ArchSync/archsync-benchmark.git",
       "branch": "main",
-      "commit": "5e6db8b7ac0d0c7e8c0d4ffd8732a5889dab7535"
+      "commit": "da577aea1bbd51f237ac25ef2417100064dac276"
     },
     {
       "path": "archsync-mcp",
