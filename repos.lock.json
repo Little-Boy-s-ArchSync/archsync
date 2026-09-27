@@ -12,7 +12,7 @@
       "path": "archsync-guardian",
       "repository": "https://github.com/Little-Boy-s-ArchSync/archsync-guardian.git",
       "branch": "main",
-      "commit": "8d627681619d8abe9aa3821f4d18cd48a3cd4303"
+      "commit": "e32ef53eeb07bc8c904b6a1e6a8b897d16def820"
     },
     {
       "path": "archsync-benchmark",
