@@ -1,24 +1,24 @@
 {
   "schema_version": 1,
-  "imported_at": "2026-09-13",
+  "imported_at": "2026-09-27",
   "repositories": [
     {
       "path": "archsync-core",
       "repository": "https://github.com/Little-Boy-s-ArchSync/archsync-core.git",
       "branch": "main",
-      "commit": "aa03406873891211722e0307486fc6f4ebf29701"
+      "commit": "e42e615af90844d1aa4ed5257f23968257c4c0fe"
     },
     {
       "path": "archsync-guardian",
       "repository": "https://github.com/Little-Boy-s-ArchSync/archsync-guardian.git",
       "branch": "main",
-      "commit": "993127c37c41733d694045fa60016b68b17f8970"
+      "commit": "8d627681619d8abe9aa3821f4d18cd48a3cd4303"
     },
     {
       "path": "archsync-benchmark",
       "repository": "https://github.com/Little-Boy-s-ArchSync/archsync-benchmark.git",
       "branch": "main",
-      "commit": "3e54bdbe257fbf7067b7d7bce15acd90943010bb"
+      "commit": "5e6db8b7ac0d0c7e8c0d4ffd8732a5889dab7535"
     },
     {
       "path": "archsync-mcp",
