@@ -1,0 +1,468 @@
+{
+  "phase": 1,
+  "release": "v0.1",
+  "objective": "Machine-readable architecture contract and deterministic conformance foundation",
+  "provenance": {
+    "implementation_source": [
+      {
+        "file": "src/benchmark.ts",
+        "sha256": "d8a974bed0fe2a9df2ec85d0a59df0f68d944d2c361d3c773b68fa854d067e10"
+      },
+      {
+        "file": "src/bin.ts",
+        "sha256": "93a280d56c94541a37094c3a37aeabcb5c8e380e2280bef3027d55325345a8b1"
+      },
+      {
+        "file": "src/conformance-report.ts",
+        "sha256": "5be90309f4e0821ec1caa4047765eda558df42b611860584329c752f397a806f"
+      },
+      {
+        "file": "src/conformance.ts",
+        "sha256": "ceb73388f6d4c2d9b0626fb55db1a66de64a584b61e37a70eaf8dec334ade0c1"
+      },
+      {
+        "file": "src/drawio.ts",
+        "sha256": "ccdaa8c77cf73bb2940c149d98e79d048b52d71b4bb58d3dca39d1ba0ef80650"
+      },
+      {
+        "file": "src/graph.ts",
+        "sha256": "49242b58792cef986fea26cdd5de6e8ad25352812a7a1cb4aaaf03f117b96422"
+      },
+      {
+        "file": "src/index.ts",
+        "sha256": "ac911886fdfcdf096a94980b191515a78c0334ac2dd2121a6690be197d81860d"
+      },
+      {
+        "file": "src/mermaid.ts",
+        "sha256": "f07b45c30af0dc1512da538dacb1ec0d40bbe20b705637176479c7eb3a43873d"
+      },
+      {
+        "file": "src/model.ts",
+        "sha256": "839e8fedef98ef6934e6a0647230f1261fb978831fa01137b88b450af63f2f6a"
+      },
+      {
+        "file": "src/serialization.ts",
+        "sha256": "2cfe2cfe5b1de1f4eef362851f97cc7df55b12223f0e70456e38a0b3e9b27f3b"
+      },
+      {
+        "file": "src/validation.ts",
+        "sha256": "42c2b55d6befa27adebd9b0b842b8c3fa4e20fe47a91cb64cd3b3ca6a0254fa3"
+      },
+      {
+        "file": "src/versions.ts",
+        "sha256": "333da015a29e027df205f7dfca4cc1ed3f41332f4aa349c2415ec732750115f4"
+      }
+    ],
+    "implementation_source_sha256": "1c68664906cfbcef3fd245072959b30bb05a554ad9d09d37be88337288e2a521",
+    "unit_test_source": [
+      {
+        "file": "src/benchmark.test.ts",
+        "sha256": "11deeb9a098c7c68ca7ee19968fec8619d35c15049a9768eb318bff6f3f49474"
+      },
+      {
+        "file": "src/conformance-report.test.ts",
+        "sha256": "0bbce25a2bf7197d84cdae21e0149d02edf475b1416bd6a307d120b3571beb59"
+      },
+      {
+        "file": "src/conformance.test.ts",
+        "sha256": "662460352cb3d6168f545fe1d251c5ceb2d802e12b72deb3883b4b8421ae5c44"
+      },
+      {
+        "file": "src/drawio.test.ts",
+        "sha256": "8f3535710f9bb863f9f9671d4bce3669b3227fa6b23889b77f809f297e0c854e"
+      },
+      {
+        "file": "src/graph.test.ts",
+        "sha256": "95c8026f3ee007db757ef2b29b9de72f197778af010542e9836b0190fcb547ca"
+      },
+      {
+        "file": "src/mermaid.test.ts",
+        "sha256": "69e8f8730c0a39a4b4bf57763239f0df6e3e991dc4d5aaadcffb4cc568bb68eb"
+      },
+      {
+        "file": "src/serialization.test.ts",
+        "sha256": "cddd9aed9977d3a0e6ebec6c2dfcf0f7e978366f194875b8dbb2e3f129f1d550"
+      },
+      {
+        "file": "src/validation.test.ts",
+        "sha256": "d9604e277a534de36c524459f12b3e3ca54fb42223deff3efa2f487559ec81f2"
+      },
+      {
+        "file": "src/validation.topology.test.ts",
+        "sha256": "06f31fc622742482447ec0732bda9665a1b23caf701e25d31099e52ac8daffce"
+      }
+    ],
+    "unit_test_source_sha256": "52941d6a2f64974e27b35d9cfc8f985a0242a45a388d2fc6a9050e564452dfc3",
+    "fixture_tree": {
+      "files": [
+        {
+          "file": "test/fixtures/compatibility/case-01.patch",
+          "sha256": "48393df39bc5a1b476208c25aadc06bd9a5bdd095e0f86a0f028727bce9d1af5"
+        },
+        {
+          "file": "test/fixtures/compatibility/current.architecture.yaml",
+          "sha256": "d490c60a5e1d31998651240e60a9098dc37eb3a2657bf05593fc9e1c7b2066f7"
+        },
+        {
+          "file": "test/fixtures/compatibility/ground-truth-current.json",
+          "sha256": "8da0d389aa405e3f4a893dba8b270402ce5b72e09db0638c47c9c43804e4bfbe"
+        },
+        {
+          "file": "test/fixtures/compatibility/ground-truth-previous.json",
+          "sha256": "ea12aa435e9e40659c860da1c10527f74403b0045cfccaca915d01c309f65324"
+        },
+        {
+          "file": "test/fixtures/compatibility/previous.architecture.yaml",
+          "sha256": "4800e2db0a581cbd0c2b1f320ea18f10313ebe793bca77aee93970a7968708f5"
+        },
+        {
+          "file": "test/fixtures/compatibility/repository/src/app.ts",
+          "sha256": "f2ec5965c2ce5899d09836a5451e8b25b81c0e1abadc4c12e24ecd2c92691d6a"
+        },
+        {
+          "file": "test/fixtures/invalid-schema.architecture.yaml",
+          "sha256": "40e76ca5770bbbf79028a92e208255af40afb28c4210e6ed7f024c5955142061"
+        },
+        {
+          "file": "test/fixtures/invalid-unknown-component.architecture.yaml",
+          "sha256": "3bfae75a6210afb09e3d914992bb2d9b648c2124ea1a1cb68e600de839a2e4e4"
+        },
+        {
+          "file": "test/fixtures/invalid-unsupported-version.architecture.yaml",
+          "sha256": "57ba57a13eeead51d7bd0964e24c47b2c4f8aaece220d0dff5836bd8080a18ae"
+        },
+        {
+          "file": "test/fixtures/minimal-evolution.architecture.yaml",
+          "sha256": "042e0a899b9f132b4281c8f40a498e94f7dd810a7cb2bd27ade245f3133f30f1"
+        },
+        {
+          "file": "test/fixtures/minimal.architecture.yaml",
+          "sha256": "431e4c4110d6541139585f32ce8ac978668be2a8de0c792349c48c82d57e5712"
+        },
+        {
+          "file": "test/fixtures/order-platform.architecture.yaml",
+          "sha256": "9503ce17f971a5bc7ba760eb088e928e017238877edc2867f4f303d42093f9b4"
+        },
+        {
+          "file": "test/fixtures/order-platform.evolution.architecture.yaml",
+          "sha256": "ff05a29b1edc715e2fa171c454ca5e776a4209bae38ae22fd616b14bd21c58ad"
+        },
+        {
+          "file": "test/fixtures/order-platform.violation.architecture.yaml",
+          "sha256": "1c357bf2f68e5690e2bee0ebbb53515ca56cab89c76bb7a1372f90c8eb6f0292"
+        }
+      ],
+      "sha256": "d03a51b4120fff9c07ea2cb8b17ed007b4c88cbe5c7671839747e4e8d5c88c3a"
+    },
+    "verification_source": [
+      {
+        "file": ".github/workflows/ci.yml",
+        "sha256": "e3b2cdaf6a4a835f82ce80a8799d7fbee9a99896960cba840f165645a6e0a3f5"
+      },
+      {
+        "file": "scripts/architecture-change-policy.mjs",
+        "sha256": "6b57bbe56da2eaf624f4b8830fcf63bc76f7435aad2e0d05cf6f4760af73b38f"
+      },
+      {
+        "file": "scripts/architecture-change-policy.node-tests.mjs",
+        "sha256": "c263ab94e29a43a1be5e1b35dd918bb9e496b882321bb710c662eeddfae1840c"
+      },
+      {
+        "file": "scripts/cli-smoke.mjs",
+        "sha256": "817256965e3570277fc6cf7962c2456320c68f8b6d8b8f597685e8fd5075a092"
+      },
+      {
+        "file": "scripts/contract-compatibility.mjs",
+        "sha256": "83d8e7a877a26983376f07661f7d83ae055453220b0654d9f4a9ca665598a9c1"
+      },
+      {
+        "file": "scripts/phase1-evidence.mjs",
+        "sha256": "68cb12df58009b68fd7a8b0f8cb450c993bb2d7b99553ad619de1c3d620fd2a9"
+      },
+      {
+        "file": "tsconfig.json",
+        "sha256": "2c900468a86fa396c4161698754bb11dff2daf75fd79e12aba3c7ec61d9cec03"
+      },
+      {
+        "file": "tsconfig.test.json",
+        "sha256": "04910a31dc7be48c03671a814ed81ebc5095f21d4150cf08f613f0c8f1b8ce13"
+      },
+      {
+        "file": "vitest.config.ts",
+        "sha256": "66e9fdae2147c27393aa38cd4969f8f5aa2138b2a9eeb1311475d45c85c3960e"
+      }
+    ],
+    "verification_source_sha256": "6579f5cd99bd9c26e505a44ca9d5f6f0b8e39183dae82b6923a89ab5339be771",
+    "dependency_source": [
+      {
+        "file": "package.json",
+        "sha256": "96e7c54dc123228886f5b52165434a13ae33c94c1dfdb0ea0be370820023795f"
+      },
+      {
+        "file": "pnpm-lock.yaml",
+        "sha256": "9f24372d2f62691c0b608520234f05e5315636afff3c7d1bb4f7a35456847974"
+      }
+    ],
+    "dependency_source_sha256": "e66bd1690c5309235fccd985983a23fcad51c2f9a9739e3e577b7eed881e822d"
+  },
+  "schema": {
+    "file": "specs/architecture.schema.json",
+    "id": "https://archsync.dev/schemas/architecture-v0.1.1.json",
+    "title": "ArchSync Architecture Model",
+    "sha256": "552054b2a4951c14d1af4a43c79a1d44974dd925d1a502177aa2a85f85ebbc16",
+    "required_sections": [
+      "version",
+      "metadata",
+      "components",
+      "relationships"
+    ],
+    "contract_sections": [
+      "components",
+      "relationships",
+      "rules",
+      "quality_goals"
+    ]
+  },
+  "benchmark_schema": {
+    "file": "specs/benchmark-ground-truth.schema.json",
+    "id": "https://archsync.dev/schemas/benchmark-ground-truth-v0.1.json",
+    "title": "ArchSync Benchmark Ground Truth",
+    "sha256": "bc36aecee849b3dd9cce7ae47b0a4ecfaaa08756bf7d587c05ef0cdb4d095cf0",
+    "required_sections": [
+      "version",
+      "benchmark",
+      "cases"
+    ]
+  },
+  "governance_policy": {
+    "task": "GOV-103",
+    "revision": "GOV-103-r1",
+    "status": "closure-record-present-authenticity-review-required",
+    "file": "docs/adr/0004-architecture-change-policy-proposed.md",
+    "sha256": "a65edb493b488abc09c1ba74d956c7299b8d16033044fe12abde3948bf827a69",
+    "acceptance_record_schema": {
+      "file": "specs/gov103-acceptance-record.schema.json",
+      "id": "https://archsync.dev/schemas/gov103-acceptance-record-v1.json",
+      "sha256": "5cae193ec255f9a5ec36dee4ee6411d51c7d998bf699b1384a6ab1c7ea399c1e"
+    },
+    "approval_evidence_schema": {
+      "file": "specs/gov103-approval-evidence.schema.json",
+      "id": "https://archsync.dev/schemas/gov103-approval-evidence-v1.json",
+      "sha256": "c0784c192d2721b5f96c060c91cbde37c58419da574d9b97a891987e0a9bc7b8"
+    },
+    "acceptance_record_procedure": {
+      "file": "docs/adr/acceptance-records/README.md",
+      "sha256": "4f80cbe1ed00c2d4921f4650059b3e27d1565033dde90205da8b51d04a619a59"
+    },
+    "approval_evidence_procedure": {
+      "file": "docs/adr/acceptance-evidence/README.md",
+      "sha256": "c3115d874ed72fe35eff202538913298203d131f66d815a7e0ae0f9128bc7522"
+    },
+    "approval_evidence_files": [
+      {
+        "file": "docs/adr/acceptance-evidence/GOV-103-r1.json",
+        "sha256": "a4e17b08031b58b26d2f11fb5297e89e6a6c9418003f0c7ee797622f8017dd1c"
+      }
+    ],
+    "acceptance_record_files": [
+      {
+        "file": "docs/adr/acceptance-records/20260911-GOV-103-r1-a65edb493b48.json",
+        "sha256": "3a5a933e7022859228f9bf3f1c3634883560a127dddcd7e89534dfb03cad495b"
+      }
+    ]
+  },
+  "contract_compatibility": {
+    "architecture": {
+      "current": "0.1.1",
+      "previous": "0.1.0",
+      "legacy_alias": "0.1"
+    },
+    "graph": "1.0.0",
+    "finding": "1.0.0",
+    "evidence": "1.0.0",
+    "conformance": "1.0.0",
+    "cli_json": "1.0.0",
+    "replay_fixtures": [
+      "test/fixtures/compatibility/ground-truth-current.json",
+      "test/fixtures/compatibility/ground-truth-previous.json"
+    ]
+  },
+  "fixtures": {
+    "valid": [
+      {
+        "file": "test/fixtures/minimal-evolution.architecture.yaml",
+        "components": 3,
+        "relationships": 2
+      },
+      {
+        "file": "test/fixtures/minimal.architecture.yaml",
+        "components": 2,
+        "relationships": 1
+      },
+      {
+        "file": "test/fixtures/order-platform.architecture.yaml",
+        "components": 5,
+        "relationships": 5
+      },
+      {
+        "file": "test/fixtures/order-platform.evolution.architecture.yaml",
+        "components": 6,
+        "relationships": 6
+      },
+      {
+        "file": "test/fixtures/order-platform.violation.architecture.yaml",
+        "components": 5,
+        "relationships": 5
+      }
+    ],
+    "expected_invalid": [
+      {
+        "file": "test/fixtures/invalid-schema.architecture.yaml",
+        "issues": [
+          {
+            "path": "/components/Bad_Component_ID",
+            "keyword": "schema",
+            "message": "must match pattern \"^[a-z][a-z0-9-]*$\""
+          },
+          {
+            "path": "/components/Bad_Component_ID",
+            "keyword": "schema",
+            "message": "property name must be valid"
+          },
+          {
+            "path": "/components/Bad_Component_ID/type",
+            "keyword": "schema",
+            "message": "must be equal to one of the allowed values"
+          },
+          {
+            "path": "/components/Bad_Component_ID/layer",
+            "keyword": "schema",
+            "message": "must be equal to one of the allowed values"
+          },
+          {
+            "path": "/relationships",
+            "keyword": "schema",
+            "message": "must be array"
+          }
+        ]
+      },
+      {
+        "file": "test/fixtures/invalid-unknown-component.architecture.yaml",
+        "issues": [
+          {
+            "path": "/relationships/0/to",
+            "keyword": "reference",
+            "message": "Unknown component 'missing-database'"
+          }
+        ]
+      },
+      {
+        "file": "test/fixtures/invalid-unsupported-version.architecture.yaml",
+        "issues": [
+          {
+            "path": "/version",
+            "keyword": "version",
+            "message": "Unsupported architecture contract version '1.0.0'. Supported versions: 0.1.1, 0.1.0, 0.1."
+          }
+        ]
+      }
+    ]
+  },
+  "reference_graph": {
+    "source": "test/fixtures/order-platform.architecture.yaml",
+    "nodes": [
+      "frontend",
+      "gateway",
+      "order-service",
+      "payment-service",
+      "postgres"
+    ],
+    "edges": [
+      "frontend|http|gateway",
+      "gateway|http|order-service",
+      "order-service|data|postgres",
+      "order-service|http|payment-service",
+      "payment-service|data|postgres"
+    ],
+    "normalized_sha256": "b7377f30b24087112a3a7edfad16117a1e3b9f0802eb819b8b13aa3d44699a1c"
+  },
+  "graph_diff_demo": {
+    "expected": "test/fixtures/minimal.architecture.yaml",
+    "observed": "test/fixtures/minimal-evolution.architecture.yaml",
+    "added_nodes": [
+      "redis"
+    ],
+    "removed_nodes": [],
+    "added_edges": [
+      "api|data|redis"
+    ],
+    "removed_edges": []
+  },
+  "deterministic_views": {
+    "mermaid_sha256": "71395dff7ed4e6282a91e9a943808d36a56503d214d21c10e6c4ec5497d30881",
+    "drawio_sha256": "6c534ce6e83a248c482b8a9d06e802e926db52f9e10cf2d9dc0910409f0486ce"
+  },
+  "conformance_demo": {
+    "expected": "test/fixtures/order-platform.architecture.yaml",
+    "violation_observed": "test/fixtures/order-platform.violation.architecture.yaml",
+    "violation_classification": "violation",
+    "violated_rules": [
+      "ARCH-001",
+      "ARCH-004"
+    ],
+    "evolution_observed": "test/fixtures/order-platform.evolution.architecture.yaml",
+    "evolution_classification": "evolution",
+    "violation_report_mermaid_sha256": "ee93166e79d25a4ccfffe51c72e378c2574684bd44b2ca8168e2f0d1c02e7260",
+    "violation_report_drawio_sha256": "6d1656f518f4ed3c39bd94b52dc1ee816430e67a51568abcd6fdc0717dc972ba",
+    "evolution_report_mermaid_sha256": "ea6f860eb77ddb8e5c2ed177f180735740b048f8fab27123b65ebe0acac36779",
+    "evolution_report_drawio_sha256": "ef0c7b914c321f62e196989a9ae77724de08db8a0c928def7055580f9dc48455"
+  },
+  "demo_artifacts": {
+    "directory": "docs/demo",
+    "violation_preview_png_sha256": "b48bb6513a40f7fafdfa5c099a162f9317f2e74e73fa8110df13656dfb091560",
+    "evolution_preview_png_sha256": "6e9a817a6605c2f40532f5bdfad1faf8c45eadb81bb3fb354b580ac201bf8269"
+  },
+  "enforced_gates": {
+    "topology_scenarios_minimum": 10,
+    "measured_engine_coverage": {
+      "statements": {
+        "percent": 100,
+        "covered_equals_total": true
+      },
+      "branches": {
+        "percent": 100,
+        "covered_equals_total": true
+      },
+      "functions": {
+        "percent": 100,
+        "covered_equals_total": true
+      },
+      "lines": {
+        "percent": 100,
+        "covered_equals_total": true
+      }
+    },
+    "coverage_thresholds_percent": {
+      "statements": 100,
+      "branches": 100,
+      "functions": 100,
+      "lines": 100
+    },
+    "cli_smoke_checks": [
+      "valid model exits 0",
+      "invalid model exits 1 with actionable path",
+      "unsupported contract version exits 1 with migration guidance",
+      "graph emits parseable JSON",
+      "graph diff emits expected delta",
+      "clean conformance exits 0",
+      "rule violation exits 1 with actionable findings",
+      "machine-readable conformance JSON is stable",
+      "architecture evolution exits 3 for approval",
+      "Mermaid output is deterministic",
+      "draw.io output is deterministic editable XML",
+      "annotated Mermaid conformance report is deterministic",
+      "annotated draw.io conformance report is deterministic",
+      "invalid CLI usage exits 2"
+    ]
+  }
+}

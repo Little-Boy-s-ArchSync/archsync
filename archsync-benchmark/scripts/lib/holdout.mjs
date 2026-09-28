@@ -80,19 +80,25 @@ export function validateHoldoutManifest(manifest) {
     issues.push("a frozen holdout requires 2-3 repositories");
   }
   const seen = new Set();
+  const repositoryUrls = new Set();
   repositories.forEach((repository, index) => {
     issues.push(...repositoryIssues(repository, index));
     if (object(repository) && nonEmpty(repository.id)) {
       if (seen.has(repository.id)) issues.push(`repositories[${index}].id must be unique`);
       seen.add(repository.id);
     }
+    if (object(repository) && isHoldoutRepositoryUrl(repository.url)) {
+      const url = repository.url.toLowerCase();
+      if (repositoryUrls.has(url)) issues.push(`repositories[${index}].url must identify a distinct repository`);
+      repositoryUrls.add(url);
+    }
   });
-  const tuning = new Set(Array.isArray(manifest.tuning_repository_urls) ? manifest.tuning_repository_urls : []);
+  const tuning = new Set((Array.isArray(manifest.tuning_repository_urls) ? manifest.tuning_repository_urls : []).filter(isHoldoutRepositoryUrl).map((url) => url.toLowerCase()));
   for (const repository of repositories) {
-    if (object(repository) && tuning.has(repository.url)) issues.push(`${repository.url} appears in the tuning set`);
+    if (object(repository) && isHoldoutRepositoryUrl(repository.url) && tuning.has(repository.url.toLowerCase())) issues.push(`${repository.url} appears in the tuning set`);
   }
   if (manifest.status === "frozen") {
-    if (!object(manifest.approval) || manifest.approval.actor_type !== "human" || !nonEmpty(manifest.approval.reviewer_id) || !nonEmpty(manifest.approval.approved_at)) {
+    if (!object(manifest.approval) || manifest.approval.actor_type !== "human" || !nonEmpty(manifest.approval.reviewer_id) || !isHoldoutTimestamp(manifest.approval.approved_at)) {
       issues.push("frozen manifest requires human Lead approval");
     }
     if (!/^[0-9a-f]{64}$/u.test(manifest.ground_truth_sha256 ?? "")) issues.push("frozen manifest requires ground_truth_sha256");
@@ -198,7 +204,7 @@ export function validateAdjudications(annotations, adjudications) {
     if (decision.agreement !== agreement) issues.push(`adjudication ${decision.item_id} has an incorrect agreement flag`);
     if (!labels.has(decision.final_label)) issues.push(`adjudication ${decision.item_id} requires a supported final label`);
     if (agreement && decision.final_label !== ordered[0].label) issues.push(`adjudication ${decision.item_id} cannot change an agreed label`);
-    if (decision.actor_type !== "human" || !nonEmpty(decision.adjudicator_id) || !nonEmpty(decision.rationale) || !nonEmpty(decision.decided_at)) {
+    if (decision.actor_type !== "human" || !nonEmpty(decision.adjudicator_id) || !nonEmpty(decision.rationale) || !isHoldoutTimestamp(decision.decided_at)) {
       issues.push(`adjudication ${decision.item_id} requires human sign-off, rationale, and time`);
     }
   });
@@ -261,7 +267,8 @@ export async function runFrozenHoldoutTwice({ frozen: suppliedFrozen, artifacts,
     const repositories = [];
     for (const repository of frozen.manifest.repositories) {
       try {
-        const output = await analyze({ repository: structuredClone(repository), run, packages: structuredClone(packages), environment: structuredClone(environment) });
+        // Capture each return before the analyzer can reuse or mutate it on a later call.
+        const output = structuredClone(await analyze({ repository: structuredClone(repository), run, packages: structuredClone(packages), environment: structuredClone(environment) }));
         if (!object(output) || !object(output.normalized) || !Number.isFinite(output.duration_ms) || output.duration_ms < 0) throw new Error("INVALID_ANALYZER_OUTPUT");
         repositories.push({
           repository_id: repository.id,
@@ -290,10 +297,15 @@ export async function runFrozenHoldoutTwice({ frozen: suppliedFrozen, artifacts,
   }
   const first = Object.fromEntries(runs[0].repositories.map((item) => [item.repository_id, item.normalized_sha256]));
   const second = Object.fromEntries(runs[1].repositories.map((item) => [item.repository_id, item.normalized_sha256]));
-  const deterministic = stable(first) === stable(second);
+  const normalizedRecordsMatch = stable(first) === stable(second);
+  const failedRuns = runs.flatMap((run) => run.repositories).filter((item) => item.status === "failed").length;
+  // Matching error classes do not constitute a successful deterministic analysis.
+  const deterministic = failedRuns === 0 && normalizedRecordsMatch;
   return {
-    schema_version: 1,
-    status: deterministic ? "PREPARATORY_REPLAY_COMPLETE" : "BLOCKED_NONDETERMINISTIC",
+    schema_version: 2,
+    status: failedRuns > 0 ? "BLOCKED_ANALYZER_FAILURE" : deterministic ? "PREPARATORY_REPLAY_COMPLETE" : "BLOCKED_NONDETERMINISTIC",
+    normalized_records_match: normalizedRecordsMatch,
+    failed_runs: failedRuns,
     deterministic,
     freeze_sha256: frozen.freeze_sha256,
     packages: structuredClone(packages),
@@ -340,7 +352,7 @@ function groupedMetricSummary(rows) {
     classification: ratioRecord(rows.filter((row) => row.prediction !== "failed" && row.truth_label === row.predicted_label).length, rows.length),
     rule_match: ratioRecord(ruleRows.filter((row) => row.prediction !== "failed" && row.rule_match).length, ruleRows.length),
     evidence_file: ratioRecord(evidenceRows.filter((row) => row.prediction !== "failed" && row.evidence_file_exact).length, evidenceRows.length),
-    evidence_line: ratioRecord(evidenceRows.filter((row) => row.prediction !== "failed" && row.evidence_line_exact).length, evidenceRows.length),
+    evidence_line: ratioRecord(evidenceRows.filter((row) => row.prediction !== "failed" && row.evidence_file_exact && row.evidence_line_exact).length, evidenceRows.length),
   };
 }
 
@@ -353,10 +365,13 @@ export function calculateHoldoutMetrics(rows) {
     if (!nonEmpty(row.repository_id) || !unitTypes.includes(row.unit_type) || typeof row.truth_positive !== "boolean" || !predictionValues.has(row.prediction) || !nonEmpty(row.truth_label) || (row.prediction !== "failed" && !nonEmpty(row.predicted_label)) || typeof row.rule_match !== "boolean" || typeof row.evidence_required !== "boolean" || typeof row.evidence_file_exact !== "boolean" || typeof row.evidence_line_exact !== "boolean") {
       throw new Error(`invalid metric row ${row.id}`);
     }
+    if (row.truth_label.trim().toLowerCase() === "unknown" || (typeof row.predicted_label === "string" && row.predicted_label.trim().toLowerCase() === "unknown")) {
+      throw new Error(`HOLDOUT_UNKNOWN_SCORING_POLICY_REQUIRED: ${row.id}`);
+    }
   }
   const repositories = [...new Set(rows.map((row) => row.repository_id))].sort();
   return {
-    schema_version: 1,
+    schema_version: 2,
     pooled: groupedMetricSummary(rows),
     by_repository: Object.fromEntries(repositories.map((repository) => [repository, groupedMetricSummary(rows.filter((row) => row.repository_id === repository))])),
   };
