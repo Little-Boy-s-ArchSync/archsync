@@ -88,11 +88,11 @@ test("active governance records the enforced host controls without treating them
     "chế độ strict",
     "tối thiểu một approving review",
     "dismiss approval cũ",
-    "most recent reviewable push",
+    "require_last_push_approval=false",
     "giải quyết toàn bộ review conversation",
     "protection cho administrator",
     "chặn force push",
-    "CODEOWNERS review",
+    "require_code_owner_reviews",
   ]) {
     assert.ok(governance.includes(control), `missing enforced control: ${control}`);
   }
