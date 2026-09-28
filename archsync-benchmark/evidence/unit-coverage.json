@@ -17,8 +17,8 @@
     "functions_percent": 100
   },
   "tests": {
-    "total": 293,
-    "passed": 293,
+    "total": 320,
+    "passed": 320,
     "failed": 0
   },
   "provenance": {
@@ -136,6 +136,66 @@
         "sha256": "517c497f85fcd38aaaab608cecfe1ffc7964f51dde20d6fef53822da8395ac72"
       },
       {
+        "file": "scripts/d3-review/production-role-candidates.mjs",
+        "sha256": "167d8b49eeec10f430c21aa28a1ffd3bc233bf34f4d81721f8eedebf1a91ec20"
+      },
+      {
+        "file": "test/d3-production-role-candidates.test.mjs",
+        "sha256": "e76a5d3c33b0d816fba8154b94eabe9fe08a54fc4ba72565da615d6676a7238b"
+      },
+      {
+        "file": "holdout/d3-production-role-candidates-20260928/README.md",
+        "sha256": "8514fa04c7254838d0c11deb35604c05c0eba97fd80159d94a1ab6ffd6acfca1"
+      },
+      {
+        "file": "holdout/d3-production-role-candidates-20260928/receipt.json",
+        "sha256": "a34ceb1fcad5d840d55ca1431eea2dd4b5d57aca2bd535f175ccb57c738af958"
+      },
+      {
+        "file": "scripts/d3-review/anchor-review-matrix.mjs",
+        "sha256": "3620b89a875926062388e0761c61d1b49596cda245769500656f073ffc1f8664"
+      },
+      {
+        "file": "test/d3-anchor-review-matrix.test.mjs",
+        "sha256": "d198b2ea30bb88cf6d25d6955e4253c9afb391a994cbfc6ad4a32ac8a98ea207"
+      },
+      {
+        "file": "holdout/d3-anchor-review-matrix-20260928/README.md",
+        "sha256": "c2f2f01696881cd695c25e963fb3e832d70b1ad210c19f5b02ac41ecea40436c"
+      },
+      {
+        "file": "holdout/d3-anchor-review-matrix-20260928/matrix.json",
+        "sha256": "e3d1877cc6d70c2a0bf36ca7ef0aa0e63d6788d40244bbcb7d77f698a08377ef"
+      },
+      {
+        "file": "scripts/d3-review/portable-tree-audit.mjs",
+        "sha256": "fcd59686d4d2317aa1d621dd83b41b802786bdf8d9d7eeb1e8204a2a8c1370d6"
+      },
+      {
+        "file": "test/d3-portable-tree-audit.test.mjs",
+        "sha256": "b382ba37d2a71b28e6b35af63d3812ec068fe20450d61acb0b31dde4c41109a7"
+      },
+      {
+        "file": "holdout/d3-portable-tree-preflight-20260928/README.md",
+        "sha256": "cb4792ba432885eb2b4cfa9bd1e2a2e7543cd8369f700b7a3dc7117ea02d6b1a"
+      },
+      {
+        "file": "holdout/d3-portable-tree-preflight-20260928/receipt.json",
+        "sha256": "09c60fe18a12e5bd5292e360ec50c9a402afbd62378be9499e396a3e8c19bfee"
+      },
+      {
+        "file": "scripts/d3-review/offline-tree-builder.mjs",
+        "sha256": "913052b69742d646cee4e28d7ac60abcc995b6f0113bb894386b98071673c6aa"
+      },
+      {
+        "file": "test/d3-offline-tree-builder.test.mjs",
+        "sha256": "836c69a03ee266c254e074825c88f486712f0e132f301cdeb3922f52ec4a8330"
+      },
+      {
+        "file": "holdout/d3-portable-tree-preflight-20260928/OFFLINE-BUILDER.md",
+        "sha256": "2bce9e936c1117c5b784af003dd80474e6dbce641001feb1eb9fe4041aa0f218"
+      },
+      {
         "file": "scripts/d3-review/method-packet.mjs",
         "sha256": "4c3faeea8cb3c371918650db5b1d12bb2ff565b4d91fa459a8bad7934d820856"
       },
@@ -150,6 +210,18 @@
       {
         "file": "test/d3-module-method.test.mjs",
         "sha256": "e3384e3ba31e58dcc8318eb54d62b1fc6541d0c32aefdbb53ff4b5a22266c16c"
+      },
+      {
+        "file": "scripts/d3-review/paired-edge-metrics.mjs",
+        "sha256": "56512c798d2dc4c9ab30ae878b75e8192382083d6103acd8f31c6abe7c6c4147"
+      },
+      {
+        "file": "test/d3-paired-edge-metrics.test.mjs",
+        "sha256": "a6839f7cb2a244288398be2f020453f48c2e7b771f5fd6ac4790d55709d21e8f"
+      },
+      {
+        "file": "development/d3-scoring-preflight/README.md",
+        "sha256": "40eb1de627d655a8b2e867d19f6fe3ab5ded8dcf78367b834a73da456acab434"
       },
       {
         "file": "test/d3-mode-qualification.test.mjs",
@@ -409,7 +481,7 @@
       },
       {
         "file": "scripts/unit-coverage-evidence.mjs",
-        "sha256": "f53a4cc02f86eb0218d1b8cd61900b91919f5fd59e830eddd86fc7284b3e9661"
+        "sha256": "356ef7171bffba193fdc2715134d2a2dd8d83597fe06e4ac3f2e7bda736e962c"
       },
       {
         "file": "scripts/prepare-d3-sources.mjs",
@@ -576,6 +648,6 @@
         "sha256": "ae4a0b7c000ebb068e37502f0434c53ad3ac761876c6546d37cc58e2a24e5b08"
       }
     ],
-    "manifest_sha256": "6615b29b014ae7067b2c03c36a8ca389ec2bdfe83ec277407b1dcdb18c3b1b52"
+    "manifest_sha256": "dacb612248efd5c9886eae0a62eec8b1e8ac0ad5217fe5d9506570838acd8458"
   }
 }
