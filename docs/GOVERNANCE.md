@@ -2,7 +2,7 @@
 
 ## Trạng thái enforcement
 
-Trạng thái remote được kiểm tra ngày 2026-08-30: branch `main` đang được bảo vệ
+Trạng thái remote được kiểm tra lại ngày 2026-09-28: branch `main` đang được bảo vệ
 trên cả bảy repository `archsync`, `archsync-core`, `archsync-guardian`,
 `archsync-benchmark`, `archsync-mcp`, `archsync-examples` và `archsync-paper`.
 Visibility của repository không được dùng làm bằng chứng cho hoặc chống lại các
@@ -15,15 +15,29 @@ Mỗi repository hiện cưỡng chế:
   nhật với base trước khi merge;
 - tối thiểu một approving review;
 - dismiss approval cũ khi có commit mới;
-- approval cho most recent reviewable push từ người khác người push;
 - giải quyết toàn bộ review conversation;
 - áp dụng protection cho administrator;
 - chặn force push và chặn xóa branch `main`.
 
-Ngoài ra, `archsync`, `archsync-benchmark` và `archsync-paper` yêu cầu
-CODEOWNERS review. Mọi thay đổi remote setting sau ngày kiểm tra phải được audit
-lại; tài liệu này không suy diễn trạng thái tương lai từ visibility, plan hoặc
-trạng thái CI của một commit.
+Thiết lập `require_code_owner_reviews` đang bật ở cả bảy repository; tác dụng
+thực tế phụ thuộc vào file được thay đổi có khớp một khai báo CODEOWNERS hay
+không. Thiết lập `require_last_push_approval` đang tắt ở cả bảy repository để
+quy trình hai người không bị kẹt khi reviewer cũng hỗ trợ tích hợp commit cuối.
+Tác giả pull request vẫn không thể tự approve pull request của mình; một
+approval hợp lệ và CI bắt buộc vẫn là điều kiện merge. Mọi thay đổi remote
+setting sau ngày kiểm tra phải được audit lại; tài liệu này không suy diễn
+trạng thái tương lai từ visibility, plan hoặc trạng thái CI của một commit.
+
+Ngày 2026-09-28, theo yêu cầu vận hành với hai người của Repository Lead,
+operator `L1nkinPark` đã cập nhật remote `main` và kiểm tra lại lúc 11:55 UTC:
+`require_last_push_approval` được đổi từ `true` sang `false` ở `archsync`,
+`archsync-core`, `archsync-mcp` và `archsync-examples`. Ba repository còn lại đã
+ở trạng thái `false`. Kiểm tra lại qua GitHub branch-protection API xác nhận
+cả bảy vẫn giữ strict required status checks, tối thiểu một approval,
+stale-review dismissal, code-owner setting, conversation resolution, admin
+enforcement và chặn force push/xóa `main`. Thay đổi này chỉ gỡ điều kiện
+"reviewer khác người push cuối"; nó không phải approval cho dữ liệu D3, phương
+pháp nghiên cứu hoặc nộp paper.
 
 Branch protection, CODEOWNERS và CI chứng minh một phần quy trình repository.
 Chúng không chứng minh research claim đúng, không thay chữ ký/approval nghiệp vụ,
@@ -47,15 +61,15 @@ người chịu trách nhiệm.
    như research approval nếu record không bind đúng người, vai trò, candidate và
    evidence.
 
-Nhóm core gồm Võ Đức Hiếu, Trần Minh Hoàng và Lê Văn Kiệt. Hà Hoàng Bách là
-External Support Consultant; Bách không giữ task ownership, default approval
-hoặc mandatory-review gate trong governance chung. Một task chỉ phụ thuộc vào
-support bên ngoài khi Definition of Done của exact candidate ghi rõ người, phạm
-vi và acceptance reference tương ứng.
+Hiện chỉ Võ Đức Hiếu và Trần Minh Hoàng trực tiếp vận hành các task D3/paper;
+không mặc định đòi Lê Văn Kiệt hoặc Hà Hoàng Bách review để mở khóa merge.
+Việc này không tự thay đổi thứ tự tác giả hay đóng góp lịch sử. Một task chỉ
+phụ thuộc vào người hỗ trợ bên ngoài khi Definition of Done của exact candidate
+ghi rõ người, phạm vi và acceptance reference tương ứng.
 
 Tài khoản `an1dee3301` được đăng ký làm Delegated Technical Operator và có thể
-thực hiện phần kỹ thuật cho workstream của cả ba thành viên core. Quyền này bao
-gồm code, test, evidence collection, commit, push, pull request và automation,
+thực hiện phần kỹ thuật cho các workstream được giao. Quyền này bao gồm code,
+test, evidence collection, commit, push, pull request và automation,
 nhưng không cho phép tài khoản tự tạo bằng chứng rằng một người khác đã review.
 Quy tắc tách operator, accountable person và independent verifier nằm trong
 [`ACCOUNT-DELEGATION.md`](ACCOUNT-DELEGATION.md).
@@ -140,7 +154,10 @@ Hiếu kiểm tra hàng tuần hoặc ngay khi trở lại sau một khoảng ng
   hoàn tất.
 
 Nếu remote settings thay đổi, lưu evidence có repository, branch, UTC time và
-người kiểm tra; khôi phục required pull request, strict status checks, approval,
-last-push approval, stale-review dismissal, conversation resolution, admin
-enforcement, force-push/delete blocks và CODEOWNERS requirement nơi áp dụng.
+người kiểm tra; khôi phục required pull request, strict status checks, một
+approval, stale-review dismissal, conversation resolution, admin enforcement,
+force-push/delete blocks và CODEOWNERS requirement nơi áp dụng. Giữ
+`require_last_push_approval=false` theo quyết định vận hành hai người nêu trên;
+chỉ thay đổi tiếp bằng một quyết định có audit. Không dùng thay đổi protection
+để thay thế gate khoa học hoặc chấp thuận của người chịu trách nhiệm.
 Không hạ research/human gate để bù cho thiếu host enforcement.
